@@ -1,0 +1,26 @@
+{
+  "name": "gtm-coordinator",
+  "version": "0.2.0",
+  "description": "Local CLI for managing Go-To-Market initiatives",
+  "type": "module",
+  "main": "dist/cli.js",
+  "bin": {
+    "gtm": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.ts",
+    "gtm": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "yaml": "^2.4.5",
+    "zod": "^3.23.8",
+    "chalk": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
+  }
+}
