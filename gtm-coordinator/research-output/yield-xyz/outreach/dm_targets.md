@@ -9,128 +9,128 @@
 
 ## 1. @defi_whale_42
 
-**Why:** Active DeFi investors looking for yield optimization opportunities.
+**Why:** They actively invest in DeFi projects and are always seeking new yield opportunities.
 
-**Opener angle:** Regularly posts about DeFi protocols.
+**Opener angle:** Saw your latest thread on DeFi strategies.
 
 **Suggested DM:**
 ```
-Explore new yield options with Yie... Hi [Name], noticed your interest in DeFi protocols. Would you like to hear more about Yield.xyz on ShapeShift?
+Impressive insights on DeFi! Ever explored ShapeShift's offerings? Could be a game-changer for yield.
 ```
 
 ---
 
-## 2. @crypto_guru88
+## 2. @crypto_dev_guru
 
-**Why:** Crypto enthusiasts keen on staying ahead with the latest DeFi integrations.
+**Why:** They develop smart contracts and can integrate Yield.xyz into their projects.
 
-**Opener angle:** Shares insights on the latest in crypto.
+**Opener angle:** Loved your recent smart contract workshop.
 
 **Suggested DM:**
 ```
-Stay ahead with Yield.xyz on Shap... Hi [Name], saw your recent thread on DeFi growth. Interested in learning about Yield.xyz's integration with ShapeShift?
+Fantastic workshop on smart contracts! What if ShapeShift's integration could enhance your projects?
 ```
 
 ---
 
-## 3. @dev_chain_maker
+## 3. @yield_farmer_pro
 
-**Why:** Developers building on DeFi platforms seeking new features to leverage.
+**Why:** They are constantly optimizing yield farming strategies.
 
-**Opener angle:** Contributes to open-source DeFi projects.
+**Opener angle:** Your yield farming tips are gold.
 
 **Suggested DM:**
 ```
-Discover new DeFi tools with Yiel... Hi [Name], appreciate your work on [Project]. Curious about how Yield.xyz can enhance your projects on ShapeShift?
+Your farming strategies are top-notch! Have you checked out ShapeShift's new Yield.xyz feature?
 ```
 
 ---
 
-## 4. @insightful_invest
+## 4. @institutional_investor_101
 
-**Why:** Institutional investors exploring innovative DeFi investment strategies.
+**Why:** They manage crypto portfolios for institutions and seek secure yield options.
 
-**Opener angle:** Analyzes market trends and investment strategies.
+**Opener angle:** Your analysis on crypto trends is insightful.
 
 **Suggested DM:**
 ```
-Innovative DeFi strategies await ... Hi [Name], your analysis on DeFi trends is impressive. Would you be interested in a new integration with Yield.xyz on ShapeShift?
+Insightful crypto trend analysis! Interested in a robust yield solution with ShapeShift integration?
 ```
 
 ---
 
-## 5. @yield_hunter999
+## 5. @crypto_educator_x
 
-**Why:** DeFi enthusiasts focused on maximizing yield returns.
+**Why:** They educate others about DeFi and could introduce Yield.xyz to their audience.
 
-**Opener angle:** Shares strategies for yield maximization.
+**Opener angle:** Your educational content is empowering.
 
 **Suggested DM:**
 ```
-Maximize your yield potential wit... Hi [Name], your posts on yield strategies are intriguing. Interested in how Yield.xyz on ShapeShift might fit your approach?
+Love your educational content! Would ShapeShift's new yield feature be a good topic for your audience?
 ```
 
 ---
 
-## 6. @crypto_educator
+## 6. @web3_enthusiast_007
 
-**Why:** Educators in crypto aiming to provide comprehensive DeFi knowledge.
+**Why:** They follow and share the latest Web3 innovations.
 
-**Opener angle:** Creates educational content on crypto.
+**Opener angle:** Your enthusiasm for Web3 is inspiring.
 
 **Suggested DM:**
 ```
-Enhance your DeFi lessons with th... Hi [Name], your educational content is top-notch. Would you like to include Yield.xyz's new integration in your next lesson?
+Inspiring enthusiasm for Web3! How about exploring ShapeShift's latest Yield.xyz integration?
 ```
 
 ---
 
-## 7. @blockchain_dev_101
+## 7. @crypto_influencer_daily
 
-**Why:** Developers focused on building innovative DeFi applications.
+**Why:** They influence a large audience in the crypto space and can amplify Yield.xyz's reach.
 
-**Opener angle:** Develops new blockchain solutions.
+**Opener angle:** Your influence in the crypto space is notable.
 
 **Suggested DM:**
 ```
-Expand your DeFi dev toolkit with... Hi [Name], your contributions to blockchain solutions are impressive. Interested in exploring Yield.xyz on ShapeShift?
+Notable influence in crypto! Would you be interested in discovering ShapeShift's new yield feature?
 ```
 
 ---
 
-## 8. @finance_future_2023
+## 8. @defi_analyst_expert
 
-**Why:** Institutional investors interested in future finance technologies.
+**Why:** They provide analysis on DeFi protocols, making them key to spreading the word about new features.
 
-**Opener angle:** Discusses future trends in finance.
+**Opener angle:** Your DeFi analytics are always spot on.
 
 **Suggested DM:**
 ```
-Explore finance's future with Yie... Hi [Name], your insights into future finance trends are insightful. Could Yield.xyz on ShapeShift be of interest to you?
+Spot-on DeFi analytics! What if ShapeShift's Yield.xyz could offer new insights for your audience?
 ```
 
 ---
 
-## 9. @tech_savvy_crypto
+## 9. @tech_innovator_crypto
 
-**Why:** Tech enthusiasts passionate about the latest in DeFi technology.
+**Why:** They are always on the lookout for innovative tech in crypto.
 
-**Opener angle:** Reviews latest tech in crypto.
+**Opener angle:** Your tech innovation reviews are insightful.
 
 **Suggested DM:**
 ```
-Dive into the latest DeFi tech wi... Hi [Name], your tech reviews are thorough. Would you like to discover the latest with Yield.xyz on ShapeShift?
+Insightful tech reviews! Have you considered the new innovations from ShapeShift's Yield.xyz?
 ```
 
 ---
 
-## 10. @investor_insight
+## 10. @finance_guru_crypto
 
-**Why:** Investors looking for new DeFi platforms to diversify portfolios.
+**Why:** They provide financial advice on crypto investments, often looking for reliable yield options.
 
-**Opener angle:** Shares investment strategies in crypto.
+**Opener angle:** Your financial advice is greatly valued.
 
 **Suggested DM:**
 ```
-Diversify your DeFi investments w... Hi [Name], your investment strategies are noteworthy. Interested in diversifying with Yield.xyz on ShapeShift?
+Valuable financial advice! Could ShapeShift's Yield.xyz integration be the next big thing for your portfolio?
 ```

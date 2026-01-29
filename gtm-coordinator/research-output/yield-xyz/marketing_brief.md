@@ -2,28 +2,28 @@
 
 ## Who Are We Speaking To?
 
-**Target Audience:** DeFi Power Users, Yield Seekers, Cross-Chain Traders
+**Target Audience:** DeFi Power Users and Yield Seekers
 
-**What We Know About Them:** They are experienced in managing crypto portfolios, actively seek the best APY, and regularly use bridges for asset transfers.
+**What We Know About Them:** They actively manage crypto portfolios, seek the best APY, and value self-custody.
 
-**Psychographics:** They value financial sovereignty, efficiency, and maximizing returns without compromising on security or control.
+**Psychographics:** They are tech-savvy, constantly optimizing their investments, and prioritize control over their assets.
 
 ---
 
 ## What Problem Are We Solving?
 
-**The Problem:** Users want to earn yield without losing control of their assets or dealing with complex interfaces.
+**The Problem:** Users want to optimize yield without losing control of their crypto.
 
-**The "Aha" Moment:** Realizing they can stake and earn yield directly from ShapeShift with their keys intact.
+**The "Aha" Moment:** Realizing they can stake and earn without giving up their keys.
 
 **Before/After:**
-Before: Juggling multiple platforms to manage yield. After: One interface, seamless yield opportunities, your keys.
+Before: Users juggle multiple platforms, risking custody. After: Seamless staking with full control.
 
 ---
 
 ## GTM Idea (One Sentence)
 
-> ShapeShift now lets you earn more crypto by staking with Yield.xyz, all while keeping full control of your assets.
+> ShapeShift and Yield.xyz let you earn more on your crypto without giving up control of your keys.
 
 ---
 
@@ -31,50 +31,50 @@ Before: Juggling multiple platforms to manage yield. After: One interface, seaml
 
 **What Changes:**
 - Increased user engagement on ShapeShift platform
-- Higher volume of assets staked through ShapeShift
-- Broader adoption of ShapeShift's DeFi tools
+- Higher staking volumes
+- Enhanced user satisfaction and retention
 
 **How We'll Measure:**
-- Percentage increase in staking volume
-- User retention rates post-integration
-- Growth in active users leveraging Yield.xyz via ShapeShift
+- Number of new staking users
+- Volume of assets staked
+- User retention rates
 
 ---
 
 ## Wild Success (Best Case Scenario)
 
-**Vision:** ShapeShift becomes the go-to platform for DeFi users seeking efficient, self-custodial yield opportunities.
+**Vision:** ShapeShift becomes the go-to platform for DeFi users seeking yield without compromise.
 
 **Indicators:**
-- ShapeShift's market share in DeFi yield space doubles
-- User testimonials highlight ShapeShift as a preferred platform
-- Industry recognition for seamless yield integration
+- Dominant market share in DeFi staking
+- Recognition as a leader in self-custodial solutions
+- Strong community growth and advocacy
 
 ---
 
 ## Why ShapeShift? (vs Competitors)
 
 **Differentiators:**
-- No KYC, no custody model
-- Comprehensive yield tools integrated directly
-- Cross-chain capabilities with a user-friendly interface
+- No custody, no KYC
+- Comprehensive integration with Yield.xyz's cross-chain capabilities
+- Focus on user empowerment and financial sovereignty
 
-**Positioning Statement:** ShapeShift offers the most user-centric DeFi experience, combining Yield.xyz's robust tools with our self-custodial ethos.
+**Positioning Statement:** ShapeShift offers the most user-centric, self-custodial yield experience in DeFi.
 
 ---
 
 ## Key Messages
 
 **Primary Message:**
-> Earn yield without losing control. ShapeShift + Yield.xyz bring staking to your fingertips.
+> Stake with ShapeShift and Yield.xyz to earn without giving up control.
 
 **Supporting Messages:**
-- Access advanced yield strategies with your keys.
-- Seamless cross-chain staking without the hassle.
-- No KYC, no middleman, just pure DeFi.
+- Your keys, your yield.
+- Cross-chain staking made simple.
+- No KYC. No custody. Just returns.
 
 **Tweet-Ready:**
-> What if you could earn yield directly from ShapeShift while keeping your keys? With Yield.xyz, now you can. 🦊
+> What if you could stake your crypto and earn yield without giving up control? ShapeShift and Yield.xyz make it possible. No KYC. No custody. Just yield. 🦊
 
 ---
 
@@ -88,9 +88,9 @@ Before: Juggling multiple platforms to manage yield. After: One interface, seaml
 
 **Key Features:**
 - Comprehensive staking solutions
-- Advanced DeFi yield strategies
+- Advanced DeFi tools
 - Robust data APIs for developers
-- Cross-chain compatibility
+- Cross-chain yield optimization
 - User-friendly interface
 
-**Value Proposition:** Yield.xyz offers a comprehensive suite of yield-generating tools and data APIs, enabling users to maximize their returns in the DeFi ecosystem with ease and efficiency.
+**Value Proposition:** Yield.xyz provides a comprehensive yield infrastructure that combines staking, DeFi tools, and data APIs to optimize returns for users across multiple blockchains.

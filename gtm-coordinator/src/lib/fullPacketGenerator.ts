@@ -1322,152 +1322,507 @@ Run through before launching:
 `;
 }
 
+// ShapeShift fox logo SVG (from shapeshift/web repo)
+const SHAPESHIFT_FOX_SVG = `<svg viewBox="0 0 218 231" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M109 0L0 65.5V165.5L109 231L218 165.5V65.5L109 0Z" fill="#3761F9"/>
+  <path d="M109 30L30 75V155L109 200L188 155V75L109 30Z" fill="#10151E"/>
+  <path d="M109 55L55 87V143L109 175L163 143V87L109 55Z" fill="#3761F9"/>
+  <path d="M109 75L75 95V135L109 155L143 135V95L109 75Z" fill="#00CD98"/>
+</svg>`;
+
 function generateIndexHtml(protocolName: string, tier: number, analysis: ProtocolAnalysis, brief: MarketingBrief): string {
+  const tierLabel = tier === 0 ? 'Tier 0 (Quick)' : tier === 1 ? 'Tier 1 (Standard)' : 'Tier 2 (Major)';
+  const tierColor = tier === 0 ? '#718096' : tier === 1 ? '#3761F9' : '#00CD98';
+  
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GTM Packet: ${protocolName}</title>
+  <title>${protocolName} GTM Packet | ShapeShift</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ShapeShift Theme - from shapeshift/web GitHub */
+    :root {
+      --blue-500: #3761F9;
+      --blue-600: #2D4EC9;
+      --blue-700: #243EA1;
+      --green-500: #00CD98;
+      --green-400: #16D1A1;
+      --gray-950: #090B11;
+      --gray-900: #10151E;
+      --gray-850: #191d28;
+      --gray-800: #141A25;
+      --gray-700: #2D3748;
+      --gray-600: #4A5568;
+      --gray-500: #718096;
+      --gray-400: #A0AEC0;
+      --gray-300: #CBD5E0;
+    }
+    
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #e0e0e0; background: #1a1a2e; padding: 2rem; }
-    .container { max-width: 900px; margin: 0 auto; }
-    h1 { color: #fff; margin-bottom: 0.5rem; }
-    h2 { color: #3761F9; margin: 2rem 0 1rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
-    h3 { color: #00D395; margin: 1.5rem 0 0.5rem; }
-    .tagline { color: #888; font-size: 1.1rem; margin-bottom: 1rem; }
-    .meta { color: #666; font-size: 0.9rem; margin-bottom: 2rem; }
-    .card { background: #252542; border-radius: 8px; padding: 1.5rem; margin: 1rem 0; }
-    .card h3 { margin-top: 0; }
-    ul { margin-left: 1.5rem; margin-bottom: 1rem; }
-    li { margin: 0.3rem 0; }
-    a { color: #3761F9; }
-    .files { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
-    .file { background: #1e1e3a; padding: 1rem; border-radius: 6px; }
-    .file-name { font-weight: bold; color: #00D395; }
-    .file-desc { font-size: 0.85rem; color: #888; }
-    .highlight { background: #3761F9; color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.85rem; }
-    .cta { background: #3761F9; color: #fff; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; display: inline-block; margin: 1rem 0; }
-    footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #333; color: #666; font-size: 0.85rem; }
+    
+    body { 
+      font-family: 'Inter', system-ui, sans-serif; 
+      line-height: 1.6; 
+      color: var(--gray-300);
+      background: var(--gray-900);
+      min-height: 100vh;
+    }
+    
+    /* Hero gradient background - matches ShapeShift app */
+    .hero {
+      background: radial-gradient(94.32% 94.6% at 4.04% -44.6%, rgba(45, 78, 201, 0.4) 0%, rgba(16, 21, 30, 0) 100%), 
+                  linear-gradient(0deg, var(--gray-900), var(--gray-900));
+      padding: 3rem 2rem;
+      border-bottom: 1px solid var(--gray-700);
+    }
+    
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .fox-logo {
+      width: 48px;
+      height: 48px;
+    }
+    
+    .brand-text {
+      font-family: 'Work Sans', system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    h1 { 
+      font-family: 'Work Sans', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 2.5rem;
+      color: #fff; 
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+    
+    .tagline { 
+      color: var(--gray-400); 
+      font-size: 1.125rem; 
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+    }
+    
+    .meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--gray-500);
+    }
+    
+    .tier-badge {
+      background: ${tierColor}22;
+      color: ${tierColor};
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-weight: 500;
+      font-size: 0.75rem;
+    }
+    
+    .cta-row {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .cta-primary {
+      background: var(--blue-500);
+      color: #fff;
+      padding: 0.875rem 1.75rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s;
+    }
+    
+    .cta-primary:hover {
+      background: var(--blue-600);
+    }
+    
+    .cta-secondary {
+      background: transparent;
+      color: var(--gray-300);
+      padding: 0.875rem 1.75rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 500;
+      border: 1px solid var(--gray-700);
+      transition: border-color 0.2s;
+    }
+    
+    .cta-secondary:hover {
+      border-color: var(--gray-500);
+    }
+    
+    /* Main content */
+    .container { 
+      max-width: 900px; 
+      margin: 0 auto; 
+      padding: 2rem;
+    }
+    
+    h2 { 
+      font-family: 'Work Sans', system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: #fff; 
+      margin: 2.5rem 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    h2::before {
+      content: '';
+      width: 4px;
+      height: 1.25rem;
+      background: var(--blue-500);
+      border-radius: 2px;
+    }
+    
+    h3 { 
+      color: var(--gray-400); 
+      font-weight: 500;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 1.5rem 0 0.75rem;
+    }
+    
+    .card { 
+      background: var(--gray-850);
+      border: 1px solid var(--gray-700);
+      border-radius: 12px; 
+      padding: 1.25rem; 
+      margin: 0.75rem 0;
+    }
+    
+    .card-title {
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card p { 
+      color: var(--gray-400);
+      font-size: 0.9375rem;
+    }
+    
+    .card strong {
+      color: var(--gray-300);
+    }
+    
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(55, 97, 249, 0.1) 0%, rgba(0, 205, 152, 0.05) 100%);
+      border: 1px solid var(--blue-500);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    
+    .highlight-box .label {
+      color: var(--blue-500);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    
+    .highlight-box .value {
+      color: #fff;
+      font-size: 1.0625rem;
+      font-weight: 500;
+    }
+    
+    ul { 
+      margin-left: 1.25rem; 
+      margin-bottom: 0.75rem;
+    }
+    
+    li { 
+      margin: 0.25rem 0;
+      color: var(--gray-400);
+    }
+    
+    /* File grid */
+    .files { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+      gap: 0.75rem;
+    }
+    
+    .file { 
+      background: var(--gray-800);
+      border: 1px solid var(--gray-700);
+      padding: 1rem; 
+      border-radius: 10px;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    
+    .file:hover {
+      border-color: var(--blue-500);
+      transform: translateY(-2px);
+    }
+    
+    .file-name { 
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+    
+    .file-desc { 
+      font-size: 0.8125rem; 
+      color: var(--gray-500);
+    }
+    
+    /* Footer */
+    footer { 
+      margin-top: 3rem; 
+      padding: 2rem;
+      border-top: 1px solid var(--gray-700);
+      text-align: center;
+    }
+    
+    .footer-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .footer-brand svg {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .footer-text {
+      color: var(--gray-600);
+      font-size: 0.8125rem;
+    }
+    
+    a { color: var(--blue-500); text-decoration: none; }
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
+  <div class="hero">
+    <div class="hero-content">
+      <div class="logo-row">
+        <div class="fox-logo">${SHAPESHIFT_FOX_SVG}</div>
+        <span class="brand-text">GTM Packet</span>
+      </div>
+      
+      <h1>${protocolName} Integration</h1>
+      <p class="tagline">${brief.gtmOneSentence}</p>
+      
+      <div class="meta">
+        <div class="meta-item">
+          <span class="tier-badge">${tierLabel}</span>
+        </div>
+        <div class="meta-item">
+          Generated ${new Date().toISOString().split('T')[0]}
+        </div>
+        <div class="meta-item">
+          Status: Ready
+        </div>
+      </div>
+      
+      <div class="cta-row">
+        <a href="checklist.md" class="cta-primary">
+          Start Checklist
+        </a>
+        <a href="partner/partner_kit.md" class="cta-secondary">
+          Partner Kit
+        </a>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
-    <h1>🦊 ${protocolName} GTM Packet</h1>
-    <p class="tagline">${brief.gtmOneSentence}</p>
-    <p class="meta">Generated: ${new Date().toISOString().split('T')[0]} | Tier: ${tier} | Status: Ready</p>
-
-    <a href="checklist.md" class="cta">📋 Start Here: Launch Checklist</a>
-
-    <h2>📊 Marketing Brief</h2>
+    <h2>Marketing Brief</h2>
+    
+    <div class="highlight-box">
+      <div class="label">Key Message</div>
+      <div class="value">${brief.keyMessages.primary}</div>
+    </div>
+    
     <div class="card">
-      <h3>Target Audience</h3>
+      <div class="card-title">Target Audience</div>
       <p>${brief.targetAudience.who}</p>
-      <p><em>${brief.targetAudience.psychographics}</em></p>
+      <p style="margin-top: 0.5rem; font-style: italic; color: var(--gray-500);">${brief.targetAudience.psychographics}</p>
     </div>
+    
     <div class="card">
-      <h3>Problem We're Solving</h3>
+      <div class="card-title">Problem We're Solving</div>
       <p>${brief.problemSolved.problem}</p>
-      <p><strong>Aha moment:</strong> ${brief.problemSolved.ahaMonent}</p>
+      <p style="margin-top: 0.5rem;"><strong>Aha moment:</strong> ${brief.problemSolved.ahaMonent}</p>
     </div>
+    
     <div class="card">
-      <h3>Key Message</h3>
-      <p><strong>${brief.keyMessages.primary}</strong></p>
-      <p style="margin-top: 1rem;"><em>Tweet-ready:</em> "${brief.keyMessages.tweetReady}"</p>
+      <div class="card-title">Tweet-Ready</div>
+      <p>"${brief.keyMessages.tweetReady}"</p>
     </div>
 
-    <h2>📁 Generated Files</h2>
+    <h2>Content Drafts</h2>
 
-    <h3>Drafts (Content to Post)</h3>
+    <h3>Social Media</h3>
     <div class="files">
-      <div class="file">
+      <div class="file" onclick="window.location='drafts/x_post_main.md'">
         <div class="file-name">x_post_main.md</div>
         <div class="file-desc">Main Twitter thread (@ShapeShift)</div>
       </div>
-      <div class="file">
+      <div class="file" onclick="window.location='drafts/x_post_personal.md'">
         <div class="file-name">x_post_personal.md</div>
         <div class="file-desc">Your personal QT</div>
       </div>
-      <div class="file">
+      <div class="file" onclick="window.location='drafts/discord_post.md'">
         <div class="file-name">discord_post.md</div>
         <div class="file-desc">Discord #announcements</div>
       </div>
-      <div class="file">
+      <div class="file" onclick="window.location='drafts/blog_draft.md'">
         <div class="file-name">blog_draft.md</div>
         <div class="file-desc">Full blog for Strapi</div>
       </div>
-      <div class="file">
+    </div>
+
+    <h3>Follow-ups (Days 1-7)</h3>
+    <div class="files">
+      <div class="file" onclick="window.location='drafts/followup_educational.md'">
         <div class="file-name">followup_educational.md</div>
         <div class="file-desc">Day 1 educational thread</div>
       </div>
+      <div class="file" onclick="window.location='drafts/followup_metrics.md'">
+        <div class="file-name">followup_metrics.md</div>
+        <div class="file-desc">Day 4-6 metrics thread</div>
+      </div>
+      <div class="file" onclick="window.location='drafts/followup_recap.md'">
+        <div class="file-name">followup_recap.md</div>
+        <div class="file-desc">Day 7 recap</div>
+      </div>
     </div>
 
+    <h2>Partner & Press</h2>
+    
     <h3>Partner Materials</h3>
     <div class="files">
-      <div class="file">
-        <div class="file-name">partner/partner_kit.md</div>
+      <div class="file" onclick="window.location='partner/partner_kit.md'">
+        <div class="file-name">partner_kit.md</div>
         <div class="file-desc">Send to ${protocolName} team</div>
       </div>
     </div>
 
     <h3>Press Materials</h3>
     <div class="files">
-      <div class="file">
-        <div class="file-name">press/press_release.md</div>
+      <div class="file" onclick="window.location='press/press_release.md'">
+        <div class="file-name">press_release.md</div>
         <div class="file-desc">Formal press release</div>
       </div>
-      <div class="file">
-        <div class="file-name">press/pr_brief.md</div>
+      <div class="file" onclick="window.location='press/pr_brief.md'">
+        <div class="file-name">pr_brief.md</div>
         <div class="file-desc">Talking points</div>
       </div>
-      <div class="file">
-        <div class="file-name">press/op_ed_political.md</div>
+      <div class="file" onclick="window.location='press/op_ed_political.md'">
+        <div class="file-name">op_ed_political.md</div>
         <div class="file-desc">Political/regulatory angle</div>
       </div>
-      <div class="file">
-        <div class="file-name">press/op_ed_technical.md</div>
+      <div class="file" onclick="window.location='press/op_ed_technical.md'">
+        <div class="file-name">op_ed_technical.md</div>
         <div class="file-desc">Technical/builder angle</div>
       </div>
     </div>
 
+    <h2>Design & Outreach</h2>
+    
     <h3>Design</h3>
     <div class="files">
-      <div class="file">
-        <div class="file-name">design/design_brief.md</div>
+      <div class="file" onclick="window.location='design/design_brief.md'">
+        <div class="file-name">design_brief.md</div>
         <div class="file-desc">For human designers</div>
       </div>
-      <div class="file">
-        <div class="file-name">design/ai_prompts.txt</div>
+      <div class="file" onclick="window.location='design/ai_prompts.txt'">
+        <div class="file-name">ai_prompts.txt</div>
         <div class="file-desc">Midjourney/DALL-E prompts</div>
       </div>
     </div>
 
     <h3>Outreach</h3>
     <div class="files">
-      <div class="file">
-        <div class="file-name">outreach/dm_targets.md</div>
+      <div class="file" onclick="window.location='outreach/dm_targets.md'">
+        <div class="file-name">dm_targets.md</div>
         <div class="file-desc">Who to DM + templates</div>
       </div>
     </div>
 
-    <h2>🎯 Protocol Analysis</h2>
+    <h2>Protocol Analysis</h2>
     <div class="card">
       <p><strong>Category:</strong> ${analysis.category}</p>
       <p><strong>Tagline:</strong> ${analysis.tagline}</p>
-      <h3>Key Features</h3>
+    </div>
+    <div class="card">
+      <div class="card-title">Key Features</div>
       <ul>
         ${analysis.keyFeatures.map(f => `<li>${f}</li>`).join('\n        ')}
       </ul>
-      <h3>Value Proposition</h3>
+    </div>
+    <div class="card">
+      <div class="card-title">Value Proposition</div>
       <p>${analysis.valueProposition}</p>
     </div>
-
-    <footer>
-      <p>Generated by GTM Coordinator v1.0</p>
-      <p>Questions? Ping Apotheosis on Discord.</p>
-    </footer>
   </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        ${SHAPESHIFT_FOX_SVG}
+        <span class="footer-text">ShapeShift GTM Coordinator</span>
+      </div>
+      <div class="footer-text">
+        Questions? Ping <a href="https://discord.gg/shapeshift">Apotheosis on Discord</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>`;
 }

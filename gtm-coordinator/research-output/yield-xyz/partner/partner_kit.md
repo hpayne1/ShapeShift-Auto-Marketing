@@ -9,15 +9,15 @@
 
 ## 🎯 What We're Announcing
 
-ShapeShift now lets you earn more crypto by staking with Yield.xyz, all while keeping full control of your assets.
+ShapeShift and Yield.xyz let you earn more on your crypto without giving up control of your keys.
 
 **Why This Matters for Yield.xyz:**
 This integration exposes Yield.xyz to ShapeShift's user base - DeFi power users who value self-custody and cross-chain access. More users, more volume, more adoption.
 
 **Key Messages:**
-- Access advanced yield strategies with your keys.
-- Seamless cross-chain staking without the hassle.
-- No KYC, no middleman, just pure DeFi.
+- Your keys, your yield.
+- Cross-chain staking made simple.
+- No KYC. No custody. Just returns.
 
 ---
 
@@ -64,7 +64,7 @@ This integration exposes Yield.xyz to ShapeShift's user base - DeFi power users 
 ```
 Yield.xyz is now live on @ShapeShift 🦊
 
-Yield.xyz offers a comprehensive suite of yield-generating tools and data APIs, enabling users to maximize their returns in the DeFi ecosystem with ease and efficiency.
+Yield.xyz provides a comprehensive yield infrastructure that combines staking, DeFi tools, and data APIs to optimize returns for users across multiple blockchains.
 
 Self-custody. No KYC. Try it: app.shapeshift.com
 ```
@@ -78,7 +78,7 @@ ShapeShift just shipped native Yield.xyz support.
 
 What this means for you:
 • Comprehensive staking solutions
-• Advanced DeFi yield strategies
+• Advanced DeFi tools
 • Robust data APIs for developers
 
 Check it out: app.shapeshift.com

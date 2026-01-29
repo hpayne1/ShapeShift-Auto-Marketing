@@ -2,4 +2,4 @@
 
 QT the main @ShapeShift announcement with:
 
-Seeing @ShapeShift announce Yield.xyz is a proud moment. We spent countless hours ensuring the staking solutions are seamless and the data APIs are solid. Building for cross-chain was a tough challenge, but knowing it helps more users is worth every late night.
+Working on Yield.xyz has been a rewarding challenge. We focused on seamless integration of staking, DeFi tools, and cross-chain yield optimization. Getting the data APIs right was crucial to ensure developers can build on it easily. Excited to see how everyone uses it!

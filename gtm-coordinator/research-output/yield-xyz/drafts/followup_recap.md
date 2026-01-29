@@ -6,11 +6,11 @@ In case you missed it: Yield.xyz is live on ShapeShift 🦊
 **Tweet 2:**
 What you can now stake:
 • Comprehensive staking solutions
-• Advanced DeFi yield strategies
+• Advanced DeFi tools
 • Robust data APIs for developers
 
 **Tweet 3:**
-Yield.xyz offers a comprehensive suite of yield-generating tools and data APIs, enabling users to maximize their returns in the DeFi ecosystem with ease and efficiency.
+Yield.xyz provides a comprehensive yield infrastructure that combines staking, DeFi tools, and data APIs to optimize returns for users across multiple blockchains.
 
 Self-custody. No KYC.
 

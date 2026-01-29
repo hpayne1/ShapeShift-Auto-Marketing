@@ -1,16 +1,15 @@
 # Discord Announcement
 
-**Yield.xyz is live on ShapeShift 🦊**
+**Introducing Yield.xyz on ShapeShift 🦊**
 
-What can you do now?  
-- Stake without surrendering your keys.  
-- Explore advanced DeFi yield strategies.  
-- Access robust data APIs for developers.  
-- Seamlessly navigate cross-chain opportunities.  
+- Access comprehensive staking solutions without giving up custody
+- Utilize advanced DeFi tools to optimize your returns
+- Leverage robust data APIs for seamless developer integration
+- Optimize cross-chain yield with a user-friendly interface
 
-How to get started:  
-1. Visit our platform [LINK].  
-2. Connect your wallet.  
-3. Choose your staking strategy and dive in.
+Ready to enhance your yield experience? Follow these simple steps:
+1. Visit the Yield.xyz section on ShapeShift [LINK]
+2. Connect your wallet
+3. Start staking, exploring DeFi tools, and accessing data APIs
 
-Explore, experiment, and maximize your DeFi returns. We're here to listen—your feedback and questions are always welcome. Join the conversation in our community [LINK].
+We welcome your feedback and questions. Share your thoughts in the #feedback channel!

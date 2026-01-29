@@ -1,16 +1,16 @@
 # Main Twitter Thread (@ShapeShift)
 
 **Tweet 1:**  
-What if you could earn yield without losing control of your assets?
+What if you could earn yield without giving up control?
 
 **Tweet 2:**  
-With ShapeShift's integration of Yield.xyz, you can. Stake directly from your wallet. Access a suite of yield-generating tools tailored for the DeFi power user.
+With ShapeShift and Yield.xyz, you can now stake and optimize your returns across multiple blockchains—no custody needed.
 
 **Tweet 3:**  
-Why does it matter? Self-custody is king. Keep your keys. Stay in control. No middlemen. Just you and the open protocols shaping the future.
+Self-custody is king. Keep your keys while accessing comprehensive yield infrastructure and DeFi tools to maximize your earnings.
 
 **Tweet 4:**  
-Ready to maximize your returns? Connect your wallet and start staking today. Visit ShapeShift to explore the new possibilities.
+Ready to take control of your financial future? Dive into staking with ShapeShift and explore Yield.xyz's powerful tools today.
 
 **Tweet 5:**  
-Join the self-sovereign finance revolution with @Yield_xyz. Your keys. Your yield. 🦊
+Explore more with @Yield_xyz and ShapeShift. Your keys. Your yield. Your future. 🦊

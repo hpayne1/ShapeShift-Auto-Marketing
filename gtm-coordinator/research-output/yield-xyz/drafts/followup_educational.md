@@ -1,11 +1,11 @@
 # Day 1: Educational Thread
 
-1/ Want to earn yield without giving up your keys? Here's how to stake with Yield.xyz on ShapeShift.
+1/ Curious about staking with Yield.xyz on ShapeShift? Here's how to get started and earn yield without giving up custody.
 
-2/ First, navigate to the ShapeShift platform and connect your wallet. No KYC. No custody. Just your keys, your crypto. [SCREENSHOT]
+2/ First, visit the ShapeShift platform and connect your wallet. Ensure your wallet holds the assets you wish to stake. [SCREENSHOT: Connecting Wallet]
 
-3/ Once connected, head to the Yield.xyz section. Choose the asset you'd like to stake. Review the available yield strategies. [SCREENSHOT]
+3/ Navigate to the Yield.xyz integration. Select the asset you want to stake. Input the amount, review the details, and confirm your transaction. [SCREENSHOT: Staking Interface]
 
-4/ Select your preferred strategy and follow the prompts to stake your asset. Confirmation is quick, and you'll retain full control throughout. [SCREENSHOT]
+4/ Your assets are now staked, working to earn yield. You maintain full control throughout. Track your rewards and manage your positions directly within ShapeShift. [SCREENSHOT: Rewards Dashboard]
 
-5/ Ready to start staking? Visit ShapeShift to put your assets to work with Yield.xyz. Your keys, your control. [ShapeShift URL] 🦊
+5/ Ready to stake and earn yield on your terms? Dive into the world of decentralized finance with ShapeShift today: [link] 🦊

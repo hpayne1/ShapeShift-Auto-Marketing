@@ -36,7 +36,7 @@ Clean, minimalist, professional DeFi aesthetic.
 ## Must Include
 - Yield.xyz logo
 - ShapeShift fox logo (subtle, corner)
-- Key message: "Yield.xyz offers a comprehensive suite of yield-generating tools and data APIs, enabling users to maximize their returns in the DeFi ecosystem with ease and efficiency."
+- Key message: "Yield.xyz provides a comprehensive yield infrastructure that combines staking, DeFi tools, and data APIs to optimize returns for users across multiple blockchains."
 
 ## References
 Look at previous ShapeShift announcement graphics for style consistency.
