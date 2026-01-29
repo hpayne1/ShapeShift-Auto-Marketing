@@ -2,26 +2,26 @@
 
 ## Key Messages (Memorize These)
 
-**Primary:** Stake with ShapeShift and Yield.xyz to earn without giving up control.
+**Primary:** Put your idle assets to work.
 
 **Supporting:**
 - Your keys, your yield.
 - Cross-chain staking made simple.
 - No KYC. No custody. Just returns.
 
-**Tweet-Ready:** "What if you could stake your crypto and earn yield without giving up control? ShapeShift and Yield.xyz make it possible. No KYC. No custody. Just yield. 🦊"
+**Tweet-Ready:** "Put your idle assets to work. Earn yield across Tron, Katana, Solana, and Plasma—without giving up custody."
 
 ---
 
 ## Talking Points
 
 1. **What is this?**
-   ShapeShift now supports Yield.xyz, enabling users to yield.xyz provides a comprehensive yield infrastructure that combines staking, defi tools, and data apis to optimize returns for users across multiple blockchains.
+   ShapeShift now supports Yield.xyz, enabling users to earn yield across multiple chains with protocols like Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, and Fluid.
 
 2. **Why does it matter?**
    - Self-custody: Users maintain control of their assets
    - No KYC: Privacy-preserving access to DeFi
-   - Comprehensive staking solutions
+   - Comprehensive staking and DeFi solutions across Tron, Katana, Solana, and Plasma
 
 3. **Who is this for?**
    DeFi Power Users and Yield Seekers

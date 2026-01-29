@@ -23,7 +23,50 @@ Before: Users juggle multiple platforms, risking custody. After: Seamless stakin
 
 ## GTM Idea (One Sentence)
 
-> ShapeShift and Yield.xyz let you earn more on your crypto without giving up control of your keys.
+> Put your idle assets to work. Earn yield without giving up control.
+
+---
+
+## Launch Scope (Feb 10, 2026)
+
+**ShapeShift Chain Support:** 26 chains
+
+**EVM Chains:** Ethereum, Avalanche, Optimism, BNB Smart Chain, Polygon, Gnosis, Arbitrum, Arbitrum Nova, Base, Monad, HyperEVM, Plasma
+
+**Non-EVM Chains:** Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash, Cosmos, THORChain, MAYAChain, Solana, Tron, SUI, NEAR, Starknet
+
+**Featured Launch Chains:** Tron, Katana, Solana, Plasma
+
+**Feature flags (default):**
+- Native staking assets: Yes
+- Liquid staking assets: Yes (where available)
+- DeFi protocols at launch: Yes (limited roster)
+
+---
+
+## Co-Marketing Roster (Protocols)
+
+**Featured Protocols:**
+Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, Fluid
+
+**Target roster (by chain):**
+- Tron: StakeKit (native staking on Tron)
+- Katana: Morpho (Vault Bridge USDC yields)
+- Solana: Kamino (primary) + Drift Protocol (secondary)
+- Plasma: Fluid (USDe yields)
+
+---
+
+## Wallet Partner Shortlist (5)
+
+**Criteria:** No native staking/earn, WalletConnect for EVM, not already partnered with Yield.xyz.
+
+**Shortlist:**
+- Rabby Wallet
+- Frame Wallet
+- Infinity Wallet
+- Safe (treasury earn angle)
+- SubWallet
 
 ---
 
@@ -66,7 +109,7 @@ Before: Users juggle multiple platforms, risking custody. After: Seamless stakin
 ## Key Messages
 
 **Primary Message:**
-> Stake with ShapeShift and Yield.xyz to earn without giving up control.
+> Put your idle assets to work.
 
 **Supporting Messages:**
 - Your keys, your yield.
@@ -74,7 +117,7 @@ Before: Users juggle multiple platforms, risking custody. After: Seamless stakin
 - No KYC. No custody. Just returns.
 
 **Tweet-Ready:**
-> What if you could stake your crypto and earn yield without giving up control? ShapeShift and Yield.xyz make it possible. No KYC. No custody. Just yield. 🦊
+> Put your idle assets to work. Earn yield across 26 chains—ETH, Solana, Arbitrum, Avalanche, Polygon, Tron, Bitcoin, and more—without giving up custody. No KYC. Just yield.
 
 ---
 
