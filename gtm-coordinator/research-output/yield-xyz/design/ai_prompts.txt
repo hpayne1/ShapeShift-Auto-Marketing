@@ -1,0 +1,40 @@
+# AI Image Prompts for Yield.xyz Integration
+
+## Midjourney / DALL-E Prompts
+
+### Twitter Graphic (16:9)
+
+```
+Minimalist crypto announcement graphic, dark background #1a1a2e, 
+Yield.xyz logo centered, ShapeShift fox logo subtle in corner, 
+text "Yield.xyz offers a comprehensive suite of yield-generating tools and data APIs, enabling users to maximize their returns in the DeFi ecosystem with ease and efficiency.", clean sans-serif font Inter, 
+no gradients, professional DeFi aesthetic, high contrast, 
+corporate tech announcement style --ar 16:9 --style raw
+```
+
+### Square Graphic (1:1)
+
+```
+Minimalist crypto announcement, dark background #1a1a2e, 
+Yield.xyz logo prominent, subtle ShapeShift branding, 
+clean typography, professional DeFi style, no gradients, 
+high contrast --ar 1:1 --style raw
+```
+
+### Blog Header (16:9, more space for text overlay)
+
+```
+Abstract DeFi background, dark blue #1a1a2e base, 
+subtle geometric patterns, space for text overlay, 
+Yield theme, professional tech aesthetic, 
+minimal, clean --ar 16:9 --style raw
+```
+
+---
+
+## Tips
+
+1. Generate 4-6 variations
+2. Pick the cleanest one
+3. Add text overlay in Figma/Canva if needed
+4. Ensure logos are crisp (may need to composite separately)

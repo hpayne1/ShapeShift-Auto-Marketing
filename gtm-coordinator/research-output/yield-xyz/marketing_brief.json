@@ -1,0 +1,50 @@
+{
+  "targetAudience": {
+    "who": "DeFi Power Users, Yield Seekers, and Cross-Chain Traders",
+    "whatWeKnow": "They are experienced crypto users who manage portfolios across multiple protocols, actively seek the best yield opportunities, and regularly use bridges to move assets between chains.",
+    "psychographics": "They value self-custody, efficiency in transactions, and privacy. They are tech-savvy, constantly seeking new opportunities to maximize returns, and are wary of platforms requiring KYC."
+  },
+  "problemSolved": {
+    "problem": "Users face challenges in optimizing yields across various DeFi platforms while maintaining control over their assets.",
+    "ahaMonent": "Realizing they can maximize returns through integrated staking solutions without giving up custody of their crypto.",
+    "beforeAfter": "Before: Users struggle to efficiently manage and optimize yields across disparate platforms. After: Users seamlessly optimize yields and access staking solutions through ShapeShift's integration with Yield.xyz."
+  },
+  "gtmOneSentence": "ShapeShift and Yield.xyz make it super easy for you to earn more on your crypto without losing control of it.",
+  "businessOutcomes": {
+    "outcomes": [
+      "Increased user engagement with ShapeShift's DeFi tools",
+      "Higher user retention due to enhanced yield opportunities",
+      "Growth in cross-chain transaction volume"
+    ],
+    "metrics": [
+      "Percentage increase in active users",
+      "Average yield per user",
+      "Volume of assets staked through ShapeShift"
+    ]
+  },
+  "wildSuccess": {
+    "vision": "ShapeShift becomes the go-to platform for maximizing DeFi yields while ensuring users maintain full control of their assets.",
+    "indicators": [
+      "ShapeShift is recognized as a leader in DeFi yield optimization",
+      "Significant increase in user base and asset volume managed through ShapeShift",
+      "Strong community growth and engagement around yield opportunities"
+    ]
+  },
+  "uniqueVsCompetitors": {
+    "differentiators": [
+      "No KYC required, maintaining user privacy",
+      "Seamless integration with Yield.xyz for optimized staking solutions",
+      "Comprehensive cross-chain capabilities"
+    ],
+    "positioningStatement": "ShapeShift offers a unique combination of yield optimization and cross-chain functionality without compromising on user privacy or control."
+  },
+  "keyMessages": {
+    "primary": "ShapeShift empowers you to maximize your crypto returns with the new Yield.xyz integration, all while keeping your assets in your hands.",
+    "supporting": [
+      "Experience seamless staking and yield optimization.",
+      "No KYC, no middlemen—just you and the best returns.",
+      "Access a world of DeFi opportunities without borders."
+    ],
+    "tweetReady": "Maximize your crypto returns with ShapeShift's new integration with @Yield_xyz. No KYC, no custody, just pure yield. 🚀 #DeFi #Crypto #Yield"
+  }
+}

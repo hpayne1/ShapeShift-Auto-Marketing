@@ -14,6 +14,8 @@ import { lockCommand } from './commands/lock.js';
 import { linksCheckCommand } from './commands/linksCheck.js';
 import { utmCommand } from './commands/utm.js';
 import { migrateCommand } from './commands/migrate.js';
+import { researchCommand } from './commands/research.js';
+import { fullPacketCommand } from './commands/fullPacket.js';
 
 const program = new Command();
 
@@ -42,5 +44,11 @@ program.addCommand(migrateCommand);
 
 // Index command
 program.addCommand(indexCommand);
+
+// AI Research command
+program.addCommand(researchCommand);
+
+// Full packet generation (v2)
+program.addCommand(fullPacketCommand);
 
 program.parse();

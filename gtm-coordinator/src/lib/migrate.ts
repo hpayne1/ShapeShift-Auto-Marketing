@@ -22,8 +22,8 @@ export function needsMigration(data: Record<string, unknown>): boolean {
   const missingRisk = !('risk' in data);
   const missingTiming = !('timing' in data);
   
-  return hasOldChannels || hasOldContentOutputs || hasOldExecutionStatus || 
-         missingProvenance || missingRisk || missingTiming;
+  return !!(hasOldChannels || hasOldContentOutputs || hasOldExecutionStatus || 
+         missingProvenance || missingRisk || missingTiming);
 }
 
 /**
