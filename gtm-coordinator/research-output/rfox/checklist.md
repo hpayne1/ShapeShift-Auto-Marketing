@@ -1,6 +1,6 @@
 # rFOX Launch Checklist
 
-**Generated:** 2026-02-10
+**Generated:** 2026-02-11
 **Tier:** 1
 **Type:** Program
 **Owner:** [YOUR NAME]
@@ -85,7 +85,10 @@ Message **Apotheosis** (Head of Engineering): "Need to hand off rFOX launch"
 ## Day -1: Final Review — 30 min
 - [ ] Review blog draft (drafts/blog_draft.md)
 - [ ] Review tweet thread (drafts/x_post_main.md)
+- [ ] Review blog promo tweet (drafts/x_post_blog.md)
 - [ ] Review personal tweet (drafts/x_post_personal.md)
+- [ ] Review Discord announcement + reminder (drafts/discord_post.md, drafts/discord_reminder.md)
+- [ ] Review Medium post (drafts/medium_post.md)
 - [ ] Generate images if needed (design/ai_prompts.txt)
 
 ---
@@ -107,7 +110,7 @@ Message **Apotheosis** (Head of Engineering): "Need to hand off rFOX launch"
 | 09:50 | Start sending DMs | outreach/dm_targets.md |
 | 10:15 | Cross-post to Farcaster | drafts/farcaster_post.md |
 | 12:00 | Check replies, respond | — |
-| 15:00 | QT @ShapeShiftInfoBot showing swap | drafts/infobot_qt.md |
+| 15:00 | QT @ShapeShiftInfoBot showing staking/yield | drafts/infobot_qt.md |
 
 ## Press (Optional, Tier 2-ish) — 20 min
 - [ ] Skim press release (press/press_release.md) and fix anything inaccurate
@@ -154,10 +157,13 @@ Everything else is bonus. A shipped launch beats a perfect plan.
 
 Run through before launching:
 
+**FINAL CHECK (recommended)**
+- [ ] Run GTM final check on this packet (Cursor skill: **gtm-final-check**) and fix any placeholders, framing, copy, and cadence issues. See `gtm-coordinator/docs/marketing-release-process.md`.
+
 **CONTENT READY**
-- [ ] Blog draft reviewed
-- [ ] Tweet thread reviewed
-- [ ] Discord post reviewed
+- [ ] Blog draft reviewed (blog_draft.md, medium_post.md)
+- [ ] Tweet thread + blog promo tweet reviewed (x_post_main.md, x_post_blog.md)
+- [ ] Discord post + reminder reviewed (discord_post.md, discord_reminder.md)
 
 **ACCESS VERIFIED**
 - [ ] Can log into Strapi

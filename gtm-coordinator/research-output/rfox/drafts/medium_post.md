@@ -1,49 +1,44 @@
 # Medium Post
 
-# Introducing the rFOX Program on ShapeShift
+# Announcing rFOX: Stake FOX, Earn USDC Monthly
 
-In a landscape where control and privacy are paramount, ShapeShift emerges as your multichain crypto home base. With the launch of the rFOX program, users can now experience a fully integrated, non-custodial platform designed for seamless asset management across 15+ blockchain networks.
+[IMAGE: ShapeShift logo with FOX token]
 
 ## TL;DR
+rFOX is now live on ShapeShift. Stake your FOX tokens and earn USDC. Rewards are distributed to your wallet every month. No custody and no KYC required. 🦊
 
-ShapeShift's rFOX program offers a community-owned, private, and non-custodial platform for trading over 10,000 assets instantly. Govern your crypto experience with FOX tokens and enjoy multichain support—all while retaining full control of your digital assets.
+## Introduction
+ShapeShift is thrilled to unveil rFOX, a new opportunity for users to maximize their holdings. In a world where control and privacy are paramount, rFOX stands out by allowing users to stake FOX tokens and receive rewards in the form of USDC monthly. This initiative aligns with ShapeShift's vision of a self-custodial, decentralized future.
 
-[IMAGE: User managing crypto assets on ShapeShift interface]
+## Why rFOX?
+In the evolving landscape of decentralized finance, rFOX offers a straightforward and empowering solution. Here's what sets it apart:
 
-## A Home Base for Your Crypto Needs
+- **Earn USDC, Not Volatile Tokens**: With rFOX, your rewards are stable. Instead of receiving rewards in potentially volatile tokens, earn USDC—a stable and widely-recognized cryptocurrency.
+  
+- **Your Keys, Your Control**: ShapeShift's commitment to self-custody ensures that you maintain control over your assets at all times. No third-party custody, no compromises.
+  
+- **Hassle-Free Rewards**: Forget about complicated reward calculations. With rFOX, your earnings land directly in your wallet every month, providing a seamless experience.
 
-**Trade Instantly**  
-ShapeShift allows you to trade over 10,000 digital assets without delay. Its all-in-one DeFi wallet is built to accommodate the fast-paced nature of the crypto market, providing you with the tools necessary for efficient management.
+## How to Get Started
 
-**Multichain Support**  
-With support for 15+ blockchain networks, ShapeShift ensures that your assets are accessible and manageable from a single platform. This multichain capability is key to navigating the complex world of decentralized finance.
+Getting started with rFOX is simple. Follow these steps to begin earning USDC:
 
-**Non-Custodial and Private**  
-In a world where privacy is increasingly valued, ShapeShift offers a non-custodial platform. Users maintain full control of their assets, with no need to surrender private keys or personal information.
+1. **Visit ShapeShift**: Head over to [ShapeShift's platform](https://app.shapeshift.com/#/fox-ecosystem) to access the FOX ecosystem.
 
-**Governance with FOX Tokens**  
-ShapeShift is community-owned, with governance facilitated through FOX tokens. This empowers users to have a say in the platform's future, aligning with the ethos of decentralization and community involvement.
+2. **Stake Your FOX**: Navigate to the rFOX section and stake your FOX tokens. Remember, this is a FOX-only staking program.
 
-## How to Get Started with rFOX
+3. **Earn USDC**: Sit back and watch as your rewards accumulate. Each month, USDC will be distributed directly to your wallet.
 
-1. **Visit the ShapeShift Platform**  
-   Navigate to [ShapeShift's DeFi wallet](https://app.shapeshift.com/#/fox-ecosystem) to begin.
+4. **Unstake Anytime**: Flexibility is key. Unstake your FOX tokens whenever you choose, maintaining full control over your assets.
 
-2. **Connect Your Wallet**  
-   Ensure that your wallet is connected to access all available features.
+## ShapeShift's Commitment
+ShapeShift remains committed to a decentralized and open financial future. With rFOX, users can experience the benefits of staking without relinquishing control or privacy. ShapeShift's community-driven approach ensures that users are at the heart of every innovation.
 
-3. **Explore the FOX Ecosystem**  
-   Familiarize yourself with the FOX ecosystem, where you can participate in governance and explore the full range of multichain capabilities.
+## Join the Revolution
+Ready to stake your FOX and start earning USDC? Visit [ShapeShift's platform](https://app.shapeshift.com/#/fox-ecosystem) today and take the first step towards a more secure and rewarding financial future. Your keys, your control. 🦊
 
-4. **Trade and Manage Assets**  
-   Start trading and managing over 10,000 assets across multiple blockchains, all while maintaining custody.
+[IMAGE: User interface of the ShapeShift app showing FOX staking process]
 
-[IMAGE: User exploring FOX governance features]
+---
 
-## A Community-Driven Future
-
-ShapeShift stands at the forefront of a self-custodial future, where finance is open, borderless, and in your hands. The rFOX program is not just a platform—it's an invitation to participate in a decentralized financial revolution.
-
-To explore the rFOX program and take control of your digital assets, visit [ShapeShift](https://app.shapeshift.com/#/fox-ecosystem).
-
-ShapeShift: Your private, non-custodial home for managing crypto across multiple chains. 🦊
+ShapeShift continues to empower individuals by providing tools that prioritize privacy, control, and decentralization. With rFOX, the future of finance is truly in your hands.

@@ -1,41 +1,41 @@
 # Discord Announcement
 
-**Your Multichain Crypto Home Base is Here 🦊**
+**rFOX is Now Live! 🦊**
 
-What can you do now?
+- Stake your FOX tokens.
+- Earn USDC rewards directly.
+- Get paid in your wallet every month.
+- No custody, no KYC—your keys, your control.
 
-- Trade 10,000+ assets instantly within one interface.
-- Access 15+ blockchain networks seamlessly from your wallet.
-- Retain full control with a non-custodial and private platform.
-- Participate in governance with FOX tokens.
+**Ready to start? Here's how:**
+1. Visit the rFOX page [LINK]
+2. Connect your wallet
+3. Stake your FOX
+4. Watch for USDC rewards each month
 
-How to get started:
+Explore more and join the discussion. [LINK]
 
-1. Connect your wallet to ShapeShift. [LINK]
-2. Explore the multichain options available. [LINK]
-3. Begin trading your choice of 10,000+ assets. [LINK]
-
-We value your insights. Questions and feedback are welcome as we continue building our community-owned platform.
+We're here to answer your questions—feedback is always welcome!
 
 ---
 
 ## Copy/paste
 
 ```
-**Your Multichain Crypto Home Base is Here 🦊**
+**rFOX is Now Live! 🦊**
 
-What can you do now?
+- Stake your FOX tokens.
+- Earn USDC rewards directly.
+- Get paid in your wallet every month.
+- No custody, no KYC—your keys, your control.
 
-- Trade 10,000+ assets instantly within one interface.
-- Access 15+ blockchain networks seamlessly from your wallet.
-- Retain full control with a non-custodial and private platform.
-- Participate in governance with FOX tokens.
+**Ready to start? Here's how:**
+1. Visit the rFOX page [LINK]
+2. Connect your wallet
+3. Stake your FOX
+4. Watch for USDC rewards each month
 
-How to get started:
+Explore more and join the discussion. [LINK]
 
-1. Connect your wallet to ShapeShift. [LINK]
-2. Explore the multichain options available. [LINK]
-3. Begin trading your choice of 10,000+ assets. [LINK]
-
-We value your insights. Questions and feedback are welcome as we continue building our community-owned platform.
+We're here to answer your questions—feedback is always welcome!
 ```

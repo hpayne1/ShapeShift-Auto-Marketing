@@ -1,27 +1,27 @@
 # Discord Reminder (Update)
 
-ShapeShift is your private, non-custodial home for managing crypto across multiple chains. 🦊
+rFOX is live 🦊
 
-Curious how to maintain control over your assets while swapping? Discover the rFOX program, where your keys stay with you. No custody. No KYC. Just seamless management of your crypto journey. 
+What if you could earn USDC every month just by staking FOX? It's happening now. With rFOX, stake your FOX and watch rewards land directly in your wallet. No custody, no KYC. Your keys, your control.
 
-Explore the rFOX program today: https://app.shapeshift.com/#/fox-ecosystem
+Ready to get started? Use this link: https://app.shapeshift.com/#/fox-ecosystem
 
-Read more in our detailed thread: [X THREAD LINK]
+For more details, check out our main thread here: [X THREAD LINK]
 
-Have questions or feedback? Let us know!
+Your thoughts and questions are important to us. Share them below!
 
 ---
 
 ## Copy/paste
 
 ```
-ShapeShift is your private, non-custodial home for managing crypto across multiple chains. 🦊
+rFOX is live 🦊
 
-Curious how to maintain control over your assets while swapping? Discover the rFOX program, where your keys stay with you. No custody. No KYC. Just seamless management of your crypto journey. 
+What if you could earn USDC every month just by staking FOX? It's happening now. With rFOX, stake your FOX and watch rewards land directly in your wallet. No custody, no KYC. Your keys, your control.
 
-Explore the rFOX program today: https://app.shapeshift.com/#/fox-ecosystem
+Ready to get started? Use this link: https://app.shapeshift.com/#/fox-ecosystem
 
-Read more in our detailed thread: [X THREAD LINK]
+For more details, check out our main thread here: [X THREAD LINK]
 
-Have questions or feedback? Let us know!
+Your thoughts and questions are important to us. Share them below!
 ```

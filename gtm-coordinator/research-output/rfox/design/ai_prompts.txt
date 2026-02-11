@@ -7,7 +7,7 @@
 ```
 Minimalist crypto announcement graphic, dark background #1a1a2e, 
 rFOX logo centered, ShapeShift fox logo subtle in corner, 
-text "A community-owned, private, non-custodial, multichain platform putting you in full control of your digital assets.", clean sans-serif font Inter, 
+text "Unknown", clean sans-serif font Inter, 
 no gradients, professional DeFi aesthetic, high contrast, 
 corporate tech announcement style --ar 16:9 --style raw
 ```
@@ -26,7 +26,7 @@ high contrast --ar 1:1 --style raw
 ```
 Abstract DeFi background, dark blue #1a1a2e base, 
 subtle geometric patterns, space for text overlay, 
-DEX, Wallet, DeFi Platform theme, professional tech aesthetic, 
+Unknown theme, professional tech aesthetic, 
 minimal, clean --ar 16:9 --style raw
 ```
 

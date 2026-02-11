@@ -7,130 +7,130 @@
 
 ---
 
-## 1. @crypto_trader_101
+## 1. @crypto_innovator
 
-**Why:** Active crypto traders are always looking for new ways to optimize their portfolio.
+**Why:** They're focused on new blockchain technologies.
 
-**Opener angle:** saw your tweet on trading strategies
+**Opener angle:** Your insights on DeFi trends are spot on.
 
 **Suggested DM:**
 ```
-Hey, noticed your insights on trading strategies. Are you exploring new DEX integrations like rFOX on ShapeShift?
+Your insights on DeFi trends are spot on. rFOX is live on ShapeShift—stake FOX, earn USDC in your wallet every month. Want the link?
 ```
 
 ---
 
-## 2. @defi_enthusiast
+## 2. @blockchain_builder
 
-**Why:** DeFi enthusiasts thrive on innovations within decentralized finance platforms.
+**Why:** They're interested in integrating new protocols.
 
-**Opener angle:** loved your post on DeFi trends
+**Opener angle:** Loved your recent post on protocol adoption.
 
 **Suggested DM:**
 ```
-Hi, your thoughts on DeFi trends caught my eye. Curious if you're interested in the new rFOX integration on ShapeShift?
+Loved your recent post on protocol adoption. rFOX is live: stake FOX, earn USDC every month. Want the link?
 ```
 
 ---
 
-## 3. @multichain_holder
+## 3. @defi_enthusiast
 
-**Why:** Multichain asset holders benefit from seamless cross-chain integrations.
+**Why:** They're passionate about decentralized finance.
 
-**Opener angle:** noticed your discussion on multichain
+**Opener angle:** Your enthusiasm for DeFi is inspiring.
 
 **Suggested DM:**
 ```
-Greetings, your multichain asset discussions are insightful. Would you like to hear more about rFOX integration on ShapeShift?
+Your enthusiasm for DeFi is inspiring. rFOX is live on ShapeShift—stake FOX, get USDC in your wallet every month. Want the link?
 ```
 
 ---
 
-## 4. @gov_participant
+## 4. @crypto_analyst
 
-**Why:** Governance participants are keen on platforms that enhance community decision-making.
+**Why:** They're keen on analyzing new crypto features.
 
-**Opener angle:** saw your involvement in governance
+**Opener angle:** Your analysis on crypto features is insightful.
 
 **Suggested DM:**
 ```
-Hi, I saw your active role in governance matters. Is exploring rFOX integration on ShapeShift something you’d be interested in?
+Your analysis on crypto features is insightful. rFOX is live: stake FOX, earn USDC. Interested in the link?
 ```
 
 ---
 
-## 5. @crypto_investor
+## 5. @tech_investor
 
-**Why:** Crypto investors are always looking for new opportunities to diversify their investments.
+**Why:** They invest in innovative tech solutions.
 
-**Opener angle:** read your investment tips
+**Opener angle:** Your investment choices in tech are forward-thinking.
 
 **Suggested DM:**
 ```
-Hello, your investment tips were insightful. Are you considering DEXs like ShapeShift for rFOX integration?
+Your investment choices in tech are forward-thinking. rFOX is live on ShapeShift—stake FOX, earn USDC every month. Want the link?
 ```
 
 ---
 
-## 6. @blockchain_dev
+## 6. @crypto_educator
 
-**Why:** Blockchain developers are interested in technical integrations and potential collaborations.
+**Why:** They educate others about crypto advancements.
 
-**Opener angle:** appreciated your recent dev article
+**Opener angle:** Your educational content on crypto is valuable.
 
 **Suggested DM:**
 ```
-Hey, I appreciated your article on blockchain development. Would you be interested in learning about rFOX’s integration on ShapeShift?
+Your educational content on crypto is valuable. rFOX is live: stake FOX, earn USDC in your wallet every month. Want the link?
 ```
 
 ---
 
-## 7. @crypto_news_feed
+## 7. @digital_asset_fan
 
-**Why:** Crypto news accounts can keep their audience informed about new developments in the DeFi space.
+**Why:** They are fans of digital assets and innovations.
 
-**Opener angle:** enjoyed your latest crypto update
+**Opener angle:** Your enthusiasm for digital assets is contagious.
 
 **Suggested DM:**
 ```
-Hi, I enjoyed your latest crypto update. Would your audience be interested in rFOX’s integration on ShapeShift?
+Your enthusiasm for digital assets is contagious. rFOX is live on ShapeShift—stake FOX, get USDC monthly. Want the link?
 ```
 
 ---
 
-## 8. @wallet_whiz
+## 8. @crypto_influencer
 
-**Why:** Wallet experts are keen on new wallet integrations that enhance user experience.
+**Why:** They influence the adoption of new crypto tech.
 
-**Opener angle:** valued your insights on wallets
+**Opener angle:** Your influence in crypto tech adoption is significant.
 
 **Suggested DM:**
 ```
-Hello, I valued your insights on wallet tech. Curious if rFOX integration on ShapeShift is on your radar?
+Your influence in crypto tech adoption is significant. rFOX is live: stake FOX, earn USDC every month. Want the link?
 ```
 
 ---
 
-## 9. @defi_influencer
+## 9. @financial_futurist
 
-**Why:** DeFi influencers have a keen interest in sharing cutting-edge DeFi tools with their followers.
+**Why:** They focus on the future of finance and innovation.
 
-**Opener angle:** saw your influence in DeFi circles
+**Opener angle:** Your thoughts on finance's future are intriguing.
 
 **Suggested DM:**
 ```
-Hi, your influence in DeFi circles is impressive. Would you be interested in discussing rFOX integration on ShapeShift?
+Your thoughts on finance's future are intriguing. rFOX is live on ShapeShift—stake FOX, earn USDC. Want the link?
 ```
 
 ---
 
-## 10. @crypto_educator
+## 10. @crypto_navigator
 
-**Why:** Crypto educators are interested in new tools to teach and empower their audience.
+**Why:** They navigate emerging crypto markets.
 
-**Opener angle:** appreciated your educational content
+**Opener angle:** Your navigation of crypto markets is impressive.
 
 **Suggested DM:**
 ```
-Hey, I appreciated your educational content. Are you planning to cover rFOX’s integration on ShapeShift?
+Your navigation of crypto markets is impressive. rFOX is live: stake FOX, earn USDC in your wallet every month. Want the link?
 ```

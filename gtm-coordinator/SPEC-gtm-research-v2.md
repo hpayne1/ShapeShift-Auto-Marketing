@@ -2230,6 +2230,9 @@ function generateMarketingBrief(
 ): Promise<MarketingBrief>
 ```
 
+**Key message principle (applies to all protocols and features):**  
+The GTM one-sentence and key messages (primary, supporting, tweet-ready) must be **actual marketing copy**. Lead with the product/feature benefit that compels—e.g. "now live," "do X, get Y," "rewards in your wallet every month." ShapeShift differentiators (no custody, privacy, no KYC) are **supporting** messages, not the default lead. If the main hook is only "keeping your keys safe" or "no custody," reframe so the lead is what the user gets or does (earn, stake, swap, get paid, etc.). This principle persists across all research-output folders and generated content.
+
 ---
 
 ### 2.9 Feedback Loader (NEW - src/lib/feedbackLoader.ts)
@@ -2602,7 +2605,7 @@ Generate a Marketing Brief answering these questions in PLAIN LANGUAGE (no marke
 
 2. **What problem are we solving?** What's the "aha" moment when users discover this?
 
-3. **GTM idea in one sentence** - Explain it like you're talking to a smart 10-year-old.
+3. **GTM idea in one sentence** - Explain it like you're talking to a smart 10-year-old. This must be **actual marketing**: lead with what's live / what the user does / what they get (e.g. stake X, earn Y; rewards in wallet). Do not lead with "keeping your keys safe" or "no custody" alone—use those as supporting differentiators.
 
 4. **Business outcomes** - What specifically changes? How will we measure it?
 
@@ -2610,7 +2613,7 @@ Generate a Marketing Brief answering these questions in PLAIN LANGUAGE (no marke
 
 6. **Unique vs competitors** - Why would someone choose ShapeShift for this over alternatives?
 
-7. **Key messages** - Write a ready-to-post social announcement.
+7. **Key messages** - Write a ready-to-post social announcement. Primary and tweet-ready must lead with the product/feature benefit (earn, get paid, now live, etc.); no custody/privacy are supporting messages, not the main hook.
 
 Also include:
 - Risks and constraints (blockers, timing, narrative risks)

@@ -2,80 +2,78 @@
 
 ## Who Are We Speaking To?
 
-**Target Audience:** DeFi Power Users, Yield Seekers, Cross-Chain Traders, Privacy-Conscious Users
+**Target Audience:** DeFi Power Users, Yield Seekers, Privacy-Conscious Users
 
-**What We Know About Them:** They are experienced crypto users who value control over their assets, prioritize privacy, and are active in managing portfolios across multiple protocols.
+**What We Know About Them:** They are experienced crypto users who value self-custody, efficient yield generation, and privacy.
 
-**Psychographics:** They are tech-savvy, value financial sovereignty, and are constantly seeking the best opportunities for asset management and yield without compromising on privacy.
+**Psychographics:** They are motivated by financial sovereignty, maximizing returns, and avoiding centralized control.
 
 ---
 
 ## What Problem Are We Solving?
 
-**The Problem:** Users need a secure, private, and efficient way to manage and trade a wide range of crypto assets across multiple chains.
+**The Problem:** Crypto users want to earn yield without giving up control of their assets or going through KYC processes.
 
-**The "Aha" Moment:** Realizing they can manage their entire crypto portfolio in one place without giving up custody or privacy.
+**The "Aha" Moment:** Realizing they can earn USDC directly in their wallet every month without losing custody.
 
 **Before/After:**
-Before: Juggling multiple platforms and losing control over assets. After: Seamless, private, and secure asset management with ShapeShift.
+Before: Users had to rely on volatile reward tokens and centralized platforms. After: They earn USDC monthly with no custody or KYC.
 
 ---
 
 ## GTM Idea (One Sentence)
 
-> ShapeShift lets you control all your crypto in one place without anyone else holding your keys.
+> rFOX lets you stake FOX and earn USDC every month, right into your wallet.
 
 ---
 
 ## Business Outcomes
 
 **What Changes:**
-- Increase in active users
-- Growth in FOX token governance participation
-- Higher trading volume across supported chains
+- Increased staking of FOX tokens
+- Higher user engagement with ShapeShift platform
+- Enhanced brand perception as a privacy-focused platform
 
 **How We'll Measure:**
-- Number of active users
-- Volume of assets traded
-- Participation in governance votes
+- Number of FOX tokens staked
+- Monthly active users
+- User retention rates
 
 ---
 
 ## Wild Success (Best Case Scenario)
 
-**Vision:** ShapeShift becomes the go-to platform for managing all crypto assets with unmatched privacy and control.
+**Vision:** ShapeShift becomes the go-to platform for earning yield in a decentralized, self-custodial manner.
 
 **Indicators:**
-- Dominant market share among DeFi platforms
-- High user retention and satisfaction
-- Broad adoption of FOX governance
+- Significant growth in FOX staking volume
+- High user satisfaction and retention
+- Recognition as a leader in decentralized finance
 
 ---
 
 ## Why ShapeShift? (vs Competitors)
 
 **Differentiators:**
-- Community-owned model
-- Focus on privacy and non-custodial management
-- Extensive asset and network support
-- FOX token for governance
+- No custody or KYC required
+- Rewards paid in stable USDC, not volatile tokens
+- Monthly rewards distribution
 
-**Positioning Statement:** ShapeShift offers a unique blend of privacy, control, and community ownership that sets it apart from other multichain platforms.
+**Positioning Statement:** ShapeShift offers a self-custodial, privacy-focused way to earn stable returns in USDC.
 
 ---
 
 ## Key Messages
 
 **Primary Message:**
-> ShapeShift is your private, non-custodial home for managing crypto across multiple chains.
+> rFOX is now live. Stake FOX, earn USDC. Rewards paid to your wallet every month.
 
 **Supporting Messages:**
-- Trade 10,000+ assets instantly with the best rates.
-- Governance through FOX tokens puts power in users' hands.
-- No KYC, no custody, just control.
+- No custody, no KYC—your keys, your control.
+- Get paid in USDC, not volatile reward tokens.
 
 **Tweet-Ready:**
-> What if you could manage all your crypto without giving up control? ShapeShift is your multichain home base. No KYC. No custody. Just crypto. 🦊
+> rFOX is live. Stake FOX, earn USDC. Get paid in your wallet every month. No custody, no KYC. 🦊
 
 ---
 
@@ -84,14 +82,12 @@ Before: Juggling multiple platforms and losing control over assets. After: Seaml
 | Field | Value |
 |-------|-------|
 | **Name** | rFOX |
-| **Category** | DEX, Wallet, DeFi Platform |
-| **Tagline** | Your multichain crypto home base. |
+| **Category** | Staking / revenue share |
+| **Tagline** | Stake FOX, earn USDC—rewards in your wallet every month. |
 
 **Key Features:**
-- Trade 10,000+ assets instantly
-- All-In-One ShapeShift DeFi wallet
-- Multichain support with 15+ blockchain networks
-- Non-custodial and private platform
-- Governance through FOX tokens
+- FOX-only staking (no LP). Stake FOX, earn USDC.
+- Off-chain rewards distribution by DAO multisig to staker wallets.
+- No custody, no KYC. Your keys, your control.
 
-**Value Proposition:** A community-owned, private, non-custodial, multichain platform putting you in full control of your digital assets.
+**Value Proposition:** rFOX lets you stake FOX and earn USDC revenue share, paid to your wallet every month, with no custody and no KYC.

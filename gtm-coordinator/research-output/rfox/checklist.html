@@ -6,132 +6,40 @@
   <title>rFOX Launch Checklist | ShapeShift GTM</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --blue-500: #3761F9;
-      --blue-600: #2D4EC9;
-      --green-500: #00CD98;
-      --gray-950: #090B11;
-      --gray-900: #10151E;
-      --gray-850: #191d28;
-      --gray-800: #141A25;
-      --gray-700: #2D3748;
-      --gray-600: #4A5568;
-      --gray-500: #718096;
-      --gray-400: #A0AEC0;
-      --gray-300: #CBD5E0;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      line-height: 1.6;
-      color: var(--gray-300);
-      background: var(--gray-900);
-      min-height: 100vh;
-    }
-    .hero {
-      background: radial-gradient(94.32% 94.6% at 4.04% -44.6%, rgba(45, 78, 201, 0.4) 0%, rgba(16, 21, 30, 0) 100%),
-                  linear-gradient(0deg, var(--gray-900), var(--gray-900));
-      padding: 2rem;
-      border-bottom: 1px solid var(--gray-700);
-    }
-    .hero-content { max-width: 900px; margin: 0 auto; }
-    .logo-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
-    .brand { display: flex; align-items: center; gap: 1rem; }
-    .fox-logo { width: 40px; height: 40px; }
-    .brand-text { font-family: 'Work Sans', system-ui, sans-serif; font-weight: 600; font-size: 0.875rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.1em; }
-    h1 { font-family: 'Work Sans', system-ui, sans-serif; font-weight: 700; font-size: 1.75rem; color: #fff; margin-bottom: 0.5rem; }
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--blue-500);
-      text-decoration: none;
-      font-size: 0.9375rem;
-      font-weight: 500;
-    }
-    .back-link:hover { text-decoration: underline; }
-    .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
-    .intro { color: var(--gray-400); font-size: 0.9375rem; margin-bottom: 2rem; }
-    .section {
-      margin-bottom: 2.5rem;
-    }
-    .section h2 {
-      font-family: 'Work Sans', system-ui, sans-serif;
-      font-weight: 600;
-      font-size: 1.125rem;
-      color: #fff;
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .section h2::before {
-      content: '';
-      width: 4px;
-      height: 1.125rem;
-      background: var(--blue-500);
-      border-radius: 2px;
-    }
-    .section h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--gray-300);
-      margin: 1.25rem 0 0.5rem;
-    }
-    .section p, .section li { color: var(--gray-400); font-size: 0.9375rem; margin-bottom: 0.5rem; }
-    .section ul { margin-left: 1.25rem; margin-bottom: 1rem; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9375rem;
-      margin: 0.75rem 0 1.5rem;
-    }
-    th, td {
-      padding: 0.625rem 0.75rem;
-      text-align: left;
-      border: 1px solid var(--gray-700);
-    }
-    th {
-      background: var(--gray-850);
-      color: var(--gray-400);
-      font-weight: 600;
-      font-size: 0.8125rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-    td { color: var(--gray-300); }
-    tr:nth-child(even) td { background: rgba(23, 29, 40, 0.4); }
-    .check-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-      color: var(--gray-400);
-      font-size: 0.9375rem;
-    }
-    .check-item input[type="checkbox"] {
-      margin-top: 0.25rem;
-      width: 1.125rem;
-      height: 1.125rem;
-      accent-color: var(--blue-500);
-      cursor: pointer;
-    }
-    .check-item label { cursor: pointer; flex: 1; }
-    .highlight { background: rgba(55, 97, 249, 0.08); border: 1px solid var(--blue-500); border-radius: 8px; padding: 1rem; margin: 0.75rem 0; }
-    .highlight p { margin-bottom: 0.25rem; }
-    .minimal-box { border: 1px solid var(--green-500); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
-    .minimal-box p { margin-bottom: 0.25rem; }
-    footer {
-      margin-top: 2rem;
-      padding: 2rem;
-      border-top: 1px solid var(--gray-700);
-      text-align: center;
-      color: var(--gray-500);
-      font-size: 0.875rem;
-    }
-    a { color: var(--blue-500); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    strong { color: var(--gray-300); }
+    :root{--blue-500:#3761F9;--blue-600:#2D4EC9;--green-500:#00CD98;--gray-900:#10151E;--gray-850:#191d28;--gray-700:#2D3748;--gray-500:#718096;--gray-400:#A0AEC0;--gray-300:#CBD5E0;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',system-ui,sans-serif;line-height:1.6;color:var(--gray-300);background:var(--gray-900);min-height:100vh;}
+    .hero{background:radial-gradient(94.32% 94.6% at 4.04% -44.6%,rgba(45,78,201,0.4) 0%,rgba(16,21,30,0) 100%),linear-gradient(0deg,var(--gray-900),var(--gray-900));padding:2rem;border-bottom:1px solid var(--gray-700);}
+    .hero-content{max-width:900px;margin:0 auto;}
+    .logo-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;}
+    .brand{display:flex;align-items:center;gap:1rem;}
+    .fox-logo{width:40px;height:40px;}
+    .brand-text{font-family:'Work Sans',system-ui,sans-serif;font-weight:600;font-size:0.875rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.1em;}
+    h1{font-family:'Work Sans',system-ui,sans-serif;font-weight:700;font-size:1.75rem;color:#fff;margin-bottom:0.5rem;}
+    .back-link{display:inline-flex;align-items:center;gap:0.5rem;color:var(--blue-500);text-decoration:none;font-size:0.9375rem;font-weight:500;}
+    .back-link:hover{text-decoration:underline;}
+    .container{max-width:900px;margin:0 auto;padding:2rem;}
+    .intro{color:var(--gray-400);font-size:0.9375rem;margin-bottom:2rem;}
+    .section{margin-bottom:2.5rem;}
+    .section h2{font-family:'Work Sans',system-ui,sans-serif;font-weight:600;font-size:1.125rem;color:#fff;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem;}
+    .section h2::before{content:'';width:4px;height:1.125rem;background:var(--blue-500);border-radius:2px;}
+    .section h3{font-size:1rem;font-weight:600;color:var(--gray-300);margin:1.25rem 0 0.5rem;}
+    .section p,.section li{color:var(--gray-400);font-size:0.9375rem;margin-bottom:0.5rem;}
+    .section ul{margin-left:1.25rem;margin-bottom:1rem;}
+    table{width:100%;border-collapse:collapse;font-size:0.9375rem;margin:0.75rem 0 1.5rem;}
+    th,td{padding:0.625rem 0.75rem;text-align:left;border:1px solid var(--gray-700);}
+    th{background:var(--gray-850);color:var(--gray-400);font-weight:600;font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.03em;}
+    td{color:var(--gray-300);}
+    tr:nth-child(even) td{background:rgba(23,29,40,0.4);}
+    .check-item{display:flex;align-items:flex-start;gap:0.5rem;margin-bottom:0.5rem;color:var(--gray-400);font-size:0.9375rem;}
+    .check-item input[type="checkbox"]{margin-top:0.25rem;width:1.125rem;height:1.125rem;accent-color:var(--blue-500);cursor:pointer;}
+    .check-item label{cursor:pointer;flex:1;}
+    .highlight{background:rgba(55,97,249,0.08);border:1px solid var(--blue-500);border-radius:8px;padding:1rem;margin:0.75rem 0;}
+    .minimal-box{border:1px solid var(--green-500);border-radius:8px;padding:1rem;margin:1rem 0;}
+    footer{margin-top:2rem;padding:2rem;border-top:1px solid var(--gray-700);text-align:center;color:var(--gray-500);font-size:0.875rem;}
+    a{color:var(--blue-500);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    strong{color:var(--gray-300);}
   </style>
 </head>
 <body>
@@ -142,13 +50,12 @@
           <div class="fox-logo"><svg viewBox="0 0 218 231" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M109 0L0 65.5V165.5L109 231L218 165.5V65.5L109 0Z" fill="#3761F9"/><path d="M109 30L30 75V155L109 200L188 155V75L109 30Z" fill="#10151E"/><path d="M109 55L55 87V143L109 175L163 143V87L109 55Z" fill="#3761F9"/><path d="M109 75L75 95V135L109 155L143 135V95L109 75Z" fill="#00CD98"/></svg></div>
           <span class="brand-text">GTM Packet</span>
         </div>
-        <a href="index.html" class="back-link">← Back to rFOX packet</a>
+        <a href="index.html" class="back-link">← Back to packet</a>
       </div>
       <h1>rFOX Launch Checklist</h1>
       <p class="intro">Generated 2026-02-11 · Tier 1 · Program · Owner: [YOUR NAME]</p>
     </div>
   </div>
-
   <div class="container">
     <div class="section">
       <h2>You Shipped Code. Now Tell People About It.</h2>
@@ -156,7 +63,6 @@
       <p>At ShapeShift, engineers own their launches. There's no marketing team. Things don't blow up on their own. If you don't market it, no one will use it.</p>
       <p>This isn't busywork. It's intentional storytelling for the tech you built.</p>
     </div>
-
     <div class="section">
       <h2>What Kind of Launch Is This?</h2>
       <p><strong>Your launch: TIER 1</strong></p>
@@ -169,7 +75,6 @@
         </tbody>
       </table>
     </div>
-
     <div class="section">
       <h2>Quick Paths</h2>
       <ul>
@@ -178,7 +83,6 @@
         <li><strong>[I CAN'T DO THIS]</strong> → Hand off to Apotheosis</li>
       </ul>
     </div>
-
     <div class="section">
       <h2>Operational Quick Start</h2>
       <h3>How to Post</h3>
@@ -200,7 +104,6 @@
         </tbody>
       </table>
     </div>
-
     <div class="section">
       <h2>PRE-LAUNCH: Day -1 Final Review — 30 min</h2>
       <div class="check-item"><input type="checkbox" id="c1"><label for="c1">Review blog draft (drafts/blog_draft.md)</label></div>
@@ -211,7 +114,6 @@
       <div class="check-item"><input type="checkbox" id="c6"><label for="c6">Review Medium post (drafts/medium_post.md)</label></div>
       <div class="check-item"><input type="checkbox" id="c7"><label for="c7">Generate images if needed (design/ai_prompts.txt)</label></div>
     </div>
-
     <div class="section">
       <h2>LAUNCH DAY (Day 0) — 60 min</h2>
       <table>
@@ -226,7 +128,7 @@
           <tr><td>09:50</td><td>Start sending DMs</td><td>outreach/dm_targets.md</td></tr>
           <tr><td>10:15</td><td>Cross-post to Farcaster</td><td>drafts/farcaster_post.md</td></tr>
           <tr><td>12:00</td><td>Check replies, respond</td><td>—</td></tr>
-          <tr><td>15:00</td><td>QT @ShapeShiftInfoBot showing swap</td><td>drafts/infobot_qt.md</td></tr>
+          <tr><td>15:00</td><td>QT @ShapeShiftInfoBot showing staking/yield</td><td>drafts/infobot_qt.md</td></tr>
         </tbody>
       </table>
       <h3>Press (Optional, Tier 2-ish) — 20 min</h3>
@@ -234,45 +136,41 @@
       <div class="check-item"><input type="checkbox" id="c9"><label for="c9">Skim PR brief (press/pr_brief.md) so you can answer questions</label></div>
       <div class="check-item"><input type="checkbox" id="c10"><label for="c10">Pick ONE op-ed angle and personalize it (press/op_ed_political.md or press/op_ed_technical.md)</label></div>
     </div>
-
     <div class="section">
       <h2>Day 1 — 20 min</h2>
       <div class="check-item"><input type="checkbox" id="c11"><label for="c11">Post educational thread (@ShapeShift) - drafts/followup_educational.md</label></div>
       <div class="check-item"><input type="checkbox" id="c12"><label for="c12">Reply to overnight comments</label></div>
       <div class="check-item"><input type="checkbox" id="c13"><label for="c13">DM anyone who engaged positively</label></div>
     </div>
-
     <div class="section">
       <h2>Day 2-3 — 15 min</h2>
       <div class="check-item"><input type="checkbox" id="c14"><label for="c14">QT user testimonials (if any)</label></div>
       <div class="check-item"><input type="checkbox" id="c15"><label for="c15">Share partner cross-posts</label></div>
       <div class="check-item"><input type="checkbox" id="c16"><label for="c16">Continue engaging</label></div>
     </div>
-
     <div class="section">
       <h2>Day 4-6 — 10 min</h2>
       <div class="check-item"><input type="checkbox" id="c17"><label for="c17">Post metrics thread if numbers look good - drafts/followup_metrics.md</label></div>
       <div class="check-item"><input type="checkbox" id="c18"><label for="c18">Continue engaging</label></div>
     </div>
-
     <div class="section">
       <h2>Day 7 — 30 min</h2>
       <div class="check-item"><input type="checkbox" id="c19"><label for="c19">Post recap thread - drafts/followup_recap.md</label></div>
       <div class="check-item"><input type="checkbox" id="c20"><label for="c20">Collect metrics (see below)</label></div>
       <div class="check-item"><input type="checkbox" id="c21"><label for="c21">Run: gtm metrics --launch rfox</label></div>
     </div>
-
     <div class="section minimal-box">
       <h2>⚡ MINIMUM VIABLE LAUNCH (If You're Slammed)</h2>
       <p><strong>30 minutes total:</strong></p>
       <div class="check-item"><input type="checkbox" id="c22"><label for="c22">Post tweet thread from @ShapeShift — 5 min</label></div>
       <div class="check-item"><input type="checkbox" id="c23"><label for="c23">Post Discord announcement — 2 min</label></div>
       <div class="check-item"><input type="checkbox" id="c24"><label for="c24">QT from your personal account — 3 min</label></div>
-      <p style="margin-top: 0.75rem;"><strong>That's it. You shipped.</strong> Everything else is bonus.</p>
+      <p style="margin-top:0.75rem"><strong>That's it. You shipped.</strong> Everything else is bonus.</p>
     </div>
-
     <div class="section highlight">
       <h2>✅ PRE-FLIGHT CHECK</h2>
+      <p><strong>FINAL CHECK (recommended)</strong></p>
+      <div class="check-item"><input type="checkbox" id="c0"><label for="c0">Run GTM final check (Cursor skill: gtm-final-check) and fix placeholders, framing, copy, cadence. See gtm-coordinator/docs/marketing-release-process.md.</label></div>
       <p><strong>CONTENT READY</strong></p>
       <div class="check-item"><input type="checkbox" id="c25"><label for="c25">Blog draft reviewed (blog_draft.md, medium_post.md)</label></div>
       <div class="check-item"><input type="checkbox" id="c26"><label for="c26">Tweet thread + blog promo tweet reviewed (x_post_main.md, x_post_blog.md)</label></div>
@@ -284,22 +182,20 @@
       <div class="check-item"><input type="checkbox" id="c30"><label for="c30">YES → Execute checklist</label></div>
       <div class="check-item"><input type="checkbox" id="c31"><label for="c31">NOT YET → Fix it or go minimal</label></div>
     </div>
-
     <div class="section">
       <h2>📊 METRICS (Day 7)</h2>
       <table>
         <thead><tr><th>Metric</th><th>Target (Tier 1)</th><th>Actual</th></tr></thead>
         <tbody>
-          <tr><td>Twitter Profile Visits</td><td>&gt;500</td><td>_____</td></tr>
-          <tr><td>Tweet Engagements</td><td>&gt;200</td><td>_____</td></tr>
+          <tr><td>Twitter Profile Visits</td><td>>500</td><td>_____</td></tr>
+          <tr><td>Tweet Engagements</td><td>>200</td><td>_____</td></tr>
           <tr><td>Website Traffic</td><td>+10%</td><td>_____</td></tr>
           <tr><td>Swap Volume</td><td>—</td><td>_____</td></tr>
-          <tr><td>Onchain Txs</td><td>&gt;100</td><td>_____</td></tr>
+          <tr><td>Onchain Txs</td><td>>100</td><td>_____</td></tr>
         </tbody>
       </table>
       <p><strong>SUCCESS:</strong> Hit targets + positive response · <strong>OKAY:</strong> Close to targets · <strong>REVIEW:</strong> Missed targets → log learnings</p>
     </div>
-
     <div class="section">
       <h2>📚 GLOSSARY</h2>
       <table>
@@ -314,10 +210,9 @@
       </table>
     </div>
   </div>
-
   <footer>
     <p>Questions? Ping Apotheosis on Discord.</p>
-    <p style="margin-top: 0.5rem;"><a href="index.html">← Back to rFOX GTM packet</a></p>
+    <p style="margin-top:0.5rem"><a href="index.html">← Back to GTM packet</a></p>
   </footer>
 </body>
 </html>

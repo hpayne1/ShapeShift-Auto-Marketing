@@ -1,27 +1,27 @@
 # Day 1: Educational Thread
 
-1/ Curious about swapping with rFOX on ShapeShift? Here's how to do it seamlessly, while keeping control of your keys.
+1/ Curious about how to use with rFOX on ShapeShift? Let's dive into a simple guide to get you started.
 
-2/ First, log into your ShapeShift DeFi wallet. If you haven't set it up yet, it's quick and non-custodial. [SCREENSHOT: ShapeShift DeFi wallet login page]
+2/ First, navigate to the ShapeShift interface. Connect your wallet securely—you remain in control of your keys. [SCREENSHOT: Wallet Connection]
 
-3/ Navigate to the swap section. Select rFOX and your desired trading pair from our 10,000+ assets. Choose the blockchain network—ShapeShift supports over 15. [SCREENSHOT: Swap interface with asset selection]
+3/ Once connected, locate the rFOX section. Enter the amount you want to use and review the details. Confirm to proceed. [SCREENSHOT: rFOX Interface]
 
-4/ Enter the amount you wish to swap, review the details, and confirm the transaction. Your assets are swapped instantly without giving up custody. [SCREENSHOT: Confirmation screen]
+4/ The protocol will process your transaction. In moments, your rFOX usage is complete. Monitor progress directly within your wallet. [SCREENSHOT: Transaction Confirmation]
 
-5/ Ready to give it a try? Experience private, non-custodial swaps with rFOX today. Dive into the future of DeFi: [ShapeShift Link] 🦊
+5/ Ready to use rFOX on ShapeShift? Start here: [link] 🦊
 
 ---
 
 ## Copy/paste (thread)
 
 ```
-1/ Curious about swapping with rFOX on ShapeShift? Here's how to do it seamlessly, while keeping control of your keys.
+1/ Curious about how to use with rFOX on ShapeShift? Let's dive into a simple guide to get you started.
 
-2/ First, log into your ShapeShift DeFi wallet. If you haven't set it up yet, it's quick and non-custodial. [SCREENSHOT: ShapeShift DeFi wallet login page]
+2/ First, navigate to the ShapeShift interface. Connect your wallet securely—you remain in control of your keys. [SCREENSHOT: Wallet Connection]
 
-3/ Navigate to the swap section. Select rFOX and your desired trading pair from our 10,000+ assets. Choose the blockchain network—ShapeShift supports over 15. [SCREENSHOT: Swap interface with asset selection]
+3/ Once connected, locate the rFOX section. Enter the amount you want to use and review the details. Confirm to proceed. [SCREENSHOT: rFOX Interface]
 
-4/ Enter the amount you wish to swap, review the details, and confirm the transaction. Your assets are swapped instantly without giving up custody. [SCREENSHOT: Confirmation screen]
+4/ The protocol will process your transaction. In moments, your rFOX usage is complete. Monitor progress directly within your wallet. [SCREENSHOT: Transaction Confirmation]
 
-5/ Ready to give it a try? Experience private, non-custodial swaps with rFOX today. Dive into the future of DeFi: [ShapeShift Link] 🦊
+5/ Ready to use rFOX on ShapeShift? Start here: [link] 🦊
 ```

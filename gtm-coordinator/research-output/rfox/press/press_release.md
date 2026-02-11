@@ -2,29 +2,29 @@
 
 **FOR IMMEDIATE RELEASE**
 
-**ShapeShift DAO Announces Integration with rFOX, Expanding Multichain Capabilities**
+**ShapeShift DAO Launches rFOX: Stake FOX, Earn USDC—Rewards in Your Wallet Every Month**
 
-**ShapeShift Enhances Its Non-Custodial Platform with rFOX, Offering Users Access to Over 10,000 Assets Across 15+ Blockchain Networks**
+**[CITY, DATE]** – ShapeShift DAO today announced the launch of rFOX, a program that lets users stake FOX tokens and earn USDC rewards paid directly to their wallets every month. No custody, no KYC.
 
-[DENVER, CO, DATE] – ShapeShift DAO, a leading decentralized autonomous organization in the cryptocurrency space, today announced the integration of rFOX, a cutting-edge multichain crypto platform. This partnership significantly enhances ShapeShift's offerings, providing users with an unparalleled non-custodial experience for managing digital assets across multiple blockchain networks.
+rFOX is a new staking program on ShapeShift. Users stake FOX and receive USDC rewards monthly via off-chain distribution by the DAO multisig. The program is designed for DeFi users and yield seekers who want stable rewards without giving up control of their assets.
 
-The integration of rFOX into the ShapeShift platform allows users to trade over 10,000 assets instantly while maintaining full control over their digital holdings. This collaboration underscores ShapeShift's commitment to delivering a comprehensive, private, and secure DeFi solution, catering to the needs of crypto traders, DeFi enthusiasts, multichain asset holders, governance participants, and crypto investors.
+The program is live now. ShapeShift users can stake FOX and start earning USDC with a straightforward, self-custodial flow.
 
-"By integrating rFOX, ShapeShift is elevating its platform to new heights, offering our community an all-in-one DeFi wallet that supports seamless multichain transactions," said [NAME], [TITLE] at ShapeShift. "Our focus on privacy, non-custodial asset management, and community governance aligns perfectly with rFOX's mission to be the ultimate multichain crypto home base."
+rFOX is a unique addition to ShapeShift’s growing suite of services, offering a straightforward and user-friendly staking process. 
+"[NAME], [TITLE] at ShapeShift, said: [QUOTE]"
 
-The rFOX integration brings several key features to the ShapeShift platform, including support for over 15 blockchain networks and a governance system powered by FOX tokens. Users can now benefit from enhanced trading opportunities through integration with leading decentralized exchanges (DEXs) and aggregators, ensuring the best rates for their transactions. Furthermore, the non-custodial nature of the ShapeShift wallet guarantees that users retain full control over their assets, promoting a secure and private trading environment.
+The launch of rFOX aligns with ShapeShift's commitment to self-custodial, privacy-preserving DeFi. Stake FOX, earn USDC, keep your keys.
 
-This strategic partnership also opens the door for future integration opportunities, such as additional blockchain network support, partnerships with other DeFi protocols, enhanced fiat on-ramp solutions, and cross-chain bridge functionalities. These developments will further solidify ShapeShift's position as a leader in the multichain DeFi space.
+**About ShapeShift DAO**
 
-Despite the potential risks associated with market volatility, security vulnerabilities, and regulatory changes, ShapeShift remains committed to providing a robust and competitive platform. By focusing on a community-owned model and prioritizing user privacy, ShapeShift distinguishes itself from other multichain platforms like MetaMask and Trust Wallet.
+ShapeShift DAO is a decentralized, non-custodial cryptocurrency platform that enables users to buy, hold, trade, and earn rewards on their digital assets. Founded with the vision of financial sovereignty, ShapeShift empowers its community with tools and services that are secure, user-friendly, and transparent. As a pioneer in the crypto space, ShapeShift remains committed to its mission of enabling seamless, borderless financial transactions for everyone.
 
-About ShapeShift:  
-ShapeShift DAO is a decentralized autonomous organization dedicated to building a borderless, financial system that empowers individuals to manage their digital assets independently. With a focus on privacy, security, and community governance, ShapeShift provides a comprehensive platform for trading and managing cryptocurrencies across multiple blockchain networks.
+**Media Contact**
 
-For media inquiries, please contact:  
-[Media Contact Name]  
-[Media Contact Title]  
-[Media Contact Email]  
-[Media Contact Phone Number]
+[Your Name]  
+[Your Title]  
+ShapeShift DAO  
+Email: [Your Email]  
+Phone: [Your Phone Number]  
 
--END-
+For more information about ShapeShift and rFOX, please visit [ShapeShift Website].

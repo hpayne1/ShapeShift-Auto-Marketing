@@ -1,27 +1,32 @@
 # Main Twitter Thread (@ShapeShift)
 
-**Tweet 1:**  
-What if you could swap crypto across multiple chains while keeping full control of your keys?
+**Tweet 1:**
+What if you could earn USDC directly in your wallet every month?
 
-**Tweet 2:**  
-With ShapeShift's rFOX program, you can. Swap digital assets privately and non-custodially across a variety of chains.
+**Tweet 2:**
+rFOX is now live. Stake your FOX and get rewarded in USDC. Enjoy the benefits of monthly payouts.
 
-**Tweet 3:**  
-Why does this matter? Self-custody is king. Retain control, protect your privacy, and manage your assets without intermediaries.
+**Tweet 3:**
+Why does this matter? Because it's all about self-custody. Your keys, your control—no need for KYC.
 
-**Tweet 4:**  
-Ready to take control? Explore the rFOX program and start swapping today: [https://app.shapeshift.com/#/fox-ecosystem](https://app.shapeshift.com/#/fox-ecosystem) 🦊
+**Tweet 4:**
+Ready to start earning USDC? Dive into the FOX ecosystem and stake today: [https://app.shapeshift.com/#/fox-ecosystem](https://app.shapeshift.com/#/fox-ecosystem)
+
+**Tweet 5:**
+No custody, no KYC. Just rewards landing straight in your wallet. 🦊
 
 ---
 
 ## Copy/paste (thread)
 
 ```
-What if you could swap crypto across multiple chains while keeping full control of your keys?
+What if you could earn USDC directly in your wallet every month?
 
-With ShapeShift's rFOX program, you can. Swap digital assets privately and non-custodially across a variety of chains.
+rFOX is now live. Stake your FOX and get rewarded in USDC. Enjoy the benefits of monthly payouts.
 
-Why does this matter? Self-custody is king. Retain control, protect your privacy, and manage your assets without intermediaries.
+Why does this matter? Because it's all about self-custody. Your keys, your control—no need for KYC.
 
-Ready to take control? Explore the rFOX program and start swapping today: [https://app.shapeshift.com/#/fox-ecosystem](https://app.shapeshift.com/#/fox-ecosystem) 🦊
+Ready to start earning USDC? Dive into the FOX ecosystem and stake today: [https://app.shapeshift.com/#/fox-ecosystem](https://app.shapeshift.com/#/fox-ecosystem)
+
+No custody, no KYC. Just rewards landing straight in your wallet. 🦊
 ```

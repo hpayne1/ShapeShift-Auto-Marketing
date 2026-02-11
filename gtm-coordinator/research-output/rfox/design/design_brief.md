@@ -36,7 +36,7 @@ Clean, minimalist, professional DeFi aesthetic.
 ## Must Include
 - rFOX logo
 - ShapeShift fox logo (subtle, corner)
-- Key message: "A community-owned, private, non-custodial, multichain platform putting you in full control of your digital assets."
+- Key message: "rFOX is now live: stake FOX, earn USDC—rewards land in your wallet every month."
 
 ## References
 Look at previous ShapeShift announcement graphics for style consistency.

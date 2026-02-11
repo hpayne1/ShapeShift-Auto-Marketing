@@ -97,6 +97,9 @@ Once all inputs gathered, create/update these files in the launch folder:
 
 ## Key Principles
 
+### Key message = actual marketing
+The GTM one-sentence and key messages (in marketing_brief, partner_kit, pr_brief) must be **real marketing copy**. Lead with the product/feature benefit that compels (e.g. "now live," "stake X, earn Y," "rewards in your wallet every month"). ShapeShift differentiators (no custody, privacy, no KYC) are **supporting** messages, not the default lead. If the main hook is only "keeping your keys safe" or "no custody," reframe so the lead is what the user gets or does. This applies to every protocol and feature, not just the current one.
+
 ### Timeline is never pre-baked
 Always extract timeline from the transcript. If not found, prompt for:
 - Launch date

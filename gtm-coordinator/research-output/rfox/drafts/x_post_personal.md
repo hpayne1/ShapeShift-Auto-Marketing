@@ -2,12 +2,12 @@
 
 QT the main @ShapeShift announcement with:
 
-After countless hours of coding and testing, I'm proud to see our multichain platform launch. Building a non-custodial, private system that supports over 15 blockchains was no small feat. It's rewarding to empower users with true control of their digital assets.
+Seeing rFOX go live is a proud moment. Worked hard on integrating the new protocol, focusing on seamless user experience and security. It's rewarding to see our efforts come together and I'm hoping it makes a real difference for our users. Looking forward to feedback!
 
 ---
 
 ## Copy/paste
 
 ```
-After countless hours of coding and testing, I'm proud to see our multichain platform launch. Building a non-custodial, private system that supports over 15 blockchains was no small feat. It's rewarding to empower users with true control of their digital assets.
+Seeing rFOX go live is a proud moment. Worked hard on integrating the new protocol, focusing on seamless user experience and security. It's rewarding to see our efforts come together and I'm hoping it makes a real difference for our users. Looking forward to feedback!
 ```

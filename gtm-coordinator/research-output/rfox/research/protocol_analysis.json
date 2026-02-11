@@ -1,39 +1,12 @@
 {
   "name": "rFOX",
-  "tagline": "Your multichain crypto home base.",
-  "category": "DEX, Wallet, DeFi Platform",
-  "keyFeatures": [
-    "Trade 10,000+ assets instantly",
-    "All-In-One ShapeShift DeFi wallet",
-    "Multichain support with 15+ blockchain networks",
-    "Non-custodial and private platform",
-    "Governance through FOX tokens"
-  ],
-  "targetAudience": [
-    "Crypto traders",
-    "DeFi enthusiasts",
-    "Multichain asset holders",
-    "Governance participants",
-    "Crypto investors"
-  ],
-  "valueProposition": "A community-owned, private, non-custodial, multichain platform putting you in full control of your digital assets.",
-  "technicalHighlights": [
-    "Integration with leading DEXs and aggregators for best rates",
-    "Support for 10,000+ assets",
-    "Non-custodial wallet ensuring user control over assets",
-    "FOX token governance system"
-  ],
-  "integrationOpportunities": [
-    "Integration with additional blockchain networks",
-    "Partnerships with other DeFi protocols for expanded services",
-    "Enhanced fiat on-ramp solutions",
-    "Cross-chain bridge functionalities"
-  ],
-  "risks": [
-    "Market volatility affecting asset values",
-    "Security vulnerabilities in non-custodial wallets",
-    "Regulatory changes impacting DeFi operations",
-    "Competition from other multichain platforms"
-  ],
-  "competitorComparison": "Compared to other multichain platforms like MetaMask and Trust Wallet, ShapeShift offers a unique community-owned model with a focus on privacy and non-custodial asset management, while providing a wide range of tradable assets and governance through FOX tokens."
+  "tagline": "ShapeShift You need to enable JavaScript to run this app.",
+  "category": "Unknown",
+  "keyFeatures": [],
+  "targetAudience": [],
+  "valueProposition": "Unknown",
+  "technicalHighlights": [],
+  "integrationOpportunities": [],
+  "risks": [],
+  "competitorComparison": "Unknown"
 }

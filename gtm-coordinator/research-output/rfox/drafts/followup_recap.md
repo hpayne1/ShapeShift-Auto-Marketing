@@ -4,15 +4,10 @@
 In case you missed it: rFOX is live on ShapeShift 🦊
 
 **Tweet 2:**
-What you can now swap:
-• Trade 10,000+ assets instantly
-• All-In-One ShapeShift DeFi wallet
-• Multichain support with 15+ blockchain networks
+What you can do: Stake FOX, earn USDC. Rewards paid to your wallet every month.
 
 **Tweet 3:**
-A community-owned, private, non-custodial, multichain platform putting you in full control of your digital assets.
-
-Self-custody. No KYC.
+No custody, no KYC. Your keys, your control. Get paid in USDC, not volatile reward tokens.
 
 **Tweet 4:**
 Try it: https://app.shapeshift.com/#/fox-ecosystem
@@ -30,14 +25,9 @@ Try it: https://app.shapeshift.com/#/fox-ecosystem
 
 In case you missed it: rFOX is live on ShapeShift 🦊
 
-What you can now swap:
-• Trade 10,000+ assets instantly
-• All-In-One ShapeShift DeFi wallet
-• Multichain support with 15+ blockchain networks
+What you can do: Stake FOX, earn USDC. Rewards paid to your wallet every month.
 
-A community-owned, private, non-custodial, multichain platform putting you in full control of your digital assets.
-
-Self-custody. No KYC.
+No custody, no KYC. Your keys, your control.
 
 Try it: https://app.shapeshift.com/#/fox-ecosystem
 
