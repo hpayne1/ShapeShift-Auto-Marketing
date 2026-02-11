@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShapeShift Auto-Marketing — How It Works | One-Pager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-500: #3761F9;
+      --blue-600: #2D4EC9;
+      --gray-900: #10151E;
+      --gray-800: #141A25;
+      --gray-700: #2D3748;
+      --gray-600: #4A5568;
+      --gray-500: #718096;
+      --gray-400: #A0AEC0;
+      --gray-300: #CBD5E0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.5;
+      color: var(--gray-300);
+      background: var(--gray-900);
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--gray-700);
+    }
+    h1 {
+      font-family: 'Work Sans', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+    .subtitle { color: var(--gray-500); font-size: 0.875rem; }
+    h2 {
+      font-family: 'Work Sans', system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #fff;
+      margin: 1rem 0 0.5rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 2px solid var(--blue-500);
+    }
+    .flow { font-family: ui-monospace, monospace; font-size: 0.75rem; line-height: 1.4; color: var(--gray-400); white-space: pre-wrap; margin: 0.5rem 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; margin: 0.5rem 0; }
+    th, td { text-align: left; padding: 0.375rem 0.5rem; border-bottom: 1px solid var(--gray-700); }
+    th { color: var(--gray-400); font-weight: 600; }
+    .phase { background: var(--gray-800); padding: 1rem; border-radius: 8px; margin: 0.75rem 0; }
+    .phase-title { font-weight: 600; color: var(--blue-500); margin-bottom: 0.5rem; }
+    ul { margin: 0.25rem 0 0.5rem 1.25rem; font-size: 0.875rem; }
+    .print-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--blue-500);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+    .print-btn:hover { background: var(--blue-600); }
+    @media print {
+      body { padding: 0; }
+      .print-btn { display: none; }
+      .phase { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <div class="header">
+    <h1>ShapeShift Auto-Marketing — How It Works</h1>
+    <p class="subtitle">One-pager: workflow, skills, and links</p>
+  </div>
+
+  <h2>Workflow Tree</h2>
+  <div class="flow">Phase 1: PLANNING
+    gtm-workshop → PR link, protocol URLs (website, Twitter, Farcaster), transcript
+
+Phase 2: GENERATE
+    gtm full-packet --protocol &lt;Name&gt; --url &lt;URL&gt; [--pr &lt;PR&gt;] [--protocol-twitter &lt;X&gt;] [--protocol-farcaster &lt;FC&gt;]
+
+Phase 3: GAP RESOLUTION
+    gtm-gap-auditor → gtm-questionnaire-generator → product fills form → gtm-questionnaire-merger
+
+Phase 4: FINAL CHECK & LAUNCH
+    gtm-final-check → Execute (checklist)</div>
+
+  <h2>Skills Quick Reference</h2>
+  <table>
+    <tr><th>Skill</th><th>Where</th><th>When to Use</th></tr>
+    <tr><td>gtm-workshop</td><td>Cursor</td><td>Start of launch; have PR, URLs, transcript</td></tr>
+    <tr><td>gtm-pr-extractor</td><td>CLI (via --pr)</td><td>When you have a PR URL</td></tr>
+    <tr><td>gtm-protocol-enricher</td><td>CLI (via flags)</td><td>When you have Twitter/Farcaster</td></tr>
+    <tr><td>gtm-gap-auditor</td><td>Cursor</td><td>After full-packet</td></tr>
+    <tr><td>gtm-questionnaire-generator</td><td>Cursor</td><td>After gap audit</td></tr>
+    <tr><td>gtm-questionnaire-merger</td><td>Cursor</td><td>After product fills form</td></tr>
+    <tr><td>gtm-final-check</td><td>Cursor</td><td>Before launch</td></tr>
+  </table>
+
+  <h2>Source of Truth</h2>
+  <table>
+    <tr><th>Source</th><th>Role</th></tr>
+    <tr><td>PR (ShapeShift GitHub)</td><td>Primary — what shipped</td></tr>
+    <tr><td>Protocol URLs</td><td>Enrichment — branding, tone</td></tr>
+  </table>
+
+  <h2>Prerequisites</h2>
+  <ul>
+    <li>GTM Coordinator: <code>cd gtm-coordinator && npm install && npm link</code></li>
+    <li>Brand: <code>brand/voice.md</code>, <code>brand/dos-and-donts.md</code></li>
+    <li>OPENAI_API_KEY (for full-packet)</li>
+    <li>GITHUB_TOKEN (optional; private PRs)</li>
+    <li>Cursor (for skills)</li>
+  </ul>
+
+  <h2>Minimal Path (30 min)</h2>
+  <ol>
+    <li>Planning: PR link + protocol URL</li>
+    <li>Generate: <code>gtm full-packet --protocol &lt;Name&gt; --url &lt;URL&gt; --pr &lt;PR&gt;</code></li>
+    <li>Final check: gtm-final-check skill</li>
+    <li>Execute: checklist Day 0</li>
+  </ol>
+
+  <h2>Links (relative to repo root)</h2>
+  <ul>
+    <li>START-HERE.md</li>
+    <li>gtm-coordinator/docs/GTM-SKILLS-SPEC.md</li>
+    <li>gtm-coordinator/docs/marketing-release-process.md</li>
+    <li>GETTING-STARTED.md</li>
+    <li>.cursor/skills/gtm-*/SKILL.md</li>
+  </ul>
+</body>
+</html>

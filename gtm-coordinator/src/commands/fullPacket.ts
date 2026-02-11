@@ -4,6 +4,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { generateFullPacket, type FullPacketOptions } from '../lib/fullPacketGenerator.js';
 import { fetchWebsiteContent } from '../lib/webFetch.js';
+import { extractPr, type PRExtraction } from '../lib/prExtractor.js';
+import { enrichProtocol, type ProtocolEnrichment } from '../lib/protocolEnricher.js';
 
 function ensureDir(dir: string): void {
   if (!fs.existsSync(dir)) {
@@ -30,6 +32,9 @@ export const fullPacketCommand = new Command('full-packet')
   .description('Generate a complete GTM packet with all materials (v2)')
   .requiredOption('--protocol <name>', 'Protocol name (e.g., "Yield.xyz" or "rFOX")')
   .requiredOption('--url <url>', 'Protocol website URL')
+  .option('--pr <url>', 'ShapeShift GitHub PR URL (source of truth for what shipped)')
+  .option('--protocol-twitter <url>', 'Protocol Twitter/X URL (for branding, tone)')
+  .option('--protocol-farcaster <url>', 'Protocol Farcaster URL (for branding, tone)')
   .option('--tier <tier>', 'Tier level (0, 1, or 2)', '1')
   .option('--output <dir>', 'Output directory')
   .option('--campaign-type <type>', 'Launch type: integration (external protocol) or program (ShapeShift product)', 'integration')
@@ -39,7 +44,7 @@ export const fullPacketCommand = new Command('full-packet')
   .option('--calendar-weeks <n>', 'Number of weeks for content calendar', '4')
   .option('--seo-count <n>', 'Number of SEO articles to generate', '1')
   .action(async (options) => {
-    const { protocol, url, tier, output, campaignType, contextUrl, contextFile, cta, calendarWeeks, seoCount } = options;
+    const { protocol, url, tier, output, campaignType, contextUrl, contextFile, cta, calendarWeeks, seoCount, pr: prUrl, protocolTwitter, protocolFarcaster } = options;
     const tierNum = parseInt(tier, 10);
 
     // Validate URL
@@ -64,6 +69,9 @@ export const fullPacketCommand = new Command('full-packet')
     console.log(chalk.gray(`URL: ${url}`));
     console.log(chalk.gray(`Tier: ${tierNum}`));
     console.log(chalk.gray(`Campaign type: ${campaignType}`));
+    if (prUrl) console.log(chalk.gray(`PR (source of truth): ${prUrl}`));
+    if (protocolTwitter) console.log(chalk.gray(`Protocol Twitter: ${protocolTwitter}`));
+    if (protocolFarcaster) console.log(chalk.gray(`Protocol Farcaster: ${protocolFarcaster}`));
     if (contextUrls.length) console.log(chalk.gray(`Context URLs: ${contextUrls.join(', ')}`));
     if (contextFiles.length) console.log(chalk.gray(`Context files: ${contextFiles.join(', ')}`));
     if (cta) console.log(chalk.gray(`CTA: ${cta}`));
@@ -72,8 +80,72 @@ export const fullPacketCommand = new Command('full-packet')
     try {
       const startTime = Date.now();
 
-      // Build context content from URLs and files
+      // PR extraction (source of truth)
+      let prExtraction: PRExtraction | undefined;
+      if (prUrl) {
+        console.log(chalk.cyan('  → Extracting PR (source of truth)...'));
+        try {
+          prExtraction = await extractPr(prUrl);
+          console.log(chalk.gray(`    PR: ${prExtraction.title}`));
+        } catch (e) {
+          console.warn(chalk.yellow(`  ⚠ PR extraction failed: ${(e as Error).message}`));
+        }
+      }
+
+      // Protocol enrichment (website + Twitter + Farcaster)
+      let protocolEnrichment: ProtocolEnrichment | undefined;
+      if (protocolTwitter || protocolFarcaster) {
+        console.log(chalk.cyan('  → Enriching from protocol social...'));
+        try {
+          protocolEnrichment = await enrichProtocol({
+            websiteUrl: url,
+            twitterUrl: protocolTwitter,
+            farcasterUrl: protocolFarcaster,
+          });
+          if (protocolEnrichment.twitter) console.log(chalk.gray('    Twitter: OK'));
+          if (protocolEnrichment.farcaster) console.log(chalk.gray('    Farcaster: OK'));
+        } catch (e) {
+          console.warn(chalk.yellow(`  ⚠ Protocol enrichment failed: ${(e as Error).message}`));
+        }
+      }
+
+      // Build context content from PR, enrichment, URLs and files
       let contextContent = '';
+      if (prExtraction) {
+        contextContent += `
+## PR (Source of Truth: ${prExtraction.url})
+
+**Title:** ${prExtraction.title}
+
+**Feature Summary:** ${prExtraction.featureSummary}
+
+**Description:**
+${prExtraction.description || '(none)'}
+
+**Files Changed:** ${prExtraction.filesChanged.join(', ') || '(none)'}
+**Labels:** ${prExtraction.labels.join(', ') || '(none)'}
+`;
+      }
+      if (protocolEnrichment?.website) {
+        contextContent += `
+## Protocol Website Enrichment
+**Tagline:** ${protocolEnrichment.website.tagline || '(none)'}
+**Hero:** ${protocolEnrichment.website.heroCopy || '(none)'}
+**Terminology:** ${protocolEnrichment.website.terminology?.join(', ') || '(none)'}
+`;
+      }
+      if (protocolEnrichment?.twitter) {
+        contextContent += `
+## Protocol Twitter Tone / Recent Posts
+${protocolEnrichment.twitter.recentPosts?.slice(0, 5).map((p) => `- ${p}`).join('\n') || '(none)'}
+`;
+      }
+      if (protocolEnrichment?.farcaster) {
+        contextContent += `
+## Protocol Farcaster Tone / Recent Casts
+${protocolEnrichment.farcaster.recentCasts?.slice(0, 5).map((c) => `- ${c}`).join('\n') || '(none)'}
+`;
+      }
       for (const u of contextUrls) {
         try {
           const { content } = await fetchWebsiteContent(u);
@@ -131,8 +203,19 @@ export const fullPacketCommand = new Command('full-packet')
       console.log(chalk.gray('  → marketing_brief.md'));
 
       // Research
-      fs.writeFileSync(path.join(outputDir, 'research', 'protocol_analysis.json'), JSON.stringify(results.protocol, null, 2));
+      const protocolWithSource = prExtraction
+        ? { ...results.protocol, sourceOfTruth: prExtraction.url }
+        : results.protocol;
+      fs.writeFileSync(path.join(outputDir, 'research', 'protocol_analysis.json'), JSON.stringify(protocolWithSource, null, 2));
       console.log(chalk.gray('  → research/protocol_analysis.json'));
+      if (prExtraction) {
+        fs.writeFileSync(path.join(outputDir, 'research', 'pr_extraction.json'), JSON.stringify(prExtraction, null, 2));
+        console.log(chalk.gray('  → research/pr_extraction.json'));
+      }
+      if (protocolEnrichment && (protocolEnrichment.twitter || protocolEnrichment.farcaster || protocolEnrichment.website)) {
+        fs.writeFileSync(path.join(outputDir, 'research', 'protocol_enrichment.json'), JSON.stringify(protocolEnrichment, null, 2));
+        console.log(chalk.gray('  → research/protocol_enrichment.json'));
+      }
 
       // Drafts - Main account
       {

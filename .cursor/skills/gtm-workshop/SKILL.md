@@ -1,36 +1,54 @@
 ---
 name: gtm-workshop
-description: Workshop a GTM (go-to-market) launch plan from a call transcript or notes. Use when the user has a partner call transcript, meeting notes, or wants to plan a product launch, integration announcement, or co-marketing campaign.
+description: Workshop a GTM (go-to-market) launch plan from a call transcript or notes. Use when the user has a partner call transcript, meeting notes, a PR link, or wants to plan a product launch, integration announcement, or co-marketing campaign.
 ---
 
 # GTM Workshop
 
-Guide the user through creating a complete GTM launch plan from a call transcript or meeting notes.
+Guide the user through creating a complete GTM launch plan from a call transcript, meeting notes, and/or PR + protocol URLs. Can run with PR only (no transcript), transcript only, or both.
 
 ## When to Use
 
 - User provides a call transcript with a partner
 - User has meeting notes about a launch
+- User provides a PR link (ShapeShift GitHub) for the feature
+- User provides protocol URLs (website, Twitter, Farcaster) for branding
 - User wants to plan a product/integration announcement
 - User mentions "GTM", "launch plan", "partner brief", or "co-marketing"
 
+## Inputs (Accepted in Any Combination)
+
+| Input | Required | Purpose |
+|-------|----------|---------|
+| **PR link** | Recommended (source of truth) | ShapeShift GitHub PR for the feature; defines what shipped |
+| **Transcript / notes** | No | Partner call transcript or meeting notes |
+| **Protocol website URL** | No (enrichment) | For branding, messaging, terminology |
+| **Protocol Twitter URL** | No (enrichment) | For tone, CTAs, what works |
+| **Protocol Farcaster URL** | No (enrichment) | For Farcaster-specific tone and formats |
+
+**PR is the main source of truth.** Protocol URLs are enrichment only—they help align how we talk about the protocol with how they market themselves.
+
 ## Workflow
 
-1. **Receive input** - User provides transcript (pasted or file) or meeting notes
-2. **Extract decisions** - Parse for key launch parameters (see extraction schema)
+1. **Receive input** - User provides transcript (pasted or file), PR link, and/or protocol URLs
+2. **Extract decisions** - Parse transcript for launch parameters; invoke gtm-pr-extractor if PR provided; invoke gtm-protocol-enricher if protocol URLs provided
 3. **Identify gaps** - Check what's missing from the extraction
 4. **Ask questions** - Use the question bank to fill gaps
-5. **Generate outputs** - Create/update GTM materials
+5. **Generate outputs** - Create/update GTM materials; pass extraction + gap list to gtm-full-packet for downstream generation
 
 ## Step 1: Receive Input
 
 Accept input in any form:
+- **PR link** — `https://github.com/shapeshift/foo/pull/123` (primary source of truth)
+- **Protocol URLs** — website, Twitter, Farcaster (for branding/tone)
 - Pasted transcript in chat
 - File path to a transcript (txt/md)
 - Bullet points or notes
 
+Can run with PR only (no transcript), transcript only, or both. If PR provided, invoke gtm-pr-extractor. If protocol URLs provided, invoke gtm-protocol-enricher.
+
 If no input provided, ask:
-> "Please paste the call transcript or meeting notes, or provide a file path."
+> "Please provide a PR link (ShapeShift GitHub), protocol URLs (website, Twitter, Farcaster), and/or paste the call transcript or meeting notes."
 
 ## Step 2: Extract Key Decisions
 
@@ -95,6 +113,8 @@ Once all inputs gathered, create/update these files in the launch folder:
 **Output location:**  
 `gtm-coordinator/research-output/{partner-slug}/`
 
+**Downstream:** Pass extraction + gap list to **gtm-full-packet** for packet generation. If PR provided, gtm-full-packet uses PR extraction as source of truth. If protocol URLs provided, gtm-full-packet uses protocol enrichment for branding and tone.
+
 ## Key Principles
 
 ### Key message = actual marketing
@@ -153,6 +173,12 @@ I'm missing:
 
 Agent: [Generates marketing_brief.md, partner_kit.md, pr_brief.md]
 ```
+
+## Related Skills
+
+- **gtm-pr-extractor** — Parse PR as source of truth (invoke when PR link provided)
+- **gtm-protocol-enricher** — Pull branding/messaging from website, Twitter, Farcaster (invoke when protocol URLs provided)
+- **gtm-full-packet** — Generate full packet from workshop outputs
 
 ## Additional Resources
 

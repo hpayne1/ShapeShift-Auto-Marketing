@@ -2,6 +2,18 @@
 
 Automated marketing orchestration for ShapeShift. From code ship to content publish.
 
+---
+
+## START HERE
+
+**New here?** Read [START-HERE.md](START-HERE.md) for the full workflow: diagram, skills tree, when and how to use each skill, and links.
+
+**One-pager:** [gtm-coordinator/docs/START-HERE.html](gtm-coordinator/docs/START-HERE.html) — open in browser, print or save as PDF.
+
+**Workflow:** Planning (gtm-workshop) → Generate (gtm full-packet) → Gap Audit → Questionnaire → Merge → Final Check → Execute
+
+---
+
 ## What Is This?
 
 An AI-powered marketing system that:
@@ -150,10 +162,16 @@ Stateless scripts that:
 
 ## Documentation
 
-- [Getting Started](./GETTING-STARTED.md) — Manual workflow guide
-- [Architecture](./worker-specs/ARCHITECTURE.md) — System design
-- [Brand Voice](./brand/voice.md) — Content guidelines
-- [GTM Coordinator](./gtm-coordinator/docs/GTM-Coordinator-Overview.md) — CLI reference
+| Doc | Purpose |
+|-----|---------|
+| **[START-HERE.md](START-HERE.md)** | Full workflow diagram, skills tree, links |
+| **[START-HERE.html](gtm-coordinator/docs/START-HERE.html)** | Printable one-pager |
+| [GTM Skills Spec](gtm-coordinator/docs/GTM-SKILLS-SPEC.md) | Master spec for all GTM skills |
+| [Marketing Release Process](gtm-coordinator/docs/marketing-release-process.md) | Step-by-step launch flow |
+| [Getting Started](GETTING-STARTED.md) | Manual workflow guide |
+| [Architecture](worker-specs/ARCHITECTURE.md) | System design |
+| [Brand Voice](brand/voice.md) | Content guidelines |
+| [GTM Coordinator Overview](gtm-coordinator/docs/GTM-Coordinator-Overview.md) | CLI reference |
 
 ## Contributing
 
