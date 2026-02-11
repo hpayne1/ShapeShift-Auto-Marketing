@@ -69,7 +69,14 @@ See individual skill files in `.cursor/skills/` for detailed specs.
 
 ---
 
+## Launch bin structure
+
+Each launch has one folder under `research-output/<launch-slug>/` (index, checklist, view.html, drafts, partner, press, etc.) plus **SHIPPED.md** to record what went out and reuse copy. See [Launch bin structure](launch-bin-structure.md).
+
+---
+
 ## Related Docs
 
 - [Marketing Release Process](marketing-release-process.md)
 - [GTM Coordinator Overview](GTM-Coordinator-Overview.md)
+- [Launch bin structure](launch-bin-structure.md)

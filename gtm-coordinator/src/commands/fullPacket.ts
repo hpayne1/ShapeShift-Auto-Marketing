@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
 import { generateFullPacket, type FullPacketOptions } from '../lib/fullPacketGenerator.js';
 import { fetchWebsiteContent } from '../lib/webFetch.js';
 import { extractPr, type PRExtraction } from '../lib/prExtractor.js';
@@ -198,6 +199,18 @@ ${protocolEnrichment.farcaster.recentCasts?.slice(0, 5).map((c) => `- ${c}`).joi
       console.log(chalk.gray('  → checklist.md'));
       fs.writeFileSync(path.join(outputDir, 'checklist.html'), results.checklistHtml);
       console.log(chalk.green('  → checklist.html') + chalk.yellow(' ← START HERE (open in browser)'));
+
+      const viewTemplatePath = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'templates', 'view.html');
+      if (fs.existsSync(viewTemplatePath)) {
+        fs.copyFileSync(viewTemplatePath, path.join(outputDir, 'view.html'));
+        console.log(chalk.gray('  → view.html'));
+      }
+
+      const shippedTemplatePath = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'templates', 'SHIPPED.md');
+      if (fs.existsSync(shippedTemplatePath)) {
+        fs.copyFileSync(shippedTemplatePath, path.join(outputDir, 'SHIPPED.md'));
+        console.log(chalk.gray('  → SHIPPED.md (fill after launch)'));
+      }
 
       fs.writeFileSync(path.join(outputDir, 'marketing_brief.md'), results.marketingBriefMarkdown);
       console.log(chalk.gray('  → marketing_brief.md'));

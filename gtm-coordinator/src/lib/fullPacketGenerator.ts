@@ -1829,9 +1829,23 @@ function generateChecklistHtml(protocolName: string, tier: number, _analysis: Pr
     a{color:var(--blue-500);text-decoration:none;}
     a:hover{text-decoration:underline;}
     strong{color:var(--gray-300);}
+    .start-bar{background:var(--gray-850);border-bottom:1px solid var(--gray-700);padding:0.5rem 2rem;font-size:0.875rem;}
+    .start-bar-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+    .start-bar span{color:var(--gray-500);}
+    .start-bar a{color:var(--blue-500);font-weight:500;}
   </style>
 </head>
 <body>
+  <div class="start-bar">
+    <div class="start-bar-inner">
+      <span>Start here:</span>
+      <a href="view.html?path=README.md#path=README.md">README</a>
+      <span>·</span>
+      <a href="index.html">Packet</a>
+      <span>·</span>
+      <a href="checklist.html">Checklist (this page)</a>
+    </div>
+  </div>
   <div class="hero">
     <div class="hero-content">
       <div class="logo-row">
@@ -2335,9 +2349,23 @@ function generateIndexHtml(
     
     a { color: var(--blue-500); text-decoration: none; }
     a:hover { text-decoration: underline; }
+    .start-bar { background: var(--gray-850); border-bottom: 1px solid var(--gray-700); padding: 0.5rem 2rem; font-size: 0.875rem; }
+    .start-bar-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .start-bar span { color: var(--gray-500); }
+    .start-bar a { color: var(--blue-500); font-weight: 500; }
   </style>
 </head>
 <body>
+  <div class="start-bar">
+    <div class="start-bar-inner">
+      <span>Start here:</span>
+      <a href="view.html?path=README.md#path=README.md">README</a>
+      <span>·</span>
+      <a href="index.html">Packet (this page)</a>
+      <span>·</span>
+      <a href="checklist.html">Checklist</a>
+    </div>
+  </div>
   <div class="hero">
     <div class="hero-content">
       <div class="logo-row">
@@ -2364,7 +2392,7 @@ function generateIndexHtml(
         <a href="checklist.html" class="cta-primary">
           Start Checklist
         </a>
-        <a href="partner/partner_kit.md" class="cta-secondary">
+        <a href="view.html?path=partner/partner_kit.md#path=partner/partner_kit.md" class="cta-secondary">
           Partner Kit
         </a>
       </div>
@@ -2400,31 +2428,31 @@ function generateIndexHtml(
 
     <h3>Social Media</h3>
     <div class="files">
-      <div class="file" onclick="window.location='drafts/x_post_main.md'">
+      <div class="file" onclick="window.location='view.html?draft=x_post_main#draft=x_post_main'">
         <div class="file-name">x_post_main.md</div>
         <div class="file-desc">Main Twitter thread (@ShapeShift)</div>
       </div>
-      <div class="file" onclick="window.location='drafts/x_post_blog.md'">
+      <div class="file" onclick="window.location='view.html?draft=x_post_blog#draft=x_post_blog'">
         <div class="file-name">x_post_blog.md</div>
         <div class="file-desc">Blog promo tweet (@ShapeShift)</div>
       </div>
-      <div class="file" onclick="window.location='drafts/x_post_personal.md'">
+      <div class="file" onclick="window.location='view.html?draft=x_post_personal#draft=x_post_personal'">
         <div class="file-name">x_post_personal.md</div>
         <div class="file-desc">Your personal QT</div>
       </div>
-      <div class="file" onclick="window.location='drafts/discord_post.md'">
+      <div class="file" onclick="window.location='view.html?draft=discord_post#draft=discord_post'">
         <div class="file-name">discord_post.md</div>
         <div class="file-desc">Discord #announcements</div>
       </div>
-      <div class="file" onclick="window.location='drafts/discord_reminder.md'">
+      <div class="file" onclick="window.location='view.html?draft=discord_reminder#draft=discord_reminder'">
         <div class="file-name">discord_reminder.md</div>
         <div class="file-desc">Discord reminder/update</div>
       </div>
-      <div class="file" onclick="window.location='drafts/blog_draft.md'">
+      <div class="file" onclick="window.location='view.html?draft=blog_draft#draft=blog_draft'">
         <div class="file-name">blog_draft.md</div>
         <div class="file-desc">Full blog for Strapi</div>
       </div>
-      <div class="file" onclick="window.location='drafts/medium_post.md'">
+      <div class="file" onclick="window.location='view.html?draft=medium_post#draft=medium_post'">
         <div class="file-name">medium_post.md</div>
         <div class="file-desc">Medium cross-post</div>
       </div>
@@ -2432,15 +2460,15 @@ function generateIndexHtml(
 
     <h3>Follow-ups (Days 1-7)</h3>
     <div class="files">
-      <div class="file" onclick="window.location='drafts/followup_educational.md'">
+      <div class="file" onclick="window.location='view.html?draft=followup_educational#draft=followup_educational'">
         <div class="file-name">followup_educational.md</div>
         <div class="file-desc">Day 1 educational thread</div>
       </div>
-      <div class="file" onclick="window.location='drafts/followup_metrics.md'">
+      <div class="file" onclick="window.location='view.html?draft=followup_metrics#draft=followup_metrics'">
         <div class="file-name">followup_metrics.md</div>
         <div class="file-desc">Day 4-6 metrics thread</div>
       </div>
-      <div class="file" onclick="window.location='drafts/followup_recap.md'">
+      <div class="file" onclick="window.location='view.html?draft=followup_recap#draft=followup_recap'">
         <div class="file-name">followup_recap.md</div>
         <div class="file-desc">Day 7 recap</div>
       </div>
@@ -2448,16 +2476,19 @@ function generateIndexHtml(
 ${extra?.seoArticles?.length ? `
     <h3>SEO Articles</h3>
     <div class="files">
-      ${extra.seoArticles.map((_, i) => `
-      <div class="file" onclick="window.location='seo/seo_article_${String(i + 1).padStart(2, '0')}.md'">
+      ${extra.seoArticles.map((_, i) => {
+        const name = `seo/seo_article_${String(i + 1).padStart(2, '0')}.md`;
+        return `
+      <div class="file" onclick="window.location='view.html?path=${encodeURIComponent(name)}#path=${encodeURIComponent(name)}'">
         <div class="file-name">seo_article_${String(i + 1).padStart(2, '0')}.md</div>
         <div class="file-desc">SEO article ${i + 1}</div>
-      </div>`).join('')}
+      </div>`;
+      }).join('')}
     </div>
 ` : ''}${extra?.contentCalendar ? `
     <h3>Content Calendar</h3>
     <div class="files">
-      <div class="file" onclick="window.location='calendar/content_calendar.md'">
+      <div class="file" onclick="window.location='view.html?path=calendar/content_calendar.md#path=calendar/content_calendar.md'">
         <div class="file-name">content_calendar.md</div>
         <div class="file-desc">4-week content calendar</div>
       </div>
@@ -2468,7 +2499,7 @@ ${extra?.seoArticles?.length ? `
     
     <h3>Partner Materials</h3>
     <div class="files">
-      <div class="file" onclick="window.location='partner/partner_kit.md'">
+      <div class="file" onclick="window.location='view.html?path=partner/partner_kit.md#path=partner/partner_kit.md'">
         <div class="file-name">partner_kit.md</div>
         <div class="file-desc">Send to ${protocolName} team</div>
       </div>
@@ -2476,19 +2507,19 @@ ${extra?.seoArticles?.length ? `
 
     <h3>Press Materials</h3>
     <div class="files">
-      <div class="file" onclick="window.location='press/press_release.md'">
+      <div class="file" onclick="window.location='view.html?path=press/press_release.md#path=press/press_release.md'">
         <div class="file-name">press_release.md</div>
         <div class="file-desc">Formal press release</div>
       </div>
-      <div class="file" onclick="window.location='press/pr_brief.md'">
+      <div class="file" onclick="window.location='view.html?path=press/pr_brief.md#path=press/pr_brief.md'">
         <div class="file-name">pr_brief.md</div>
         <div class="file-desc">Talking points</div>
       </div>
-      <div class="file" onclick="window.location='press/op_ed_political.md'">
+      <div class="file" onclick="window.location='view.html?path=press/op_ed_political.md#path=press/op_ed_political.md'">
         <div class="file-name">op_ed_political.md</div>
         <div class="file-desc">Political/regulatory angle</div>
       </div>
-      <div class="file" onclick="window.location='press/op_ed_technical.md'">
+      <div class="file" onclick="window.location='view.html?path=press/op_ed_technical.md#path=press/op_ed_technical.md'">
         <div class="file-name">op_ed_technical.md</div>
         <div class="file-desc">Technical/builder angle</div>
       </div>
@@ -2498,11 +2529,11 @@ ${extra?.seoArticles?.length ? `
     
     <h3>Design</h3>
     <div class="files">
-      <div class="file" onclick="window.location='design/design_brief.md'">
+      <div class="file" onclick="window.location='view.html?path=design/design_brief.md#path=design/design_brief.md'">
         <div class="file-name">design_brief.md</div>
         <div class="file-desc">For human designers</div>
       </div>
-      <div class="file" onclick="window.location='design/ai_prompts.txt'">
+      <div class="file" onclick="window.location='view.html?path=design/ai_prompts.txt#path=design/ai_prompts.txt'">
         <div class="file-name">ai_prompts.txt</div>
         <div class="file-desc">Midjourney/DALL-E prompts</div>
       </div>
@@ -2510,7 +2541,7 @@ ${extra?.seoArticles?.length ? `
 
     <h3>Outreach</h3>
     <div class="files">
-      <div class="file" onclick="window.location='outreach/dm_targets.md'">
+      <div class="file" onclick="window.location='view.html?path=outreach/dm_targets.md#path=outreach/dm_targets.md'">
         <div class="file-name">dm_targets.md</div>
         <div class="file-desc">Who to DM + templates</div>
       </div>

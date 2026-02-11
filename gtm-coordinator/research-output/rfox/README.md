@@ -33,3 +33,7 @@ Then open **http://localhost:8080**.
 5. **checklist.html** — Day 0–7 tasks. The **Metrics (Day 7)** table has editable "Actual" fields; values are saved in your browser.
 
 Markdown files in `drafts/`, `press/`, etc. remain the source of truth; the viewer reads them when you open a preview.
+
+## After launch
+
+Fill in **SHIPPED.md** with the launch date, links to what went live (X thread, blog, Discord, etc.), and any notes so the team can see what shipped and reuse copy later.
