@@ -6,6 +6,12 @@
 
 ---
 
+## Before You Start: New Packet?
+
+If you're generating a **new** GTM full packet (not using existing materials), fill out [research/gtm_discovery_questionnaire.md](research/gtm_discovery_questionnaire.md) first. It captures launch date, CTA URL, protocol roster by chain, campaign type, and co-marketing details.
+
+---
+
 # You Shipped Code. Now Tell People About It.
 
 You merged a PR. A feature is live. This packet helps you announce it.

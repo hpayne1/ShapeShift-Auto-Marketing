@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yield.xyz GTM Discovery Questionnaire | ShapeShift</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-500: #3761F9;
+      --blue-600: #2D4EC9;
+      --gray-900: #10151E;
+      --gray-800: #141A25;
+      --gray-700: #2D3748;
+      --gray-600: #4A5568;
+      --gray-500: #718096;
+      --gray-400: #A0AEC0;
+      --gray-300: #CBD5E0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      color: var(--gray-300);
+      background: var(--gray-900);
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .header {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--gray-700);
+    }
+    h1 {
+      font-family: 'Work Sans', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.75rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      color: var(--gray-500);
+      font-size: 0.9375rem;
+    }
+    section {
+      margin-bottom: 2.5rem;
+    }
+    h2 {
+      font-family: 'Work Sans', system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: #fff;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--blue-500);
+    }
+    h3 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--gray-400);
+      margin: 1.25rem 0 0.75rem;
+    }
+    .field {
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray-400);
+      margin-bottom: 0.375rem;
+    }
+    input[type="text"],
+    input[type="date"],
+    textarea {
+      width: 100%;
+      padding: 0.625rem 0.875rem;
+      font-family: inherit;
+      font-size: 0.9375rem;
+      color: #fff;
+      background: var(--gray-800);
+      border: 1px solid var(--gray-700);
+      border-radius: 8px;
+    }
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--gray-600);
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 120px 1fr 1fr 1fr;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .row label { margin-bottom: 0; }
+    .row span { font-size: 0.875rem; color: var(--gray-500); }
+    .checkbox-group {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .checkbox-group label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--blue-500);
+    }
+    .radio-group { margin-top: 0.5rem; }
+    .radio-group label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-right: 1.5rem;
+      cursor: pointer;
+    }
+    input[type="radio"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--blue-500);
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .actions {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--gray-700);
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    button {
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--blue-500);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--blue-600); }
+    .btn-secondary {
+      background: var(--gray-800);
+      color: var(--gray-300);
+      border: 1px solid var(--gray-700);
+    }
+    .btn-secondary:hover { border-color: var(--gray-600); }
+    .summary-box {
+      background: var(--gray-800);
+      border: 1px solid var(--gray-700);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-top: 2rem;
+      font-size: 0.875rem;
+      color: var(--gray-500);
+    }
+    @media print {
+      body { background: #fff; color: #333; }
+      .actions { display: none; }
+      input, textarea { background: #f5f5f5; color: #333; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Yield.xyz GTM Discovery Questionnaire</h1>
+    <p class="subtitle">Fill out before generating the GTM full packet. Answers will be used to create accurate, launch-ready materials.</p>
+  </div>
+
+  <form id="questionnaire">
+    <section>
+      <h2>Critical — Required for Generation</h2>
+      
+      <h3>1. Timeline and Launch Type</h3>
+      <div class="field">
+        <label for="launch-date">Launch date</label>
+        <input type="date" id="launch-date" name="launch-date" placeholder="e.g. 2026-03-15">
+      </div>
+      <div class="field">
+        <label>New launch or refresh?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="launch-type" value="new"> New launch</label>
+          <label><input type="radio" name="launch-type" value="refresh"> Refresh of existing Yield.xyz/Earn content</label>
+        </div>
+      </div>
+      <div class="field">
+        <label for="embargo">Embargo date (if press)</label>
+        <input type="text" id="embargo" name="embargo" placeholder="e.g. 2026-03-12 8:00am PT or N/A">
+      </div>
+
+      <h3>2. Scope and Protocol Roster</h3>
+      <p style="font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1rem;">Protocol(s) per chain — which do we feature for launch messaging?</p>
+      <div class="row" style="grid-template-columns: 100px 1fr 1fr 1.5fr;">
+        <span><strong>Chain</strong></span>
+        <span><strong>Primary</strong></span>
+        <span><strong>Secondary</strong></span>
+        <span><strong>Notes</strong></span>
+      </div>
+      <div class="row"><span>Ethereum</span><input type="text" name="eth-pri"><input type="text" name="eth-sec"><input type="text" name="eth-notes"></div>
+      <div class="row"><span>Arbitrum</span><input type="text" name="arb-pri"><input type="text" name="arb-sec"><input type="text" name="arb-notes"></div>
+      <div class="row"><span>Base</span><input type="text" name="base-pri"><input type="text" name="base-sec"><input type="text" name="base-notes"></div>
+      <div class="row"><span>Optimism</span><input type="text" name="op-pri"><input type="text" name="op-sec"><input type="text" name="op-notes"></div>
+      <div class="row"><span>Polygon</span><input type="text" name="poly-pri"><input type="text" name="poly-sec"><input type="text" name="poly-notes"></div>
+      <div class="row"><span>BSC</span><input type="text" name="bsc-pri"><input type="text" name="bsc-sec"><input type="text" name="bsc-notes"></div>
+      <div class="row"><span>Avalanche</span><input type="text" name="avax-pri"><input type="text" name="avax-sec"><input type="text" name="avax-notes"></div>
+      <div class="row"><span>Gnosis</span><input type="text" name="gnosis-pri"><input type="text" name="gnosis-sec"><input type="text" name="gnosis-notes"></div>
+      <div class="row"><span>Cosmos</span><input type="text" name="cosmos-pri"><input type="text" name="cosmos-sec"><input type="text" name="cosmos-notes"></div>
+      <div class="row"><span>Solana</span><input type="text" name="sol-pri"><input type="text" name="sol-sec"><input type="text" name="sol-notes"></div>
+      <div class="row"><span>Sui</span><input type="text" name="sui-pri"><input type="text" name="sui-sec"><input type="text" name="sui-notes"></div>
+      <div class="row"><span>Monad</span><input type="text" name="monad-pri"><input type="text" name="monad-sec"><input type="text" name="monad-notes"></div>
+      <div class="row"><span>Tron</span><input type="text" name="tron-pri"><input type="text" name="tron-sec"><input type="text" name="tron-notes"></div>
+      <div class="row"><span>Hyperevm</span><input type="text" name="hyper-pri"><input type="text" name="hyper-sec"><input type="text" name="hyper-notes"></div>
+      <div class="row"><span>NEAR</span><input type="text" name="near-pri"><input type="text" name="near-sec"><input type="text" name="near-notes"></div>
+      <div class="row"><span>Plasma</span><input type="text" name="plasma-pri"><input type="text" name="plasma-sec"><input type="text" name="plasma-notes"></div>
+      <div class="row"><span>Katana</span><input type="text" name="katana-pri"><input type="text" name="katana-sec"><input type="text" name="katana-notes"></div>
+      
+      <div class="field" style="margin-top: 1.25rem;">
+        <label for="lead-protocols">Lead protocols (2–3 for headlines)</label>
+        <input type="text" id="lead-protocols" name="lead-protocols" placeholder="e.g. Lido, Morpho, Kamino">
+      </div>
+      <div class="field">
+        <label for="and-more">Others as "and more"</label>
+        <input type="text" id="and-more" name="and-more" placeholder="e.g. Aave, Compound, Fluid, Venus, Gearbox">
+      </div>
+      <div class="field">
+        <label>Protocol list alignment</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="drop-old"> Drop Drift, Figment, StakeKit</label>
+          <label><input type="checkbox" name="add-new"> Add Aave, Venus, Gearbox</label>
+        </div>
+      </div>
+      <div class="field">
+        <label for="definitive-roster">Definitive roster for this launch</label>
+        <input type="text" id="definitive-roster" name="definitive-roster" placeholder="List protocols">
+      </div>
+
+      <h3>3. Conversion and CTA</h3>
+      <div class="field">
+        <label for="cta-url">CTA URL</label>
+        <input type="text" id="cta-url" name="cta-url" placeholder="e.g. app.shapeshift.com/#/earn">
+      </div>
+      <div class="field">
+        <label for="conversion-event">Conversion event</label>
+        <input type="text" id="conversion-event" name="conversion-event" placeholder="e.g. position opened, TVL, staking volume">
+      </div>
+    </section>
+
+    <section>
+      <h2>Important — Shapes Messaging and Assets</h2>
+      
+      <h3>4. Positioning and Audience</h3>
+      <div class="field">
+        <label>Primary audience</label>
+        <div class="checkbox-group">
+          <label><input type="radio" name="audience" value="defi"> DeFi power users</label>
+          <label><input type="radio" name="audience" value="yield"> Yield seekers</label>
+          <label><input type="radio" name="audience" value="new"> New-to-yield</label>
+          <label><input type="radio" name="audience" value="other"> Other</label>
+        </div>
+        <input type="text" id="audience-other" name="audience-other" placeholder="Specify audience" class="other-input" style="display:none; margin-top: 0.5rem;">
+      </div>
+      <div class="field">
+        <label>Lead value prop</label>
+        <div class="checkbox-group">
+          <label><input type="radio" name="valueprop" value="earn"> "Earn on assets you have"</label>
+          <label><input type="radio" name="valueprop" value="move"> "Move assets into yield"</label>
+          <label><input type="radio" name="valueprop" value="both"> Both equally</label>
+          <label><input type="radio" name="valueprop" value="other"> Other</label>
+        </div>
+        <input type="text" id="valueprop-other" name="valueprop-other" placeholder="Specify value prop" class="other-input" style="display:none; margin-top: 0.5rem;">
+      </div>
+      <div class="field">
+        <label for="differentiation">Differentiation vs. Yearn, Beefy, Zapper</label>
+        <textarea id="differentiation" name="differentiation" placeholder="Describe"></textarea>
+      </div>
+
+      <h3>5. Partner and Co-Marketing</h3>
+      <div class="field">
+        <label for="comarketing">Co-marketing protocols</label>
+        <input type="text" id="comarketing" name="comarketing" placeholder="e.g. Lido, Morpho, Kamino">
+      </div>
+      <div class="field">
+        <label><input type="checkbox" name="wallet-criteria"> Target wallets that do NOT already offer native staking/earn (WalletConnect or ShapeShift-supported)</label>
+      </div>
+
+      <h3>6. Campaign Type</h3>
+      <div class="field">
+        <div class="radio-group">
+          <label><input type="radio" name="campaign-type" value="integration"> Integration (external Yield.xyz)</label>
+          <label><input type="radio" name="campaign-type" value="program"> Program (ShapeShift-owned product like rFOX)</label>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Helpful — Optional but Improves Quality</h2>
+      
+      <h3>7. Assets and Approval</h3>
+      <div class="field">
+        <label for="asset-approval">Asset approval date</label>
+        <input type="date" id="asset-approval" name="asset-approval">
+      </div>
+      <div class="field">
+        <label for="scope-lock">Scope lock date</label>
+        <input type="date" id="scope-lock" name="scope-lock">
+      </div>
+
+      <h3>8. Output Location</h3>
+      <div class="field">
+        <label>Folder choice</label>
+        <div class="radio-group">
+          <label><input type="radio" name="folder" value="yield-xyz"> yield-xyz</label>
+          <label><input type="radio" name="folder" value="yield.xyz"> yield.xyz</label>
+          <label><input type="radio" name="folder" value="new"> New slug:</label>
+          <input type="text" name="folder-new" placeholder="e.g. yield-earn-2026" style="width: 180px; display: inline-block;">
+        </div>
+      </div>
+    </section>
+
+    <div class="summary-box">
+      <strong>Minimum to proceed:</strong> Launch date, CTA URL, protocol roster by chain, campaign type, co-marketing protocols (if any).
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn-primary" id="copy-btn">Copy responses (return via email/paste)</button>
+      <button type="button" class="btn-secondary" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+  </form>
+
+  <script>
+    // Show/hide "Other" text inputs when selected
+    function initOtherInputs() {
+      const pairs = [
+        { radios: document.querySelectorAll('input[name="audience"]'), input: document.getElementById('audience-other') },
+        { radios: document.querySelectorAll('input[name="valueprop"]'), input: document.getElementById('valueprop-other') }
+      ];
+      pairs.forEach(function(p) {
+        p.radios.forEach(function(r) {
+          r.addEventListener('change', function() {
+            p.input.style.display = r.value === 'other' ? 'block' : 'none';
+            if (r.value !== 'other') p.input.value = '';
+          });
+        });
+        const checked = document.querySelector('input[name="' + p.radios[0].name + '"]:checked');
+        if (checked && checked.value === 'other') p.input.style.display = 'block';
+      });
+    }
+    initOtherInputs();
+
+    document.getElementById('copy-btn').addEventListener('click', function() {
+      const form = document.getElementById('questionnaire');
+      const parts = [];
+      
+      function add(label, value) {
+        if (value) parts.push(label + ': ' + value);
+      }
+      function getRadio(name) {
+        const el = form.querySelector('input[name="' + name + '"]:checked');
+        return el ? el.value : '';
+      }
+      function getCheckbox(name) {
+        return form.querySelector('input[name="' + name + '"]')?.checked ? 'Yes' : '';
+      }
+      
+      parts.push('=== YIELD.XYZ GTM DISCOVERY QUESTIONNAIRE ===\n');
+      parts.push('--- Critical ---');
+      add('Launch date', document.getElementById('launch-date')?.value);
+      add('Launch type', getRadio('launch-type'));
+      add('Embargo date', document.getElementById('embargo')?.value);
+      add('CTA URL', document.getElementById('cta-url')?.value);
+      add('Conversion event', document.getElementById('conversion-event')?.value);
+      add('Lead protocols', document.getElementById('lead-protocols')?.value);
+      add('Others (and more)', document.getElementById('and-more')?.value);
+      add('Definitive roster', document.getElementById('definitive-roster')?.value);
+      add('Campaign type', getRadio('campaign-type'));
+      add('Co-marketing protocols', document.getElementById('comarketing')?.value);
+      add('Primary audience', getRadio('audience') === 'other' ? (document.getElementById('audience-other')?.value || 'Other') : getRadio('audience'));
+      add('Lead value prop', getRadio('valueprop') === 'other' ? (document.getElementById('valueprop-other')?.value || 'Other') : getRadio('valueprop'));
+      add('Differentiation', document.getElementById('differentiation')?.value);
+      add('Wallet partner criteria', getCheckbox('wallet-criteria'));
+      add('Asset approval date', document.getElementById('asset-approval')?.value);
+      add('Scope lock date', document.getElementById('scope-lock')?.value);
+      add('Folder choice', getRadio('folder') === 'new' ? document.querySelector('input[name="folder-new"]')?.value : getRadio('folder'));
+      
+      parts.push('\n--- Protocol roster by chain ---');
+      const chains = ['Ethereum','Arbitrum','Base','Optimism','Polygon','BSC','Avalanche','Gnosis','Cosmos','Solana','Sui','Monad','Tron','Hyperevm','NEAR','Plasma','Katana'];
+      const ids = ['eth','arb','base','op','poly','bsc','avax','gnosis','cosmos','sol','sui','monad','tron','hyper','near','plasma','katana'];
+      chains.forEach((c, i) => {
+        const pri = document.querySelector(`input[name="${ids[i]}-pri"]`)?.value;
+        const sec = document.querySelector(`input[name="${ids[i]}-sec"]`)?.value;
+        const notes = document.querySelector(`input[name="${ids[i]}-notes"]`)?.value;
+        if (pri || sec || notes) parts.push(c + ': ' + [pri, sec, notes].filter(Boolean).join(' | '));
+      });
+      
+      const text = parts.join('\n');
+      navigator.clipboard.writeText(text).then(() => {
+        this.textContent = 'Copied to clipboard!';
+        setTimeout(() => { this.textContent = 'Copy responses (return via email/paste)'; }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>
