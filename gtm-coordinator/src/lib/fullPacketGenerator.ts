@@ -1,5 +1,5 @@
 import { generateContent, generateJSON } from './openai.js';
-import { fetchWebsiteContent } from './webFetch.js';
+import { fetchWebsiteContent, searchWeb, type WebSearchResult } from './webFetch.js';
 
 // ============================================================================
 // SHAPESHIFT CONTEXT
@@ -97,6 +97,65 @@ function getProtocolContext(category: string): ProtocolContext {
   };
 }
 
+function truncate(text: string, maxChars: number): string {
+  if (text.length <= maxChars) return text;
+  return text.slice(0, maxChars).trimEnd() + '...';
+}
+
+async function buildCurrentEventsContext(
+  kind: 'political' | 'technical',
+  protocolName: string,
+  analysis: ProtocolAnalysis
+): Promise<string> {
+  const category = analysis.category || 'DeFi';
+  const query =
+    kind === 'political'
+      ? `${category} crypto regulation self custody policy enforcement 2026`
+      : `${category} DeFi technical security infrastructure scaling interoperability 2026`;
+
+  try {
+    const results = await searchWeb(query, 5);
+    const top = results.slice(0, 3);
+    if (!top.length) return '';
+
+    const pages = await Promise.all(
+      top.map(async (r: WebSearchResult) => {
+        try {
+          const page = await fetchWebsiteContent(r.url);
+          return {
+            title: page.title || r.title,
+            url: page.url || r.url,
+            snippet: r.snippet || page.description,
+          };
+        } catch {
+          return {
+            title: r.title,
+            url: r.url,
+            snippet: r.snippet,
+          };
+        }
+      })
+    );
+
+    const header =
+      kind === 'political'
+        ? `## Recent political/regulatory context (web)\nUse these as hook ideas; do not invent other events.`
+        : `## Recent technical context (web)\nUse these as hook ideas; do not invent other events.`;
+
+    const body = pages
+      .map((p, i) => {
+        const sn = p.snippet ? truncate(p.snippet, 240) : '';
+        return `- ${i + 1}. ${truncate(p.title || `${protocolName} context`, 120)}\n  - URL: ${p.url}\n  - Snippet: ${sn || '[no snippet]'}\n`;
+      })
+      .join('\n');
+
+    return truncate(`${header}\n\n${body}`, 1800);
+  } catch {
+    // Search can fail due to network restrictions or upstream changes; op-eds should still generate.
+    return '';
+  }
+}
+
 const CUSTOMER_PROFILE = `
 ## ShapeShift Customer Profile
 
@@ -118,6 +177,20 @@ const CUSTOMER_PROFILE = `
 4. **Privacy-Conscious Users** - Users prioritizing financial sovereignty
    - Avoids KYC platforms
    - Messaging: "No KYC. No custody. No compromise."
+`;
+
+/** Program-mode constraints for rFOX (updated wiki Feb 2026) — inject when campaignType=program and protocol is rFOX */
+const PROGRAM_RFOX_CONTEXT = `
+**rFOX-SPECIFIC CONSTRAINTS (MUST FOLLOW):**
+- Rewards are USDC (revenue share), NOT RUNE. Do NOT mention RUNE rewards or THORChain address for rewards.
+- LP staking is NO LONGER supported. FOX-only staking. Instruct anyone with LP positions to unstake and move to FOX.
+- Distribution is off-chain by DAO multisig, paid as USDC to staker's wallet.
+- Do NOT promise APY or specific returns.
+
+**rFOX MESSAGING (for Marketing Brief and key messages):**
+- GTM one-sentence MUST be about rFOX: start with "rFOX" (e.g. "rFOX lets you stake FOX and earn USDC"). Do NOT lead with "ShapeShift lets you..." for the one-liner.
+- Primary message / marketing brief: include launch framing (e.g. "rFOX is now live" or "rFOX is your place to stake FOX and earn USDC").
+- Emphasize rFOX as the place to earn: in target audience, problem we're solving, aha moment, and key messages, highlight stake FOX → earn USDC.
 `;
 
 // ============================================================================
@@ -184,6 +257,20 @@ interface WildCardIdea {
   howToExecute: string;
 }
 
+/** Options for full-packet generation */
+export interface FullPacketOptions {
+  /** Additional context content (from --context-url or --context-file) merged with website content */
+  contextContent?: string;
+  /** Launch type: integration (external protocol) or program (ShapeShift product like rFOX) */
+  campaignType?: 'integration' | 'program';
+  /** Primary CTA URL (e.g. app.shapeshift.com/#/fox-ecosystem) */
+  ctaUrl?: string;
+  /** Number of weeks for content calendar */
+  calendarWeeks?: number;
+  /** Number of SEO articles to generate */
+  seoCount?: number;
+}
+
 export interface FullPacketResults {
   protocol: ProtocolAnalysis;
   marketingBrief: MarketingBrief;
@@ -191,8 +278,10 @@ export interface FullPacketResults {
   content: {
     // From @ShapeShift main
     xPostMain: string;
+    xPostBlog: string;
     infoBotQT: string;
     discordPost: string;
+    discordReminder: string;
     farcasterPost: string;
     followupEducational: string;
     followupMetrics: string;
@@ -202,6 +291,7 @@ export interface FullPacketResults {
     personalWalkthrough: string;
     // Blog
     blogDraft: string;
+    mediumPost: string;
     // Supporting
     userGuide: string;
     releaseNotes: string;
@@ -217,17 +307,32 @@ export interface FullPacketResults {
   aiPrompts: string;
   checklist: string;
   indexHtml: string;
+  seoArticles: string[];
+  contentCalendar: string;
 }
 
 // ============================================================================
 // GENERATORS
 // ============================================================================
 
+function getCampaignWording(opts?: FullPacketOptions, protocolName?: string): { noun: string; verb: string; tagLine: string } {
+  const isProgram = opts?.campaignType === 'program';
+  const isRfox = protocolName ? /rfox/i.test(protocolName) : false;
+  if (isProgram) {
+    return {
+      noun: 'program',
+      verb: 'program',
+      tagLine: isRfox ? 'Stake FOX. Earn USDC.' : `${protocolName} on ShapeShift`,
+    };
+  }
+  return { noun: 'integration', verb: 'integration', tagLine: `${protocolName} integration` };
+}
+
 async function analyzeProtocol(protocolName: string, websiteContent: string): Promise<ProtocolAnalysis> {
   const systemPrompt = `You are a DeFi protocol analyst. Analyze the provided website content and extract key information.`;
 
   const userPrompt = `
-Analyze this DeFi protocol and provide a structured analysis:
+Analyze this DeFi protocol or product and provide a structured analysis:
 
 Protocol Name: ${protocolName}
 
@@ -250,16 +355,22 @@ Provide analysis as JSON with these fields:
   return generateJSON<ProtocolAnalysis>(systemPrompt, userPrompt, { temperature: 0.3 });
 }
 
-async function generateMarketingBrief(protocolName: string, analysis: ProtocolAnalysis): Promise<MarketingBrief> {
+async function generateMarketingBrief(protocolName: string, analysis: ProtocolAnalysis, opts?: FullPacketOptions): Promise<MarketingBrief> {
+  const w = getCampaignWording(opts, protocolName);
+  const programContext = opts?.campaignType === 'program' && /rfox/i.test(protocolName) ? PROGRAM_RFOX_CONTEXT : '';
   const systemPrompt = `You are a marketing strategist creating a GTM brief for ShapeShift DAO.
 ${SHAPESHIFT_BRAND_CONTEXT}
-${CUSTOMER_PROFILE}`;
+${CUSTOMER_PROFILE}
+${programContext}`;
 
+  const isRfoxProgram = opts?.campaignType === 'program' && /rfox/i.test(protocolName);
   const userPrompt = `
-Create a Marketing Brief for ShapeShift's integration with ${protocolName}.
+Create a Marketing Brief for ShapeShift's ${w.noun} ${protocolName}.
 
 Protocol Analysis:
 ${JSON.stringify(analysis, null, 2)}
+${isRfoxProgram ? `
+For rFOX program: The GTM one-sentence MUST start with "rFOX" (e.g. "rFOX lets you stake FOX and earn USDC"). The primary message MUST include launch framing like "rFOX is now live" and position rFOX as the place to stake FOX and earn USDC.` : ''}
 
 Answer these questions in PLAIN LANGUAGE (no marketing jargon):
 
@@ -286,11 +397,18 @@ Respond in JSON matching this structure:
   return generateJSON<MarketingBrief>(systemPrompt, userPrompt, { temperature: 0.5 });
 }
 
-async function generateMainTwitterThread(protocolName: string, analysis: ProtocolAnalysis, brief: MarketingBrief): Promise<string> {
+async function generateMainTwitterThread(protocolName: string, analysis: ProtocolAnalysis, brief: MarketingBrief, opts?: FullPacketOptions): Promise<string> {
   const protocolContext = getProtocolContext(analysis.category);
+  const w = getCampaignWording(opts, protocolName);
+  const programContext = opts?.campaignType === 'program' && /rfox/i.test(protocolName) ? PROGRAM_RFOX_CONTEXT : '';
+  const cta = opts?.ctaUrl || 'app.shapeshift.com';
+  const tagLine = opts?.campaignType === 'program'
+    ? '5. Optional 🦊 (do NOT tag external protocol)'
+    : `5. Tag @${protocolName.replace(/\s+/g, '').replace(/\./g, '_')}, optional 🦊`;
   
   const systemPrompt = `You are writing for @ShapeShift's main Twitter account.
 ${SHAPESHIFT_BRAND_CONTEXT}
+${programContext}
 
 CRITICAL - You MUST follow these rules:
 - NO hashtags at all
@@ -301,12 +419,13 @@ CRITICAL - You MUST follow these rules:
 - This is a ${protocolContext.category} protocol - use "${protocolContext.actionVerb}" not "swap"`;
 
   const userPrompt = `
-Create a Twitter thread from @ShapeShift announcing the ${protocolName} integration.
+Create a Twitter thread from @ShapeShift announcing the ${protocolName} ${w.noun}.
 
 PROTOCOL TYPE: ${protocolContext.category} (primary action: ${protocolContext.primaryAction})
 Key Message: ${brief.keyMessages.primary}
 Value Prop: ${analysis.valueProposition}
 Target: ${brief.targetAudience.who}
+CTA: ${cta}
 
 STRICT RULES:
 - NO hashtags
@@ -321,8 +440,8 @@ Generate a 4-5 tweet thread:
 1. Question hook about the user benefit
 2. What users can now do (specific)
 3. Why it matters (self-custody angle)
-4. How to try it (direct CTA)
-5. Tag @${protocolName.replace(/\s+/g, '').replace('.', '_')}, optional 🦊
+4. How to try it (direct CTA - use ${cta})
+${tagLine}
 
 Format as:
 **Tweet 1:**
@@ -336,7 +455,83 @@ Format as:
   return generateContent(systemPrompt, userPrompt, { temperature: 0.7 });
 }
 
-async function generatePersonalTwitterPost(protocolName: string, analysis: ProtocolAnalysis): Promise<string> {
+async function generateXBlogPromoTweet(
+  protocolName: string,
+  analysis: ProtocolAnalysis,
+  brief: MarketingBrief,
+  opts?: FullPacketOptions
+): Promise<string> {
+  const protocolContext = getProtocolContext(analysis.category);
+  const programContext = opts?.campaignType === 'program' && /rfox/i.test(protocolName) ? PROGRAM_RFOX_CONTEXT : '';
+
+  const systemPrompt = `You are writing for @ShapeShift's main Twitter account.
+${SHAPESHIFT_BRAND_CONTEXT}
+${programContext}
+
+CRITICAL:
+- One tweet only (no thread)
+- NO hashtags
+- NO emojis except 🦊 (optional, max 1)
+- NO banned phrases (thrilled, excited, game-changer, revolutionary, unlock, seamlessly)
+- Use "${protocolContext.actionVerb}" not "swap" when appropriate`;
+
+  const userPrompt = `
+Write a single tweet that promotes the launch blog post for ${protocolName}.
+
+Key message: ${brief.keyMessages.primary}
+Value prop: ${analysis.valueProposition}
+
+Rules:
+- Under 280 characters
+- Include placeholder [BLOG LINK] (do NOT invent a URL)
+- Clear CTA to read
+
+Format: Just the tweet text
+`;
+
+  return generateContent(systemPrompt, userPrompt, { temperature: 0.6 });
+}
+
+async function generateDiscordReminder(
+  protocolName: string,
+  analysis: ProtocolAnalysis,
+  brief: MarketingBrief,
+  opts?: FullPacketOptions
+): Promise<string> {
+  const protocolContext = getProtocolContext(analysis.category);
+  const w = getCampaignWording(opts, protocolName);
+  const programContext = opts?.campaignType === 'program' && /rfox/i.test(protocolName) ? PROGRAM_RFOX_CONTEXT : '';
+  const cta = opts?.ctaUrl || 'app.shapeshift.com';
+
+  const systemPrompt = `You are writing a Discord reminder post for ShapeShift's community.
+${SHAPESHIFT_BRAND_CONTEXT}
+${programContext}
+
+Discord allows slightly more casual tone but still professional.
+NO hashtags. Only 🦊 emoji allowed (use once in headline).`;
+
+  const userPrompt = `
+Write a short Discord #announcements reminder about the ${protocolName} ${w.noun}.
+
+Protocol type: ${protocolContext.category}
+Key message: ${brief.keyMessages.primary}
+CTA: ${cta}
+
+Requirements:
+- Keep it short (max ~900 characters)
+- Include: Hook/theme (1 line), CTA (1 line), and suggested copy that can be pasted as-is
+- Include placeholder [X THREAD LINK] for the main X thread
+- Ask for feedback/questions at the end
+- Only 🦊 emoji allowed (headline only)
+- Use "${protocolContext.actionVerb}" not "swap" (this is a ${protocolContext.category} protocol)
+
+Format: Just the Discord message text (no markdown headings like \"#\")
+`;
+
+  return generateContent(systemPrompt, userPrompt, { temperature: 0.6 });
+}
+
+async function generatePersonalTwitterPost(protocolName: string, analysis: ProtocolAnalysis, _opts?: FullPacketOptions): Promise<string> {
   const protocolContext = getProtocolContext(analysis.category);
   
   const systemPrompt = `You are an engineer at ShapeShift writing a personal tweet to QT the main announcement.
@@ -429,17 +624,20 @@ Self-custody trading. No KYC.
 *Post this as a QT of @ShapeShiftInfoBot when showing a live trade. NO other emojis.*`;
 }
 
-async function generateDiscordPost(protocolName: string, analysis: ProtocolAnalysis): Promise<string> {
+async function generateDiscordPost(protocolName: string, analysis: ProtocolAnalysis, opts?: FullPacketOptions): Promise<string> {
   const protocolContext = getProtocolContext(analysis.category);
+  const w = getCampaignWording(opts, protocolName);
+  const programContext = opts?.campaignType === 'program' && /rfox/i.test(protocolName) ? PROGRAM_RFOX_CONTEXT : '';
   
   const systemPrompt = `You are writing a Discord announcement for ShapeShift's community.
 ${SHAPESHIFT_BRAND_CONTEXT}
+${programContext}
 
 Discord allows slightly more casual tone but still professional.
 NO hashtags. Only 🦊 emoji allowed (use once in headline).`;
 
   const userPrompt = `
-Create a Discord #announcements post for ${protocolName} integration.
+Create a Discord #announcements post for ${protocolName} ${w.noun}.
 
 Protocol type: ${protocolContext.category}
 Protocol: ${analysis.tagline}
@@ -539,7 +737,8 @@ Questions? Drop them below.
 *Fill in actual numbers before posting. Skip if numbers aren't impressive. NO emojis needed.*`;
 }
 
-async function generateFollowupRecap(protocolName: string, analysis: ProtocolAnalysis, protocolContext: ProtocolContext): Promise<string> {
+async function generateFollowupRecap(protocolName: string, analysis: ProtocolAnalysis, protocolContext: ProtocolContext, opts?: FullPacketOptions): Promise<string> {
+  const cta = opts?.ctaUrl || 'app.shapeshift.com';
   return `# Day 7 Recap Thread
 
 **Tweet 1:**
@@ -555,24 +754,27 @@ ${analysis.valueProposition}
 Self-custody. No KYC.
 
 **Tweet 4:**
-Try it: app.shapeshift.com
+Try it: ${cta}
 
 ---
 
 *Recap for people who missed the original. NO hashtags. Only emoji is the 🦊 in tweet 1.*`;
 }
 
-async function generateBlogDraft(protocolName: string, analysis: ProtocolAnalysis, brief: MarketingBrief): Promise<string> {
+async function generateBlogDraft(protocolName: string, analysis: ProtocolAnalysis, brief: MarketingBrief, opts?: FullPacketOptions): Promise<string> {
   const protocolContext = getProtocolContext(analysis.category);
+  const w = getCampaignWording(opts, protocolName);
+  const programContext = opts?.campaignType === 'program' && /rfox/i.test(protocolName) ? PROGRAM_RFOX_CONTEXT : '';
   
   const systemPrompt = `You are writing a blog post for shapeshift.com.
 ${SHAPESHIFT_BRAND_CONTEXT}
+${programContext}
 
 Write for Strapi CMS. Use markdown formatting.
 Professional but accessible tone. Educational, not salesy.`;
 
   const userPrompt = `
-Write a blog post announcing ${protocolName} integration on ShapeShift.
+Write a blog post announcing ${protocolName} ${w.noun} on ShapeShift.
 
 Protocol type: ${protocolContext.category}
 Protocol name: ${analysis.name}
@@ -604,8 +806,162 @@ Use [IMAGE: description] for image placeholders.
   return generateContent(systemPrompt, userPrompt, { temperature: 0.7, maxTokens: 4096 });
 }
 
-function generateMarketingBriefMarkdown(protocolName: string, brief: MarketingBrief, analysis: ProtocolAnalysis): string {
-  return `# Marketing Brief: ${protocolName} Integration
+async function generateMediumPost(protocolName: string, analysis: ProtocolAnalysis, brief: MarketingBrief, opts?: FullPacketOptions): Promise<string> {
+  const protocolContext = getProtocolContext(analysis.category);
+  const w = getCampaignWording(opts, protocolName);
+  const programContext = opts?.campaignType === 'program' && /rfox/i.test(protocolName) ? PROGRAM_RFOX_CONTEXT : '';
+  const cta = opts?.ctaUrl || 'app.shapeshift.com';
+
+  const systemPrompt = `You are writing a Medium post for ShapeShift.
+${SHAPESHIFT_BRAND_CONTEXT}
+${programContext}
+
+Write in markdown. Medium-friendly formatting. Educational, not salesy.`;
+
+  const userPrompt = `
+Write a Medium post announcing ${protocolName} ${w.noun} on ShapeShift.
+
+Protocol type: ${protocolContext.category}
+Tagline: ${analysis.tagline}
+Key features: ${analysis.keyFeatures.join(', ')}
+Value proposition: ${analysis.valueProposition}
+Primary message: ${brief.keyMessages.primary}
+CTA: ${cta}
+
+Rules:
+- NO hashtags
+- NO: "thrilled", "excited", "game-changer", "revolutionary", "unlock"
+- Scannable: short paragraphs, good headings
+- Include a short TL;DR section near the top
+- Include \"How to get started\" steps
+- End with a clear CTA
+
+Use [IMAGE: description] placeholders.
+`;
+
+  return generateContent(systemPrompt, userPrompt, { temperature: 0.65, maxTokens: 4096 });
+}
+
+async function generateSeoArticle(
+  protocolName: string,
+  analysis: ProtocolAnalysis,
+  brief: MarketingBrief,
+  opts: FullPacketOptions
+): Promise<string> {
+  const isProgram = opts.campaignType === 'program';
+  const programContext = isProgram && /rfox/i.test(protocolName) ? PROGRAM_RFOX_CONTEXT : '';
+  const cta = opts.ctaUrl || 'app.shapeshift.com';
+
+  const systemPrompt = `You are writing an SEO-optimized article for shapeshift.com.
+${SHAPESHIFT_BRAND_CONTEXT}
+${programContext}
+
+Target intent: "how rFOX works", "stake FOX on Arbitrum earn", "rFOX staking guide".
+Use markdown. Include disclaimer: rewards distribution is off-chain; do not promise APY.`;
+
+  const userPrompt = `
+Write an SEO article (800-1200 words) about ${protocolName}${isProgram ? ' program' : ' integration'} on ShapeShift.
+
+Protocol: ${analysis.name}
+Tagline: ${analysis.tagline}
+Value: ${analysis.valueProposition}
+Key features: ${analysis.keyFeatures.join(', ')}
+
+RULES:
+- NO: "game-changer", "revolutionary", "unlock"
+- Be educational, scannable, keyword-rich
+- Include: what it is, how to stake, how rewards work (general), epoch/cooldown mechanics if applicable
+- CTA: ${cta}
+- Use [IMAGE: description] placeholders
+${programContext ? '- DO NOT mention RUNE rewards or LP staking. Rewards = USDC revenue share. LP stakers: unstake and move to FOX.' : ''}
+`;
+
+  return generateContent(systemPrompt, userPrompt, { temperature: 0.6, maxTokens: 4096 });
+}
+
+function generateContentCalendar(
+  protocolName: string,
+  analysis: ProtocolAnalysis,
+  brief: MarketingBrief,
+  opts: FullPacketOptions,
+  extra?: { discordReminder?: string }
+): string {
+  const weeks = opts.calendarWeeks ?? 4;
+  const cta = opts.ctaUrl || 'app.shapeshift.com';
+  const protocolContext = getProtocolContext(analysis.category);
+  const start = new Date();
+
+  const supporting = brief.keyMessages.supporting?.length ? brief.keyMessages.supporting : [brief.keyMessages.primary];
+  let xPostCount = 0;
+
+  function hookForTheme(theme: string): string {
+    const idx = xPostCount % supporting.length;
+    const feature = analysis.keyFeatures?.[xPostCount % Math.max(1, analysis.keyFeatures.length)] || analysis.valueProposition;
+
+    if (theme === 'Educational how-to') {
+      return `How to ${protocolContext.primaryAction} with ${protocolName} (self-custody)`;
+    }
+    if (theme === 'Benefit/value') {
+      return truncate(supporting[idx] || analysis.valueProposition, 80);
+    }
+    // Community/engagement
+    return `What would you try first? ${truncate(feature, 60)}`;
+  }
+
+  const lines: string[] = [
+    `# Content Calendar: ${protocolName}`,
+    '',
+    `**Start date:** ${start.toISOString().split('T')[0]}`,
+    `**Weeks:** ${weeks}`,
+    `**CTA:** ${cta}`,
+    '',
+    '| Date | Channel | Goal | Hook/Theme | CTA (channel-specific) | Copy |',
+    '|------|---------|------|------------|------------------------|------|',
+  ];
+
+  for (let w = 0; w < weeks; w++) {
+    const weekStart = new Date(start);
+    weekStart.setDate(weekStart.getDate() + w * 7);
+    for (let d = 0; d < 7; d++) {
+      const dte = new Date(weekStart);
+      dte.setDate(dte.getDate() + d);
+      const dow = dte.getDay();
+      if (dow === 1 || dow === 3 || dow === 5) {
+        const theme = dow === 1 ? 'Educational how-to' : dow === 3 ? 'Benefit/value' : 'Community/engagement';
+        const hook = hookForTheme(theme);
+        const copyRef =
+          xPostCount === 0 ? 'drafts/x_post_main.md' : theme === 'Educational how-to' ? 'drafts/followup_educational.md' : 'Pick a 1-liner from Hook/Theme';
+        lines.push(`| ${dte.toISOString().split('T')[0]} | X | ${theme} | ${hook} | ${cta} | ${copyRef} |`);
+        xPostCount++;
+      }
+      if (dow === 2 && w < 2) {
+        const hook = `Reminder: ${truncate(brief.keyMessages.primary, 70)}`;
+        const discordCta = `Read X thread: [X THREAD LINK] + try: ${cta}`;
+        lines.push(`| ${dte.toISOString().split('T')[0]} | Discord | Update/reminder | ${hook} | ${discordCta} | drafts/discord_reminder.md |`);
+      }
+    }
+    if (w === 0) {
+      const day0 = weekStart.toISOString().split('T')[0];
+      lines.push(`| ${day0} | Blog | Launch post | Publish launch blog | ${cta} | drafts/blog_draft.md |`);
+      lines.push(`| ${day0} | X | Blog promo | Promote the blog post | [BLOG LINK] | drafts/x_post_blog.md |`);
+      lines.push(`| ${day0} | Medium | Cross-post | Publish on Medium | ${cta} | drafts/medium_post.md |`);
+    }
+  }
+
+  if (extra?.discordReminder?.trim()) {
+    lines.push('', '---', '', '## Discord reminder copy (paste-ready)', '', `\`\`\`\n${extra.discordReminder.trim()}\n\`\`\``);
+  } else {
+    lines.push('', '---', '', '## Discord reminder copy', '', 'Use `drafts/discord_reminder.md`.');
+  }
+
+  lines.push('', '---', '', '## Notes', '', '- CTAs are channel-specific. Replace placeholders like `[BLOG LINK]` and `[X THREAD LINK]` before posting.');
+
+  return lines.join('\n');
+}
+
+function generateMarketingBriefMarkdown(protocolName: string, brief: MarketingBrief, analysis: ProtocolAnalysis, opts?: FullPacketOptions): string {
+  const w = getCampaignWording(opts, protocolName);
+  return `# Marketing Brief: ${protocolName} ${w.noun.charAt(0).toUpperCase() + w.noun.slice(1)}
 
 ## Who Are We Speaking To?
 
@@ -690,7 +1046,46 @@ ${analysis.keyFeatures.map(f => `- ${f}`).join('\n')}
 `;
 }
 
-async function generatePartnerKit(protocolName: string, analysis: ProtocolAnalysis, brief: MarketingBrief): Promise<string> {
+async function generatePartnerKit(protocolName: string, analysis: ProtocolAnalysis, brief: MarketingBrief, opts?: FullPacketOptions): Promise<string> {
+  const isProgram = opts?.campaignType === 'program';
+  const cta = opts?.ctaUrl || 'app.shapeshift.com';
+
+  if (isProgram) {
+    return `# ${protocolName} - Community / Internal Brief
+
+**Type:** Program launch (ShapeShift product)
+**CTA:** ${cta}
+**Contact:** [YOUR DISCORD/TELEGRAM]
+
+---
+
+## What We're Announcing
+
+${brief.gtmOneSentence}
+
+**Key Messages:**
+${brief.keyMessages.supporting.map(m => `- ${m}`).join('\n')}
+
+---
+
+## Launch Checklist (Internal)
+
+| Day | Action | Platform |
+|-----|--------|----------|
+| 0 | Main tweet thread, then Discord, then Strapi blog, blog promo tweet, Medium | Twitter, Discord, Blog, Medium |
+| 1 | Educational thread | Twitter |
+| 2-3 | User content, metrics | Twitter |
+| 7 | Recap thread | Twitter |
+
+---
+
+## Ready-to-Use Copy
+
+Use the drafts in this packet: x_post_main.md, discord_post.md, discord_reminder.md, blog_draft.md, x_post_blog.md, medium_post.md.
+CTA: ${cta}
+`;
+  }
+
   return `# ${protocolName} Integration - Partner Marketing Kit
 
 **For:** ${protocolName} Marketing Team
@@ -716,7 +1111,7 @@ ${brief.keyMessages.supporting.map(m => `- ${m}`).join('\n')}
 
 | Day | Our Action | Platform |
 |-----|------------|----------|
-| 0 | Main announcement | Twitter, Discord, Blog |
+| 0 | Main tweet thread, then Discord, then Strapi blog, blog promo tweet, Medium | Twitter, Discord, Blog, Medium |
 | 0 | Tag ${protocolName} | Twitter |
 | 1 | Educational thread | Twitter |
 | 2-3 | User content, metrics | Twitter |
@@ -890,7 +1285,11 @@ If asked something you can't answer:
 `;
 }
 
-async function generateOpEdPolitical(protocolName: string, analysis: ProtocolAnalysis): Promise<string> {
+async function generateOpEdPolitical(
+  protocolName: string,
+  analysis: ProtocolAnalysis,
+  currentEventsContext?: string
+): Promise<string> {
   const systemPrompt = `You are writing an op-ed template with a political/regulatory angle.
 Focus on self-custody rights, financial freedom, regulatory landscape.`;
 
@@ -899,6 +1298,8 @@ Write an op-ed template about ${protocolName} integration from a political/regul
 
 Protocol: ${analysis.name}
 Category: ${analysis.category}
+
+${currentEventsContext ? `${currentEventsContext}\n` : ''}
 
 Create a template (600-800 words) with:
 1. Hook options (2-3 alternatives tied to current events)
@@ -918,7 +1319,11 @@ Include at the end:
   return generateContent(systemPrompt, userPrompt, { temperature: 0.7, maxTokens: 2000 });
 }
 
-async function generateOpEdTechnical(protocolName: string, analysis: ProtocolAnalysis): Promise<string> {
+async function generateOpEdTechnical(
+  protocolName: string,
+  analysis: ProtocolAnalysis,
+  currentEventsContext?: string
+): Promise<string> {
   const systemPrompt = `You are writing an op-ed template with a technical/builder angle.
 Focus on architecture decisions, DeFi infrastructure, why this matters for builders.`;
 
@@ -927,6 +1332,8 @@ Write an op-ed template about ${protocolName} integration from a technical angle
 
 Protocol: ${analysis.name}
 Technical highlights: ${analysis.technicalHighlights.join(', ')}
+
+${currentEventsContext ? `${currentEventsContext}\n` : ''}
 
 Create a template (600-800 words) with:
 1. Hook about the technical problem being solved
@@ -956,13 +1363,15 @@ For each, provide:
 - handle: Example handle format (e.g., "@defi_whale_42")
 - reason: Why they'd care (1 sentence)
 - openerAngle: What to reference about them
-- suggestedDM: A DM template (NO links in first message, first 30 chars = value, minimal emojis)
+- suggestedDM: A DM template (NO links in first message, first 30 chars = value, NO emojis, human tone)
 
 Remember DM best practices:
 - No links in first DM (looks like spam)
 - First 30 characters should hook them (shows in preview)
 - Ask if they want the link (gets response first)
 - Personalize the opener
+- Avoid salesy openers like "Exciting news!" / "Boost your gains!" / "New opportunity!"
+- Keep punctuation normal (no !!!). Write like a real person.
 
 Return as JSON object with "targets" array containing the items.
 `;
@@ -1110,13 +1519,34 @@ minimal, clean --ar 16:9 --style raw
 `;
 }
 
-function generateChecklist(protocolName: string, tier: number, analysis: ProtocolAnalysis, brief: MarketingBrief): string {
+function generateChecklist(protocolName: string, tier: number, analysis: ProtocolAnalysis, brief: MarketingBrief, opts?: FullPacketOptions): string {
   const today = new Date().toISOString().split('T')[0];
+  const isProgram = opts?.campaignType === 'program';
+  const slug = protocolName.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '-');
   
+  const partnerSection = isProgram ? '' : `
+## Day -7 to -5: Partner Coordination — 30 min
+- [ ] Send partner kit to ${protocolName} team (partner/partner_kit.md)
+- [ ] Request feedback by Day -3
+- [ ] Identify partner contact for launch day
+
+## Day -3: Feedback Integration — 20 min
+- [ ] Review partner feedback (if received)
+- [ ] Confirm launch timing with partner
+- [ ] If no response: ping again, then proceed without
+
+`;
+
+  const partnerDay0Rows = isProgram ? '' : `| 09:12 | DM partner: "We're live!" | — |
+| 09:40 | Confirm partner QT'd | — |
+`;
+  const partnerConfirmRow = isProgram ? '' : '- [ ] Confirm partner is ready to QT\n';
+
   return `# ${protocolName} Launch Checklist
 
 **Generated:** ${today}
 **Tier:** ${tier}
+**Type:** ${isProgram ? 'Program' : 'Integration'}
 **Owner:** [YOUR NAME]
 
 ---
@@ -1139,7 +1569,7 @@ This isn't busywork. It's intentional storytelling for the tech you built.
 | Tier | What It Is | Time Required |
 |------|------------|---------------|
 | **0** | Small update, bug fix | 30 min |
-| **1** | New feature, integration | 2-3 hours over 7 days |
+| **1** | New feature, ${isProgram ? 'program' : 'integration'} | 2-3 hours over 7 days |
 | **2** | Major launch, press-worthy | 4-5 hours over 14 days |
 
 ---
@@ -1195,25 +1625,19 @@ Message **Apotheosis** (Head of Engineering): "Need to hand off ${protocolName} 
 ---
 
 # PRE-LAUNCH PHASE
-
-## Day -7 to -5: Partner Coordination — 30 min
-- [ ] Send partner kit to ${protocolName} team (partner/partner_kit.md)
-- [ ] Request feedback by Day -3
-- [ ] Identify partner contact for launch day
-
-## Day -3: Feedback Integration — 20 min
-- [ ] Review partner feedback (if received)
-- [ ] Confirm launch timing with partner
-- [ ] If no response: ping again, then proceed without
-
+${partnerSection}
 ## Day -1: Final Review — 30 min
 - [ ] Review blog draft (drafts/blog_draft.md)
 - [ ] Review tweet thread (drafts/x_post_main.md)
+- [ ] Review blog promo tweet (drafts/x_post_blog.md)
 - [ ] Review personal tweet (drafts/x_post_personal.md)
+- [ ] Review Discord announcement + reminder (drafts/discord_post.md, drafts/discord_reminder.md)
+- [ ] Review Medium post (drafts/medium_post.md)
 - [ ] Generate images if needed (design/ai_prompts.txt)
-- [ ] Confirm partner is ready to QT
-
+${partnerConfirmRow}
 ---
+
+
 
 # LAUNCH PHASE
 
@@ -1221,16 +1645,22 @@ Message **Apotheosis** (Head of Engineering): "Need to hand off ${protocolName} 
 
 | Time | Task | File |
 |------|------|------|
-| 08:30 | Publish blog to Strapi | drafts/blog_draft.md |
 | 09:00 | Post main tweet thread (@ShapeShift) | drafts/x_post_main.md |
 | 09:05 | QT from your personal account | drafts/x_post_personal.md |
 | 09:10 | Post Discord announcement | drafts/discord_post.md |
-| 09:15 | DM partner: "We're live!" | — |
-| 09:30 | Confirm partner QT'd | — |
-| 09:30 | Start sending DMs | outreach/dm_targets.md |
-| 10:00 | Cross-post to Farcaster | drafts/farcaster_post.md |
+| 09:20 | Publish blog to Strapi | drafts/blog_draft.md |
+| 09:30 | Post blog promo tweet (add the Strapi link) | drafts/x_post_blog.md |
+| 09:35 | Cross-post to Medium | drafts/medium_post.md |
+${partnerDay0Rows}| 09:50 | Start sending DMs | outreach/dm_targets.md |
+| 10:15 | Cross-post to Farcaster | drafts/farcaster_post.md |
 | 12:00 | Check replies, respond | — |
 | 15:00 | QT @ShapeShiftInfoBot showing swap | drafts/infobot_qt.md |
+
+## Press (Optional, Tier 2-ish) — 20 min
+- [ ] Skim press release (press/press_release.md) and fix anything inaccurate
+- [ ] Skim PR brief (press/pr_brief.md) so you can answer questions
+- [ ] Pick ONE op-ed angle and personalize it (press/op_ed_political.md or press/op_ed_technical.md)
+- [ ] If sending pitches: include the press release + PR brief, and offer an interview
 
 ## Day 1 — 20 min
 - [ ] Post educational thread (@ShapeShift) - drafts/followup_educational.md
@@ -1272,9 +1702,9 @@ Everything else is bonus. A shipped launch beats a perfect plan.
 Run through before launching:
 
 **CONTENT READY**
-- [ ] Blog draft reviewed
-- [ ] Tweet thread reviewed
-- [ ] Discord post reviewed
+- [ ] Blog draft reviewed (blog_draft.md, medium_post.md)
+- [ ] Tweet thread + blog promo tweet reviewed (x_post_main.md, x_post_blog.md)
+- [ ] Discord post + reminder reviewed (discord_post.md, discord_reminder.md)
 
 **ACCESS VERIFIED**
 - [ ] Can log into Strapi
@@ -1330,8 +1760,16 @@ const SHAPESHIFT_FOX_SVG = `<svg viewBox="0 0 218 231" fill="none" xmlns="http:/
   <path d="M109 75L75 95V135L109 155L143 135V95L109 75Z" fill="#00CD98"/>
 </svg>`;
 
-function generateIndexHtml(protocolName: string, tier: number, analysis: ProtocolAnalysis, brief: MarketingBrief): string {
+function generateIndexHtml(
+  protocolName: string,
+  tier: number,
+  analysis: ProtocolAnalysis,
+  brief: MarketingBrief,
+  extra?: { seoArticles: string[]; contentCalendar: string; opts?: FullPacketOptions }
+): string {
   const tierLabel = tier === 0 ? 'Tier 0 (Quick)' : tier === 1 ? 'Tier 1 (Standard)' : 'Tier 2 (Major)';
+  const noun = extra?.opts ? getCampaignWording(extra.opts, protocolName).noun : 'integration';
+  const titleNoun = noun.charAt(0).toUpperCase() + noun.slice(1);
   const tierColor = tier === 0 ? '#718096' : tier === 1 ? '#3761F9' : '#00CD98';
   
   return `<!DOCTYPE html>
@@ -1654,7 +2092,7 @@ function generateIndexHtml(protocolName: string, tier: number, analysis: Protoco
         <span class="brand-text">GTM Packet</span>
       </div>
       
-      <h1>${protocolName} Integration</h1>
+      <h1>${protocolName} ${titleNoun}</h1>
       <p class="tagline">${brief.gtmOneSentence}</p>
       
       <div class="meta">
@@ -1713,6 +2151,10 @@ function generateIndexHtml(protocolName: string, tier: number, analysis: Protoco
         <div class="file-name">x_post_main.md</div>
         <div class="file-desc">Main Twitter thread (@ShapeShift)</div>
       </div>
+      <div class="file" onclick="window.location='drafts/x_post_blog.md'">
+        <div class="file-name">x_post_blog.md</div>
+        <div class="file-desc">Blog promo tweet (@ShapeShift)</div>
+      </div>
       <div class="file" onclick="window.location='drafts/x_post_personal.md'">
         <div class="file-name">x_post_personal.md</div>
         <div class="file-desc">Your personal QT</div>
@@ -1721,9 +2163,17 @@ function generateIndexHtml(protocolName: string, tier: number, analysis: Protoco
         <div class="file-name">discord_post.md</div>
         <div class="file-desc">Discord #announcements</div>
       </div>
+      <div class="file" onclick="window.location='drafts/discord_reminder.md'">
+        <div class="file-name">discord_reminder.md</div>
+        <div class="file-desc">Discord reminder/update</div>
+      </div>
       <div class="file" onclick="window.location='drafts/blog_draft.md'">
         <div class="file-name">blog_draft.md</div>
         <div class="file-desc">Full blog for Strapi</div>
+      </div>
+      <div class="file" onclick="window.location='drafts/medium_post.md'">
+        <div class="file-name">medium_post.md</div>
+        <div class="file-desc">Medium cross-post</div>
       </div>
     </div>
 
@@ -1742,6 +2192,24 @@ function generateIndexHtml(protocolName: string, tier: number, analysis: Protoco
         <div class="file-desc">Day 7 recap</div>
       </div>
     </div>
+${extra?.seoArticles?.length ? `
+    <h3>SEO Articles</h3>
+    <div class="files">
+      ${extra.seoArticles.map((_, i) => `
+      <div class="file" onclick="window.location='seo/seo_article_${String(i + 1).padStart(2, '0')}.md'">
+        <div class="file-name">seo_article_${String(i + 1).padStart(2, '0')}.md</div>
+        <div class="file-desc">SEO article ${i + 1}</div>
+      </div>`).join('')}
+    </div>
+` : ''}${extra?.contentCalendar ? `
+    <h3>Content Calendar</h3>
+    <div class="files">
+      <div class="file" onclick="window.location='calendar/content_calendar.md'">
+        <div class="file-name">content_calendar.md</div>
+        <div class="file-desc">4-week content calendar</div>
+      </div>
+    </div>
+` : ''}
 
     <h2>Partner & Press</h2>
     
@@ -1835,29 +2303,51 @@ export async function generateFullPacket(
   protocolName: string,
   websiteUrl: string,
   tier: number = 1,
-  onProgress?: (step: string) => void
+  onProgress?: (step: string) => void,
+  opts: FullPacketOptions = {}
 ): Promise<FullPacketResults> {
   const progress = onProgress || (() => {});
+  const {
+    contextContent = '',
+    campaignType = 'integration',
+    ctaUrl = 'app.shapeshift.com',
+    calendarWeeks = 4,
+    seoCount = 1,
+  } = opts;
+  const options: FullPacketOptions = { ...opts, campaignType, ctaUrl, calendarWeeks, seoCount };
 
-  // Step 1: Fetch website
+  // Step 1: Fetch website and merge context
   progress('Fetching website content...');
   const { content: websiteContent } = await fetchWebsiteContent(websiteUrl);
+  const mergedContent = contextContent
+    ? `## Primary Source (${websiteUrl})\n\n${websiteContent}\n\n---\n\n## Additional Context\n\n${contextContent}`
+    : websiteContent;
 
   // Step 2: Analyze protocol
   progress('Analyzing protocol...');
-  const protocol = await analyzeProtocol(protocolName, websiteContent);
+  const protocol = await analyzeProtocol(protocolName, mergedContent);
 
   // Step 3: Generate marketing brief
   progress('Generating marketing brief...');
-  const marketingBrief = await generateMarketingBrief(protocolName, protocol);
+  const marketingBrief = await generateMarketingBrief(protocolName, protocol, options);
+
+  // Step 3.5: Pull in timely context for press angles (best-effort)
+  progress('Fetching current events for press angles...');
+  const [politicalContext, technicalContext] = await Promise.all([
+    buildCurrentEventsContext('political', protocolName, protocol),
+    buildCurrentEventsContext('technical', protocolName, protocol),
+  ]);
 
   // Step 4: Generate all content in parallel
   progress('Generating content (this takes a moment)...');
   const [
     xPostMain,
+    xPostBlog,
     xPostPersonal,
     discordPost,
+    discordReminder,
     blogDraft,
+    mediumPost,
     followupEducational,
     partnerKit,
     pressRelease,
@@ -1867,16 +2357,19 @@ export async function generateFullPacket(
     dmTargets,
     wildCards,
   ] = await Promise.all([
-    generateMainTwitterThread(protocolName, protocol, marketingBrief),
-    generatePersonalTwitterPost(protocolName, protocol),
-    generateDiscordPost(protocolName, protocol),
-    generateBlogDraft(protocolName, protocol, marketingBrief),
+    generateMainTwitterThread(protocolName, protocol, marketingBrief, options),
+    generateXBlogPromoTweet(protocolName, protocol, marketingBrief, options),
+    generatePersonalTwitterPost(protocolName, protocol, options),
+    generateDiscordPost(protocolName, protocol, options),
+    generateDiscordReminder(protocolName, protocol, marketingBrief, options),
+    generateBlogDraft(protocolName, protocol, marketingBrief, options),
+    generateMediumPost(protocolName, protocol, marketingBrief, options),
     generateFollowupEducational(protocolName, protocol),
-    generatePartnerKit(protocolName, protocol, marketingBrief),
+    generatePartnerKit(protocolName, protocol, marketingBrief, options),
     generatePressRelease(protocolName, protocol, marketingBrief),
     generatePRBrief(protocolName, protocol, marketingBrief),
-    generateOpEdPolitical(protocolName, protocol),
-    generateOpEdTechnical(protocolName, protocol),
+    generateOpEdPolitical(protocolName, protocol, politicalContext),
+    generateOpEdTechnical(protocolName, protocol, technicalContext),
     generateDMTargets(protocolName, protocol),
     generateWildCards(protocolName, protocol),
   ]);
@@ -1889,16 +2382,26 @@ export async function generateFullPacket(
   const [infoBotQT, followupMetrics, followupRecap, designBrief, aiPrompts] = await Promise.all([
     generateInfoBotQT(protocolName, protocolContext),
     generateFollowupMetrics(protocolName, protocolContext),
-    generateFollowupRecap(protocolName, protocol, protocolContext),
+    generateFollowupRecap(protocolName, protocol, protocolContext, options),
     generateDesignBrief(protocolName, protocol),
     generateAIPrompts(protocolName, protocol),
   ]);
 
-  // Step 6: Generate checklist, index, and marketing brief markdown
+  // Step 6: Generate SEO articles and content calendar
+  progress('Generating SEO article(s) and content calendar...');
+  const seoArticles: string[] = [];
+  for (let i = 0; i < seoCount; i++) {
+    seoArticles.push(await generateSeoArticle(protocolName, protocol, marketingBrief, options));
+  }
+  const contentCalendar = generateContentCalendar(protocolName, protocol, marketingBrief, options, {
+    discordReminder,
+  });
+
+  // Step 7: Generate checklist, index, and marketing brief markdown
   progress('Generating checklist and index...');
-  const checklist = generateChecklist(protocolName, tier, protocol, marketingBrief);
-  const indexHtml = generateIndexHtml(protocolName, tier, protocol, marketingBrief);
-  const marketingBriefMarkdown = generateMarketingBriefMarkdown(protocolName, marketingBrief, protocol);
+  const checklist = generateChecklist(protocolName, tier, protocol, marketingBrief, options);
+  const indexHtml = generateIndexHtml(protocolName, tier, protocol, marketingBrief, { seoArticles, contentCalendar, opts: options });
+  const marketingBriefMarkdown = generateMarketingBriefMarkdown(protocolName, marketingBrief, protocol, options);
 
   return {
     protocol,
@@ -1906,8 +2409,10 @@ export async function generateFullPacket(
     marketingBriefMarkdown,
     content: {
       xPostMain,
+      xPostBlog,
       infoBotQT,
       discordPost,
+      discordReminder,
       farcasterPost: discordPost, // Similar format
       followupEducational,
       followupMetrics,
@@ -1915,6 +2420,7 @@ export async function generateFullPacket(
       xPostPersonal,
       personalWalkthrough: xPostPersonal, // Can be expanded
       blogDraft,
+      mediumPost,
       userGuide: followupEducational, // Similar content
       releaseNotes: `# ${protocolName} Integration\n\n${protocol.valueProposition}\n\n## What's New\n\n${protocol.keyFeatures.map(f => `- ${f}`).join('\n')}`,
     },
@@ -1929,5 +2435,7 @@ export async function generateFullPacket(
     aiPrompts,
     checklist,
     indexHtml,
+    seoArticles,
+    contentCalendar,
   };
 }

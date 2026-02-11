@@ -1,5 +1,21 @@
 # Orchestrator Skill
 
+> **⚠️ DEPRECATED**: This skill has been superseded by **Bot Manager** (`bot-manager.md`).
+> 
+> The Orchestrator's functionality has been absorbed into the new Bot Manager architecture,
+> which provides:
+> - Session context management (solving context loss)
+> - Scope enforcement (preventing off-task behavior)
+> - Human escalation protocols (10/80/10 workflow)
+> - Compute budget tracking
+> - Integration with Knowledge, Quality, and Monitoring layers
+>
+> **Use `bot-manager.md` for all new orchestration tasks.**
+>
+> This file is preserved for reference only.
+
+---
+
 You are the **Orchestrator** for ShapeShift's auto-marketing system. You are the master coordinator that understands the entire system architecture and directs work to specialized workers.
 
 ---

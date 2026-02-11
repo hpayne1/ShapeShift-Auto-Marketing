@@ -1,23 +1,110 @@
-# Claude Skills for ShapeShift Auto-Marketing
+# Skills Directory
 
-This directory contains **Claude Skills**—structured system prompts that give Claude the context and capabilities to act as specialized workers in the auto-marketing system.
+This directory contains **Skills**—structured system prompts that give AI the context and capabilities to act as specialized workers in the ShapeShift auto-marketing system.
 
 ---
 
-## 🧠 How to Use These Skills
+## Architecture Overview
 
-### In Cursor
+The system follows a **six-layer architecture** with **21 skills**:
 
-1. Start a new chat
-2. Copy the contents of the skill file you need
-3. Paste it as your first message (or use as system prompt)
-4. Claude will now operate as that specialized worker
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  HUMAN LAYER (20%)                                              │
+│  Campaign Owner - 10% kickoff, 10% review                       │
+├─────────────────────────────────────────────────────────────────┤
+│  COORDINATION LAYER (2 skills)                                  │
+│  bot-manager.md │ gtm-owner.md                                  │
+├─────────────────────────────────────────────────────────────────┤
+│  EXECUTION LAYER (5 skills)                                     │
+│  content-worker │ publisher-worker │ analytics-worker           │
+│  twitter-analytics │ walkthrough-generator                      │
+├─────────────────────────────────────────────────────────────────┤
+│  KNOWLEDGE LAYER (3 skills)                                     │
+│  product-oracle │ asset-manager │ campaign-memory               │
+├─────────────────────────────────────────────────────────────────┤
+│  QUALITY LAYER (4 skills)                                       │
+│  brand-validator │ link-checker │ audience-analyzer             │
+│  release-coordinator                                            │
+├─────────────────────────────────────────────────────────────────┤
+│  MONITORING LAYER (4 skills)                                    │
+│  github-watcher │ competitor-watcher │ integration-observer     │
+│  news-watcher                                                   │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-### In Claude.ai
+---
 
-1. Create a new Project
-2. Add the skill file to Project Knowledge
-3. Claude will reference it in all conversations
+## The 10/80/10 Workflow
+
+| Phase | Owner | Skills Involved |
+|-------|-------|-----------------|
+| **10% Kickoff** | Campaign Owner (Human) | Bot Manager receives brief |
+| **80% Execution** | Bot Manager + Skills | All layers coordinate |
+| **10% Review** | Campaign Owner (Human) | Human approves/edits |
+
+---
+
+## Skill Directory
+
+### Coordination Layer
+
+| Skill | Purpose | Entry Point |
+|-------|---------|-------------|
+| **bot-manager.md** | Central brain, routing, context, escalation | Start here for workflows |
+| **gtm-owner.md** | Strategy proposer, brand guardian | Strategy decisions |
+
+### Execution Layer
+
+| Skill | Purpose | Called By |
+|-------|---------|-----------|
+| **content-worker.md** | Generate draft content | Bot Manager |
+| **publisher-worker.md** | Publish to channels | Bot Manager |
+| **analytics-worker.md** | Analyze performance | Bot Manager |
+| **twitter-analytics.md** | X-specific metrics | Analytics Worker |
+| **walkthrough-generator.md** | Product demo videos | Bot Manager |
+
+### Knowledge Layer
+
+| Skill | Purpose | Queried By |
+|-------|---------|------------|
+| **product-oracle.md** | Source of truth for product state | Content Worker, Brand Validator |
+| **asset-manager.md** | Source of truth for visual assets | Content Worker |
+| **campaign-memory.md** | Historical context and learnings | Bot Manager, Content Worker |
+
+### Quality Layer
+
+| Skill | Purpose | Called By |
+|-------|---------|-----------|
+| **brand-validator.md** | Voice/tone compliance | Content Worker, Bot Manager |
+| **link-checker.md** | URL and UTM validation | Publisher Worker |
+| **audience-analyzer.md** | Segment fit verification | Content Worker |
+| **release-coordinator.md** | Timing and readiness check | Bot Manager, Publisher |
+
+### Monitoring Layer
+
+| Skill | Purpose | Reports To |
+|-------|---------|------------|
+| **github-watcher.md** | Internal repo monitoring | Bot Manager |
+| **competitor-watcher.md** | Competitor activity | Bot Manager |
+| **integration-observer.md** | Partner activity | Bot Manager |
+| **news-watcher.md** | News tie-ins, press opportunities | Bot Manager |
+
+### Deprecated
+
+| Skill | Status | Replacement |
+|-------|--------|-------------|
+| **orchestrator.md** | ⚠️ DEPRECATED | Use **bot-manager.md** |
+
+---
+
+## How to Use Skills
+
+### In Cursor (Recommended)
+
+1. Start a new chat with Claude
+2. Read the skill file you need (e.g., `bot-manager.md`)
+3. Claude operates as that specialized worker
 
 ### In API Calls
 
@@ -26,7 +113,7 @@ import anthropic
 
 client = anthropic.Anthropic()
 
-with open("skills/content-worker.md") as f:
+with open("skills/bot-manager.md") as f:
     system_prompt = f.read()
 
 response = client.messages.create(
@@ -34,205 +121,109 @@ response = client.messages.create(
     max_tokens=4096,
     system=system_prompt,
     messages=[
-        {"role": "user", "content": "Generate an X post for the Starknet launch"}
+        {"role": "user", "content": "Start campaign for Yield.xyz integration"}
     ]
 )
 ```
 
 ---
 
-## 📁 Available Skills
+## Skill Relationships
 
-| Skill | File | Purpose |
-|-------|------|---------|
-| **Orchestrator** | `orchestrator.md` | Master coordinator, delegates to workers |
-| **Content Worker** | `content-worker.md` | Generates draft marketing content |
-| **Publisher Worker** | `publisher-worker.md` | Posts approved content to channels |
-| **Analytics Worker** | `analytics-worker.md` | Generates performance reports |
-| **GitHub Watcher** | `github-watcher.md` | Monitors repos for GTM opportunities |
-| **Walkthrough Generator** | `walkthrough-generator.md` | Creates product demo videos |
-| **Twitter Analytics** | `twitter-analytics.md` | Pulls and analyzes X metrics |
+```
+                        Campaign Owner (Human)
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │    Bot Manager      │ ◄── Entry point
+                    └──────────┬──────────┘
+                               │
+         ┌─────────────────────┼─────────────────────┐
+         │                     │                     │
+         ▼                     ▼                     ▼
+   ┌───────────┐        ┌───────────┐        ┌───────────┐
+   │Execution  │◄──────▶│ Knowledge │        │  Quality  │
+   │  Layer    │        │   Layer   │        │   Layer   │
+   └───────────┘        └───────────┘        └───────────┘
+         │                                         │
+         │                                         │
+         ▼                                         │
+   ┌───────────┐                                   │
+   │Monitoring │───────────────────────────────────┘
+   │  Layer    │      (triggers & validations)
+   └───────────┘
+```
+
+### Data Flow
+
+1. **Monitoring Layer** detects triggers → alerts Bot Manager
+2. **Bot Manager** queries Knowledge Layer for context
+3. **Bot Manager** dispatches to Execution Layer
+4. **Quality Layer** validates before human review
+5. **Human** approves at checkpoint gates
+6. **Execution Layer** publishes content
 
 ---
 
-## 🔄 Skill Relationships
+## Quick Reference: Which Skill to Use
 
-```
-                    ┌─────────────────┐
-                    │   ORCHESTRATOR  │  ← Start here for full workflows
-                    └────────┬────────┘
-                             │
-       ┌─────────────────────┼─────────────────────┐
-       │                     │                     │
-       ▼                     ▼                     ▼
-┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│GitHub Watcher│    │Content Worker│    │  Publisher   │
-└──────────────┘    └──────────────┘    └──────────────┘
-       │                                       │
-       ▼                                       │
-┌──────────────┐    ┌──────────────┐           │
-│ Walkthrough  │    │   Twitter    │←──────────┘
-│  Generator   │    │  Analytics   │
-└──────────────┘    └──────────────┘
-                           │
-                           ▼
-                    ┌──────────────┐
-                    │  Analytics   │
-                    │   Worker     │
-                    └──────────────┘
-```
+| Task | Start With |
+|------|------------|
+| Run a campaign end-to-end | `bot-manager.md` |
+| Get strategy/tier recommendation | `gtm-owner.md` |
+| Generate content | `content-worker.md` |
+| Check brand compliance | `brand-validator.md` |
+| Verify product facts | `product-oracle.md` |
+| Check past campaign learnings | `campaign-memory.md` |
+| Monitor competitors | `competitor-watcher.md` |
+| Watch for news opportunities | `news-watcher.md` |
 
 ---
 
-## 🎯 Quick Reference: Which Skill to Use
+## Protocols
 
-| Task | Skill |
-|------|-------|
-| "Plan a marketing campaign" | Orchestrator |
-| "Write a tweet about X" | Content Worker |
-| "Post this to Discord" | Publisher Worker |
-| "How did our campaign perform?" | Analytics Worker |
-| "Check for new PRs to market" | GitHub Watcher |
-| "Create a demo video" | Walkthrough Generator |
-| "Pull our Twitter metrics" | Twitter Analytics |
+Skills communicate using standardized protocols in `/protocols/`:
 
----
-
-## 📝 Skill Anatomy
-
-Each skill follows this structure:
-
-```markdown
-# {Worker Name} Skill
-
-You are the **{Worker Name}** for ShapeShift's auto-marketing system.
-Your role is to {purpose}.
-
-## Your Identity
-{Who the AI should be}
-
-## Core Context
-{Background knowledge it needs}
-
-## Input Format
-{What it receives}
-
-## Output Format
-{What it produces}
-
-## Commands You Understand
-{What it can do}
-
-## Your Process
-{How it should work}
-```
+| Protocol | Purpose |
+|----------|---------|
+| `campaign-owner.md` | Human role and 10/80/10 workflow |
+| `session-context.md` | Shared state between skills |
+| `human-escalation.md` | Bot → Human communication format |
+| `checkpoint-gates.md` | Approval gate definitions |
 
 ---
 
-## 🔧 Customization
+## Key Design Principles
 
-These skills are designed to be:
-
-- **Composable** - Use multiple skills together via Orchestrator
-- **Editable** - Modify for your specific needs
-- **Extensible** - Add new sections as needed
-
-### Adding Custom Context
-
-Add to any skill:
-```markdown
-## Custom Context
-
-### Our Current Campaigns
-- Starknet launch (Tier 1, in progress)
-- Weekly stats (recurring)
-
-### Priority Channels
-1. X (primary)
-2. Discord (community)
-3. Blog (SEO)
-```
-
-### Modifying Behavior
-
-Edit the relevant section:
-```markdown
-## Constraints
-
-- Never claim features that don't exist
-- Always maintain 3rd person voice
-- Maximum 2 emojis per post
-+ - Always include the $FOX hashtag on Thursdays
-+ - Prioritize meme content on weekends
-```
+1. **Layered Architecture** - Each layer has clear responsibility
+2. **Context Sharing** - Session context prevents redundant work
+3. **Human Bookends** - 10/80/10 ensures human oversight
+4. **Quality Gates** - Validation before human review
+5. **Source of Truth** - Knowledge layer provides accurate facts
 
 ---
 
-## 🚀 Example Workflows
+## Adding New Skills
 
-### 1. Full Campaign Launch
+When creating new skills:
 
-```
-1. Use Orchestrator skill
-2. Input: "A PR just merged adding Solana support"
-3. Orchestrator creates GTM plan, delegates to Content Worker
-4. Switch to Content Worker skill
-5. Generate content for each channel
-6. Human reviews and approves
-7. Switch to Publisher Worker skill
-8. Execute publishing
-```
-
-### 2. Quick Tweet
-
-```
-1. Use Content Worker skill directly
-2. Input: GTM plan YAML or brief
-3. Get draft tweet
-4. Review and post manually (or use Publisher)
-```
-
-### 3. Performance Check
-
-```
-1. Use Twitter Analytics skill
-2. Input: Tweet IDs or campaign ID
-3. Get metrics report
-4. Optionally pass to Analytics Worker for deeper analysis
-```
+1. Determine which layer it belongs to
+2. Follow the skill template structure
+3. Define inputs/outputs clearly
+4. Specify which skills it calls/is called by
+5. Add to this README
+6. Update ARCHITECTURE.md
 
 ---
 
-## 📊 Metrics & KPIs
+## Related Files
 
-All skills are calibrated to these ShapeShift benchmarks:
-
-| Metric | Target |
-|--------|--------|
-| X Engagement Rate | 2-4% |
-| Link CTR | 1%+ |
-| Discord Response | 20+ reactions |
-| Content Approval Rate | 80%+ first pass |
-
----
-
-## 🔐 Security Notes
-
-- Skills don't store credentials
-- API keys should be in environment variables
-- Never paste credentials into skill prompts
-- Review all content before publishing
-
----
-
-## 📚 Related Files
-
-- `/brand/voice.md` - Brand voice guidelines
-- `/brand/dos-and-donts.md` - Content rules
+- `/protocols/` - Communication protocols
+- `/brand/` - Brand voice guidelines
 - `/templates/channels/` - Channel-specific templates
-- `/worker-specs/` - Technical specifications
+- `/worker-specs/ARCHITECTURE.md` - Full system architecture
 - `/gtm-coordinator/` - CLI tool for GTM management
 
 ---
 
-Happy automating! 🦊
+*21 skills across 6 layers, coordinated by Bot Manager, with human oversight at key checkpoints.*

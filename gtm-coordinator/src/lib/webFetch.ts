@@ -89,3 +89,64 @@ ${content}
 
   return results.join('\n---\n');
 }
+
+export interface WebSearchResult {
+  title: string;
+  url: string;
+  snippet?: string;
+}
+
+function decodeDuckDuckGoRedirectUrl(href: string): string {
+  try {
+    // DuckDuckGo often uses: https://duckduckgo.com/l/?uddg=<encoded>
+    const u = new URL(href);
+    const uddg = u.searchParams.get('uddg');
+    if (uddg) return decodeURIComponent(uddg);
+  } catch {
+    // ignore
+  }
+  return href;
+}
+
+/**
+ * Best-effort web search (no API key) using DuckDuckGo's HTML endpoint.
+ * This is used to pull in timely political/technical context for press angles.
+ */
+export async function searchWeb(query: string, maxResults = 5): Promise<WebSearchResult[]> {
+  const url = `https://duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
+  const response = await fetch(url, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (compatible; GTM-Coordinator/0.2.0)',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to search web: ${response.status} ${response.statusText}`);
+  }
+
+  const html = await response.text();
+  const results: WebSearchResult[] = [];
+
+  // Extract titles/links. DuckDuckGo HTML uses result__a for result links.
+  const linkRe = /class="result__a"[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi;
+  const snippetRe = /class="result__snippet"[^>]*>([\s\S]*?)<\/a>/i;
+
+  let match: RegExpExecArray | null;
+  while ((match = linkRe.exec(html)) && results.length < maxResults) {
+    const rawHref = match[1];
+    const rawTitle = match[2];
+    const title = rawTitle.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    const href = decodeDuckDuckGoRedirectUrl(rawHref);
+
+    // Try to grab a snippet from the surrounding HTML block (best effort).
+    const after = html.slice(match.index, match.index + 2000);
+    const sn = after.match(snippetRe);
+    const snippet = sn ? sn[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() : undefined;
+
+    if (!title || !href) continue;
+    results.push({ title, url: href, snippet });
+  }
+
+  return results;
+}

@@ -1,5 +1,18 @@
 # Marketing Brief: Yield.xyz Integration
 
+## Launch Timeline
+
+| Date | Milestone |
+|------|-----------|
+| Mon Feb 2 | Lock scope + confirm protocol roster |
+| Tue Feb 3 | Collect all partner briefs/creatives |
+| Wed Feb 4 | Feedback pass + revisions requested |
+| **Thu Feb 5** | **Final asset approvals + press embargo** |
+| Mon Feb 9 | Final QA + scheduling (ads + PR + social) |
+| **Tue Feb 10** | **🚀 Launch Day** |
+
+---
+
 ## Who Are We Speaking To?
 
 **Target Audience:** DeFi Power Users and Yield Seekers

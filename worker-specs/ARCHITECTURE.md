@@ -1,648 +1,453 @@
 # Auto-Marketing Platform Architecture
-## The Orchestrator + Worker System
+
+## Six-Layer Bot Manager System
 
 ---
 
 ## Overview
 
-This document specs the architecture for ShapeShift's automated marketing platform. The system follows an **orchestrator + worker** pattern:
+This document specifies the architecture for ShapeShift's automated marketing platform. The system follows a **six-layer architecture** with a **10/80/10 human-bot workflow**:
+
+- **10% Human Kickoff** - Campaign Owner sets direction
+- **80% Bot Execution** - Bot Manager coordinates skills
+- **10% Human Review** - Campaign Owner approves and edits
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
-│                             FULL SYSTEM ARCHITECTURE                             │
+│                         SIX-LAYER ARCHITECTURE                                   │
 ├─────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                  │
-│  ┌─────────────────┐                                                            │
-│  │  GITHUB WATCHER │ ──────────────────────────────────────────────┐            │
-│  │  (Trigger)      │                                               │            │
-│  └────────┬────────┘                                               │            │
-│           │ PR merged / Release                                    │            │
-│           ▼                                                        ▼            │
-│  ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐           │
-│  │  GTM COORDINATOR│     │   WALKTHROUGH   │     │  CONTRIBUTOR    │           │
-│  │  (Orchestrator) │     │   GENERATOR     │     │  NOTIFIER       │           │
-│  │                 │     │                 │     │                 │           │
-│  │  Creates plan   │     │  Screen capture │     │  Discord/Email  │           │
-│  │  Tracks status  │     │  AI scripts     │     │  QT prompts     │           │
-│  └────────┬────────┘     └────────┬────────┘     └─────────────────┘           │
-│           │                       │                                             │
-│           ▼                       ▼                                             │
-│  ┌─────────────────┐     ┌─────────────────┐                                   │
-│  │ CONTENT WORKER  │◄────│ Brand + Templates│                                   │
-│  │                 │     │                 │                                   │
-│  │ LLM → Drafts    │     │ voice.md        │                                   │
-│  │ + QT prompts    │     │ x_post.md, etc  │                                   │
-│  └────────┬────────┘     └─────────────────┘                                   │
-│           │                                                                     │
-│           ▼                                                                     │
-│  ┌─────────────────┐     ┌─────────────────┐                                   │
-│  │ HUMAN APPROVAL  │────▶│ PUBLISHER WORKER│                                   │
-│  │ GATE            │     │                 │                                   │
-│  │                 │     │ X API           │                                   │
-│  │ Review + Edit   │     │ Discord webhook │                                   │
-│  │ Contributor QTs │     │ Farcaster       │                                   │
-│  └─────────────────┘     └────────┬────────┘                                   │
-│                                   │                                             │
-│                                   ▼                                             │
-│                          ┌─────────────────┐     ┌─────────────────┐           │
-│                          │ ANALYTICS WORKER│◄────│ TWITTER API     │           │
-│                          │                 │     │                 │           │
-│                          │ Pull metrics    │     │ Metrics         │           │
-│                          │ Generate reports│     │ Optimal times   │           │
-│                          │ Data post ideas │     │ Performance     │           │
-│                          └─────────────────┘     └─────────────────┘           │
+│  ┌─────────────────────────────────────────────────────────────────────────┐   │
+│  │  HUMAN LAYER (20% of work)                                               │   │
+│  │  Campaign Owner │ Developers │ Community Team                            │   │
+│  │  - 10% kickoff: Sets direction, strategy, constraints                    │   │
+│  │  - 10% review: Edits, approves, final sign-off                          │   │
+│  └─────────────────────────────────────────────────────────────────────────┘   │
+│                                      │                                          │
+│                                      ▼                                          │
+│  ┌─────────────────────────────────────────────────────────────────────────┐   │
+│  │  COORDINATION LAYER                                                      │   │
+│  │  Bot Manager │ GTM Owner                                                 │   │
+│  │  - Routes tasks, manages context, enforces scope                        │   │
+│  │  - Proposes strategy, guards brand                                      │   │
+│  └─────────────────────────────────────────────────────────────────────────┘   │
+│                                      │                                          │
+│         ┌────────────────────────────┼────────────────────────────┐            │
+│         ▼                            ▼                            ▼            │
+│  ┌──────────────┐          ┌──────────────┐          ┌──────────────┐         │
+│  │  EXECUTION   │          │  KNOWLEDGE   │          │   QUALITY    │         │
+│  │  LAYER       │          │  LAYER       │          │   LAYER      │         │
+│  ├──────────────┤          ├──────────────┤          ├──────────────┤         │
+│  │Content Worker│◄────────▶│Product Oracle│          │Brand Valid.  │         │
+│  │Publisher     │          │Asset Manager │          │Link Checker  │         │
+│  │Analytics     │          │Campaign Mem. │          │Audience Anal.│         │
+│  │Walkthrough   │          └──────────────┘          │Release Coord.│         │
+│  │Twitter Anal. │                                    └──────────────┘         │
+│  └──────────────┘                                                              │
+│         │                                                                       │
+│         ▼                                                                       │
+│  ┌─────────────────────────────────────────────────────────────────────────┐   │
+│  │  MONITORING LAYER                                                        │   │
+│  │  GitHub Watcher │ Competitor Watcher │ Integration Observer │ News Watch │   │
+│  │  - Watches for triggers, opportunities, issues                          │   │
+│  └─────────────────────────────────────────────────────────────────────────┘   │
 │                                                                                  │
 ├─────────────────────────────────────────────────────────────────────────────────┤
-│                        All state in: .gtm/{id}/plan.yaml                        │
+│              All state in: .gtm/{id}/plan.yaml + session_context.yaml           │
 └─────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Key Principle:** Workers are stateless. All state lives in the GTM plan YAML files. Workers read the YAML, do their task, write status back to YAML.
+---
+
+## The 10/80/10 Model
+
+| Phase | Owner | Responsibility |
+|-------|-------|----------------|
+| **10% Kickoff** | Campaign Owner (Human) | Sets direction, strategy, constraints, brief |
+| **80% Execution** | Bot Manager + Skills | Research, drafts, iterations, coordination |
+| **10% Review** | Campaign Owner (Human) | Edits, approvals, final sign-off, publish |
+
+**Key Principle:** Humans bookend the work. Bots execute the middle. Without dedicated human ownership, brand voice dilutes and bots drift.
 
 ---
 
-## System Components
+## Layer 1: Human Layer
 
-### 1. Orchestrator (This Repo)
+### Campaign Owner Role
 
-**What it does:**
-- Creates and manages GTM plans
-- Dispatches tasks to workers
-- Enforces approval gates
-- Aggregates status across all initiatives
-- Provides human interface (CLI, eventually web)
+The dedicated human who owns GTM campaigns end-to-end.
 
-**What exists:**
-- `gtm-coordinator/` — CLI tool for managing plans ✅
-- YAML schema for plans ✅
-- Validation logic ✅
-- Status tracking ✅
+**Protocol:** `protocols/campaign-owner.md`
 
-**What needs to be built:**
-- Worker dispatch mechanism
-- Task queue / scheduling
-- Index aggregation (see all initiatives)
-- Notification system (alerts for humans)
+**Responsibilities:**
+- Review triggers and set campaign brief
+- Approve tier and channel selection
+- Available async for questions during execution
+- Review all content before publish
+- Final sign-off on timing and publish
+
+**Why This Role Exists:**
+- Engineers as their own managers = inconsistent brand voice
+- Bots without human direction = drift and confusion
+- 80% automation only works with 20% human bookends
 
 ---
 
-### 2. Content Worker
+## Layer 2: Coordination Layer
 
-**What it does:**
-- Reads a GTM plan YAML
-- Generates draft content for all enabled channels
-- Writes drafts to `drafts/` folder
-- Updates plan status to `generated`
+### Bot Manager
 
-**Input:**
-```yaml
-# Reads from plan.yaml
-id: STRK-AGENT-001
-title: "Agent.ShapeShift Starknet Launch"
-channels:
-  x: { enabled: true, status: pending }
-  discord: { enabled: true, status: pending }
-  blog: { enabled: true, status: pending }
-provenance:
-  inputs:
-    - type: feature_brief
-      path: ./briefs/starknet-agent.md
-    - type: pr
-      url: https://github.com/shapeshift/agent/pull/123
-```
+The central brain that coordinates all bot work.
 
-**Output:**
-```
-.gtm/STRK-AGENT-001/
-├── plan.yaml (status updated to 'generated')
-└── drafts/
-    ├── x_post.md
-    ├── x_thread.md
-    ├── discord_post.md
-    ├── blog_outline.md
-    ├── blog_draft.md
-    └── partner_brief.md
-```
+**Skill:** `skills/bot-manager.md`
 
-**Implementation approach:**
-- Standalone script/service
-- Uses LLM (Claude/GPT) for generation
-- Reads brand voice guide + channel templates
-- Can be triggered manually or via webhook
+**Responsibilities:**
+1. **Task Routing** - Dispatch to appropriate skills
+2. **Context Management** - Maintain session state, prevent redundant research
+3. **Scope Enforcement** - Keep skills on task, manage compute budget
+4. **Human Escalation** - Route questions to right humans
+5. **Compute Optimization** - Model selection, batching, caching
+
+### GTM Owner
+
+The AI strategist for brand and go-to-market.
+
+**Skill:** `skills/gtm-owner.md`
+
+**Responsibilities:**
+1. **Brand Guardian** - Enforce voice, validate terminology
+2. **Strategy Proposer** - Assess tiers, propose campaigns
+3. **Approval Interface** - Package proposals for human approval
 
 ---
 
-### 3. Publisher Worker
+## Layer 3: Execution Layer
 
-**What it does:**
-- Reads approved content from `drafts/` folder
-- Posts to actual channels (X, Discord, Farcaster)
-- Writes `published_url` back to plan
-- Updates status to `published`
+Skills that create and publish content.
 
-**Input:**
-```yaml
-# Reads from plan.yaml
-channels:
-  x:
-    enabled: true
-    status: approved  # Only publishes if approved
-    artifact_path: ./drafts/x_post.md
-```
-
-**Output:**
-```yaml
-# Writes back to plan.yaml
-channels:
-  x:
-    status: published
-    published_url: "https://x.com/ShapeShift/status/1234567890"
-    published_at: "2026-02-01T14:30:00Z"
-```
-
-**Implementation approach:**
-- Standalone script/service
-- Integrates with platform APIs (X, Discord webhooks, etc.)
-- Respects `publish_window` timing
-- Can schedule or post immediately
+| Skill | Purpose |
+|-------|---------|
+| `content-worker.md` | Generate draft content |
+| `publisher-worker.md` | Publish to channels |
+| `analytics-worker.md` | Analyze campaign performance |
+| `twitter-analytics.md` | X-specific metrics |
+| `walkthrough-generator.md` | Product demo videos |
 
 ---
 
-### 4. Analytics Worker
+## Layer 4: Knowledge Layer
 
-**What it does:**
-- Reads published URLs from plan
-- Pulls metrics from platform APIs
-- Generates performance reports
-- Flags underperforming content
+Skills that maintain authoritative knowledge.
 
-**Input:**
-```yaml
-# Reads from plan.yaml
-channels:
-  x:
-    published_url: "https://x.com/ShapeShift/status/1234567890"
-tracking:
-  utm_base:
-    campaign: starknet-agent-launch
-```
+| Skill | Purpose |
+|-------|---------|
+| `product-oracle.md` | Source of truth for product state |
+| `asset-manager.md` | Source of truth for visual assets |
+| `campaign-memory.md` | Historical context and learnings |
 
-**Output:**
-```
-.gtm/STRK-AGENT-001/
-├── plan.yaml
-└── reports/
-    ├── week-1.md
-    ├── week-2.md
-    └── summary.md
-```
+---
 
-**Implementation approach:**
-- Scheduled job (daily/weekly)
-- Pulls from X Analytics API, Discord insights, etc.
-- Correlates with UTM tracking data
-- LLM summarizes metrics into readable reports
+## Layer 5: Quality Layer
+
+Skills that validate content before human review.
+
+| Skill | Purpose |
+|-------|---------|
+| `brand-validator.md` | Voice/tone compliance |
+| `link-checker.md` | URL and UTM validation |
+| `audience-analyzer.md` | Segment fit verification |
+| `release-coordinator.md` | Timing and readiness check |
+
+---
+
+## Layer 6: Monitoring Layer
+
+Skills that watch for triggers and opportunities.
+
+| Skill | Purpose |
+|-------|---------|
+| `github-watcher.md` | Internal repo monitoring |
+| `competitor-watcher.md` | Competitor activity |
+| `integration-observer.md` | Partner activity |
+| `news-watcher.md` | News tie-ins, press opportunities |
+
+---
+
+## Complete Skill Inventory
+
+**Total: 21 skills** (up from original 7)
+
+### Coordination (2)
+- `bot-manager.md` - Central brain
+- `gtm-owner.md` - Strategy and brand
+
+### Execution (5)
+- `content-worker.md`
+- `publisher-worker.md`
+- `analytics-worker.md`
+- `twitter-analytics.md`
+- `walkthrough-generator.md`
+
+### Knowledge (3)
+- `product-oracle.md`
+- `asset-manager.md`
+- `campaign-memory.md`
+
+### Quality (4)
+- `brand-validator.md`
+- `link-checker.md`
+- `audience-analyzer.md`
+- `release-coordinator.md`
+
+### Monitoring (4)
+- `github-watcher.md`
+- `competitor-watcher.md`
+- `integration-observer.md`
+- `news-watcher.md`
+
+### Deprecated (1)
+- `orchestrator.md` - Superseded by Bot Manager
+
+### Sub-skills (2)
+- `utm-generator.md` (extract from publisher)
+- `tier-classifier.md` (extract from github-watcher)
+
+---
+
+## Protocols
+
+Standardized communication and workflow formats.
+
+| Protocol | Purpose |
+|----------|---------|
+| `campaign-owner.md` | Human role definition, 10/80/10 workflow |
+| `session-context.md` | Shared state schema |
+| `human-escalation.md` | Bot → Human communication format |
+| `checkpoint-gates.md` | Approval gate definitions |
 
 ---
 
 ## Data Flow
 
-### Happy Path: Feature Launch → Published Content
+### Happy Path: Trigger → Published Content
 
 ```
 1. TRIGGER
-   └─→ Human runs: gtm init --id STRK-AGENT-001 --tier 2
-       └─→ Creates .gtm/STRK-AGENT-001/plan.yaml
+   └─→ GitHub Watcher detects PR merged
+       └─→ Alerts Bot Manager
+       └─→ Bot Manager queries GTM Owner for tier assessment
 
-2. ENRICH
-   └─→ Human runs: gtm enrich --pr <url> --feature-brief <path>
-       └─→ Adds provenance.inputs to plan.yaml
+2. KICKOFF (10% Human)
+   └─→ Campaign Owner receives kickoff request
+       └─→ Reviews trigger, sets brief
+       └─→ Approves tier and channels
+       └─→ Bot Manager initializes session context
 
-3. GENERATE (Content Worker)
-   └─→ Worker triggered (manual or webhook)
-       └─→ Reads plan.yaml + inputs
-       └─→ Generates drafts via LLM
-       └─→ Writes to drafts/ folder
-       └─→ Updates status: pending → generated
+3. KNOWLEDGE GATHERING
+   └─→ Bot Manager queries Knowledge Layer:
+       └─→ Product Oracle (current product facts)
+       └─→ Asset Manager (available assets)
+       └─→ Campaign Memory (past learnings)
+   └─→ Session context updated with knowledge
 
-4. REVIEW
-   └─→ Human reviews drafts, makes edits
-   └─→ Human runs: gtm set-status --field channels.x.status --value approved
-       └─→ Updates status: generated → approved
+4. CONTENT GENERATION (80% Bot)
+   └─→ Bot Manager dispatches to Content Worker
+       └─→ Content Worker receives context
+       └─→ Generates drafts for each channel
+       └─→ Returns artifacts
 
-5. APPROVE GATE
-   └─→ Human runs: gtm marketing-approve --reviewer "@name"
-       └─→ Validates tier/risk requirements
-       └─→ Sets gates.marketing_gate.status: approved
+5. QUALITY VALIDATION
+   └─→ Bot Manager dispatches to Quality Layer:
+       └─→ Brand Validator (voice check)
+       └─→ Link Checker (URL validation)
+       └─→ Audience Analyzer (segment fit)
+       └─→ Release Coordinator (timing check)
+   └─→ Issues flagged, passed content marked ready
 
-6. PUBLISH (Publisher Worker)
-   └─→ Worker triggered (manual or on approval)
-       └─→ Reads approved content
-       └─→ Posts to channels
-       └─→ Writes published_url back
-       └─→ Updates status: approved → published
+6. REVIEW (10% Human)
+   └─→ Bot Manager submits to checkpoint gate
+       └─→ Campaign Owner reviews drafts
+       └─→ Provides feedback or approves
+       └─→ Content revised if needed
 
-7. TRACK (Analytics Worker)
-   └─→ Scheduled job (weekly)
-       └─→ Pulls metrics for published content
-       └─→ Generates reports
-       └─→ Flags underperformers
+7. FINAL APPROVAL
+   └─→ Final gate submitted
+       └─→ Campaign Owner signs off
+       └─→ Publisher Worker authorized
+
+8. PUBLISH
+   └─→ Bot Manager dispatches to Publisher Worker
+       └─→ Content posted to channels
+       └─→ Published URLs recorded
+       └─→ Status updated to published
+
+9. POST-PUBLISH
+   └─→ Analytics Worker tracks metrics
+       └─→ Campaign Memory records learnings
+       └─→ Session archived
 ```
 
 ---
 
-## Interface Contracts
+## Session Context
 
-### Plan YAML → Worker
+Shared state that persists across skill invocations.
 
-Workers read from `.gtm/{id}/plan.yaml`. The contract:
+**Protocol:** `protocols/session-context.md`
 
 ```yaml
-# What Content Worker needs
-id: string
-title: string
-tier: 0|1|2
-channels:
-  {channel_name}:
-    enabled: boolean
-    status: pending|generated|needs_review|approved|scheduled|published|blocked
-provenance:
-  inputs: 
-    - type: feature_brief|pr|doc|url
-      path: string (local) | url: string (remote)
-content_outputs:
-  {output_type}:
-    status: pending|generated|approved
-    artifact_path: string|null
-
-# What Publisher Worker needs
-channels:
-  {channel_name}:
-    enabled: boolean
-    status: approved  # Only acts on approved
-    artifact_path: string
-    publish_window: datetime|null
-timing:
-  publish_mode: manual|auto_when_green|auto_on_flag
-
-# What Analytics Worker needs
-channels:
-  {channel_name}:
-    published_url: string|null
-tracking:
-  utm_base:
-    source: string
-    medium: string
-    campaign: string
-  dashboard_urls: string[]
+session_context:
+  id: "session-2026-01-29-001"
+  
+  campaign:
+    gtm_id: "YIELD-XYZ-001"
+    tier: 2
+    campaign_owner: "@phil"
+  
+  knowledge:
+    product: { chains: 28, ... }
+    protocol: { name: "Yield.xyz", ... }
+    audience: { segment: "defi_degens", ... }
+  
+  artifacts:
+    - type: "draft_x_post"
+      path: ".gtm/YIELD-XYZ-001/drafts/x_post.md"
+  
+  compute:
+    skills_invoked: 5
+    budget_remaining: 5
 ```
 
-### Worker → Plan YAML
+**Key Benefits:**
+- No context loss between skills
+- No redundant research
+- Compute budget tracking
+- Audit trail of decisions
 
-Workers write back to `.gtm/{id}/plan.yaml`:
+---
+
+## Checkpoint Gates
+
+Structured approval points requiring human review.
+
+**Protocol:** `protocols/checkpoint-gates.md`
+
+| Gate | Required For | Purpose |
+|------|--------------|---------|
+| Kickoff | Tier 1, 2 | Approve brief and direction |
+| Strategy | Tier 1 only | Approve strategic approach |
+| Drafts | All tiers | Review content |
+| Final | All tiers | Sign-off before publish |
+| Publish | Tier 1 only | Confirm before major launch |
+
+---
+
+## Human Escalation
+
+Standardized format for bot → human communication.
+
+**Protocol:** `protocols/human-escalation.md`
 
 ```yaml
-# Content Worker writes
-content_outputs:
-  x_post:
-    status: generated
-    artifact_path: ./drafts/x_post.md
-    generated_at: datetime
-history:
-  - action: content_generated
-    timestamp: datetime
-    actor: content-worker
-    details: { outputs: [...] }
-
-# Publisher Worker writes
-channels:
-  x:
-    status: published
-    published_url: string
-    published_at: datetime
-history:
-  - action: published
-    timestamp: datetime
-    actor: publisher-worker
-    details: { channel: x, url: ... }
-
-# Analytics Worker writes
-# (creates separate report files, doesn't modify plan.yaml much)
+escalation:
+  type: "decision_needed"
+  priority: "normal"
+  
+  summary: "Need decision on APY claims"
+  detail: "..."
+  
+  recommendation:
+    option: "C"
+    reasoning: "..."
+  
+  actions:
+    - id: "approve_a"
+      label: "Option A"
+    - id: "approve_b"
+      label: "Option B"
 ```
 
 ---
 
-## Worker Specifications
-
-### Content Worker Spec
-
-**File:** `worker-specs/content-worker.md`
-
-```
-Name: content-worker
-Trigger: Manual CLI | Webhook | Scheduled
-Input: .gtm/{id}/plan.yaml
-Output: .gtm/{id}/drafts/*.md
-
-Dependencies:
-- LLM API (Claude/GPT)
-- Brand voice guide (./brand/voice.md)
-- Channel templates (./templates/channels/*.md)
-
-Environment:
-- ANTHROPIC_API_KEY or OPENAI_API_KEY
-- GTM_ROOT (path to .gtm folder)
-
-Commands:
-- content-worker generate --plan <path>
-- content-worker generate --id <initiative-id>
-- content-worker regenerate --id <id> --channel <channel>
-
-Behavior:
-1. Load plan.yaml
-2. For each enabled channel with status=pending:
-   a. Load channel template
-   b. Load brand voice guide
-   c. Load all provenance.inputs
-   d. Generate draft via LLM
-   e. Write to drafts/{channel}.md
-   f. Update content_outputs.{channel}.status = generated
-3. Append to history
-4. Save plan.yaml
-```
-
----
-
-### Publisher Worker Spec
-
-**File:** `worker-specs/publisher-worker.md`
-
-```
-Name: publisher-worker
-Trigger: Manual CLI | On approval webhook | Scheduled
-Input: .gtm/{id}/plan.yaml + drafts/*.md
-Output: Published posts, updated plan.yaml
-
-Dependencies:
-- X API credentials
-- Discord webhook URLs
-- Farcaster hub credentials
-- Blog CMS credentials
-
-Environment:
-- X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN
-- DISCORD_WEBHOOK_{CHANNEL}
-- FARCASTER_SIGNER
-- BLOG_CMS_API_KEY
-- GTM_ROOT
-
-Commands:
-- publisher-worker publish --plan <path>
-- publisher-worker publish --id <id> --channel <channel>
-- publisher-worker schedule --id <id> --channel <channel> --time <datetime>
-- publisher-worker dry-run --id <id>
-
-Behavior:
-1. Load plan.yaml
-2. Check gates.marketing_gate.status == approved
-3. For each enabled channel with status=approved:
-   a. Load artifact from artifact_path
-   b. Check publish_window (if set, schedule or skip)
-   c. Post to channel API
-   d. Capture published_url
-   e. Update channel.status = published
-   f. Update channel.published_url
-   g. Update channel.published_at
-4. Append to history
-5. Save plan.yaml
-```
-
----
-
-### Analytics Worker Spec
-
-**File:** `worker-specs/analytics-worker.md`
-
-```
-Name: analytics-worker
-Trigger: Scheduled (daily/weekly) | Manual CLI
-Input: .gtm/{id}/plan.yaml (published URLs)
-Output: .gtm/{id}/reports/*.md
-
-Dependencies:
-- X Analytics API
-- Discord insights (if available)
-- UTM tracking service (analytics dashboard)
-- LLM for report generation
-
-Environment:
-- X_API_KEY (with analytics scope)
-- ANALYTICS_DASHBOARD_API
-- ANTHROPIC_API_KEY (for report summaries)
-- GTM_ROOT
-
-Commands:
-- analytics-worker report --plan <path>
-- analytics-worker report --id <id>
-- analytics-worker report --all (all published initiatives)
-- analytics-worker weekly-summary
-
-Behavior:
-1. Load plan.yaml
-2. For each channel with status=published:
-   a. Fetch metrics from platform API
-   b. Fetch UTM click data
-3. Compile metrics into structured data
-4. Generate report via LLM (or template)
-5. Write to reports/{date}.md
-6. If metrics below threshold, flag for human review
-```
-
----
-
-## Brand & Template Assets
-
-### Required Assets (To Be Created)
-
-```
-brand/
-├── voice.md              # Brand voice guide
-├── dos-and-donts.md      # What we say vs don't say
-├── terminology.md        # Approved terms and phrases
-└── visual-guidelines.md  # Asset specs, colors, etc.
-
-templates/
-├── channels/
-│   ├── x_post.md         # Template + examples for X posts
-│   ├── x_thread.md       # Template for threads
-│   ├── discord.md        # Discord announcement template
-│   ├── farcaster.md      # Farcaster cast template
-│   ├── blog.md           # Blog post structure
-│   └── partner_brief.md  # Partner outreach template
-└── prompts/
-    ├── content_system.md # System prompt for content generation
-    ├── summary.md        # Prompt for report summaries
-    └── optimize.md       # Prompt for optimization suggestions
-```
-
----
-
-## Implementation Phases
-
-### Phase 0: Foundation (Exists)
-- [x] GTM Coordinator CLI
-- [x] YAML schema
-- [x] Status tracking
-- [x] Validation logic
-
-### Phase 1: Manual + LLM (Minimum Viable)
-- [ ] Brand voice guide document
-- [ ] Channel templates
-- [ ] Content generation prompts
-- [ ] Manual workflow: Human runs LLM with prompts, pastes into drafts/
-
-**This is enough to execute the Starknet GTM.** Human uses Claude/GPT manually, GTM Coordinator tracks everything.
-
-### Phase 2: Content Worker (Semi-Automated)
-- [ ] Content worker script
-- [ ] LLM API integration
-- [ ] Input parsing (PRs, briefs, docs)
-- [ ] Draft generation pipeline
-- [ ] Status writeback
-
-**Human triggers content generation, reviews output, approves.**
-
-### Phase 3: Publisher Worker (Automated Publishing)
-- [ ] X API integration
-- [ ] Discord webhook integration
-- [ ] Farcaster integration
-- [ ] Scheduling logic
-- [ ] Status writeback
-
-**Human approves, worker publishes automatically.**
-
-### Phase 4: Analytics Worker (Automated Reporting)
-- [ ] X Analytics API integration
-- [ ] UTM tracking integration
-- [ ] Report generation
-- [ ] Alerting for underperformers
-
-**Metrics and reports generated automatically.**
-
-### Phase 5: Full Orchestration
-- [ ] Task queue / scheduler
-- [ ] Webhook triggers (PR merged → generate content)
-- [ ] Web dashboard for status
-- [ ] Notification system
-
-**End-to-end automation with human approval gates.**
-
----
-
-## Technology Choices
-
-### Recommended Stack
-
-| Component | Technology | Why |
-|-----------|------------|-----|
-| Orchestrator | Node.js (TypeScript) | Already using for gtm-coordinator |
-| Workers | Node.js or Python | Depends on API client availability |
-| LLM | Claude API | Better at following brand voice |
-| State | YAML files (Git) | Simple, auditable, no infra |
-| Task Queue | GitHub Actions or simple cron | Start simple |
-| Secrets | .env files / GitHub Secrets | Standard approach |
-
-### API Dependencies
-
-| Service | API | Purpose |
-|---------|-----|---------|
-| Anthropic | Claude API | Content generation, summaries |
-| X/Twitter | X API v2 | Posting, analytics |
-| Discord | Webhooks | Posting announcements |
-| Farcaster | Hub API | Posting casts |
-| Analytics | TBD | UTM tracking, click data |
-
----
-
-## File Structure (Target State)
+## File Structure
 
 ```
 ShapeShift Auto-marketing/
-├── gtm-coordinator/          # Orchestrator CLI (exists)
-│   ├── src/
-│   └── ...
+├── protocols/
+│   ├── campaign-owner.md       # Human role definition
+│   ├── session-context.md      # Shared state schema
+│   ├── human-escalation.md     # Communication format
+│   └── checkpoint-gates.md     # Approval gates
 │
-├── workers/
-│   ├── content-worker/       # Content generation worker
-│   │   ├── src/
-│   │   ├── package.json
-│   │   └── README.md
-│   ├── publisher-worker/     # Publishing worker
-│   │   ├── src/
-│   │   ├── package.json
-│   │   └── README.md
-│   └── analytics-worker/     # Analytics worker
-│       ├── src/
-│       ├── package.json
-│       └── README.md
-│
-├── brand/                    # Brand assets
-│   ├── voice.md
-│   ├── dos-and-donts.md
-│   └── ...
-│
-├── templates/                # Content templates
-│   ├── channels/
-│   └── prompts/
-│
-├── .gtm/                     # GTM plans (generated)
-│   ├── STRK-AGENT-001/
-│   │   ├── plan.yaml
-│   │   ├── drafts/
-│   │   └── reports/
-│   └── index.json
-│
-├── worker-specs/             # Worker specifications (this folder)
-│   ├── ARCHITECTURE.md
-│   ├── content-worker.md
+├── skills/
+│   ├── bot-manager.md          # Coordination layer
+│   ├── gtm-owner.md            # Strategy and brand
+│   │
+│   ├── content-worker.md       # Execution layer
 │   ├── publisher-worker.md
 │   ├── analytics-worker.md
-│   ├── github-watcher.md
-│   ├── walkthrough-generator.md
-│   ├── walkthrough-runner.ts     # Executable Playwright script
-│   ├── walkthrough-cli.md        # CLI documentation
 │   ├── twitter-analytics.md
-│   ├── app-interaction-map.md    # UI element mapping for automation
-│   └── shapeshift-testid-pr-template.md  # PR to add test IDs
+│   ├── walkthrough-generator.md
+│   │
+│   ├── product-oracle.md       # Knowledge layer
+│   ├── asset-manager.md
+│   ├── campaign-memory.md
+│   │
+│   ├── brand-validator.md      # Quality layer
+│   ├── link-checker.md
+│   ├── audience-analyzer.md
+│   ├── release-coordinator.md
+│   │
+│   ├── github-watcher.md       # Monitoring layer
+│   ├── competitor-watcher.md
+│   ├── integration-observer.md
+│   ├── news-watcher.md
+│   │
+│   ├── orchestrator.md         # DEPRECATED
+│   └── README.md
 │
-└── grants/                   # Grant proposals
-    └── ...
+├── brand/
+│   ├── voice.md
+│   └── dos-and-donts.md
+│
+├── templates/
+│   └── channels/
+│
+├── .gtm/                       # GTM plans (generated)
+│   └── {id}/
+│       ├── plan.yaml
+│       ├── session_context.yaml
+│       └── drafts/
+│
+└── gtm-coordinator/            # CLI tool
 ```
 
 ---
 
-## Next Steps (Building This)
+## Key Design Principles
 
-### Immediate (This Week)
-1. Create `brand/voice.md` — Document ShapeShift's voice
-2. Create channel templates — X, Discord, blog structures
-3. Create content prompts — System prompts for LLM
-
-### Short-term (Next 2 Weeks)
-4. Build content-worker scaffold — Basic script that reads YAML, calls LLM
-5. Test on a sample GTM plan — Generate real drafts
-6. Iterate on prompts — Tune for quality
-
-### Medium-term (Month 1-2)
-7. Build publisher-worker — X API integration first
-8. Add Discord webhook support
-9. Build analytics-worker — Start with X metrics
-
-### Ongoing
-10. Iterate based on Starknet campaign learnings
-11. Add more channels as needed
-12. Build web dashboard if warranted
+1. **Human Bookends** - 10/80/10 workflow ensures human oversight
+2. **Shared Context** - Session context prevents redundant work
+3. **Scope Enforcement** - Bot Manager keeps skills on task
+4. **Quality Gates** - Validation before human review
+5. **Source of Truth** - Knowledge layer provides accurate facts
+6. **Compute Awareness** - Budget tracking prevents waste
 
 ---
 
-*This architecture is designed to be incrementally buildable. You can execute the Starknet GTM with just Phase 1 (manual + LLM), then automate more over time.*
+## Migration from Original Architecture
+
+| Original | New |
+|----------|-----|
+| Flat skills | Layered architecture |
+| Orchestrator | Bot Manager (with context) |
+| No human role defined | Campaign Owner protocol |
+| No context sharing | Session context |
+| No validation layer | Quality layer (4 skills) |
+| No monitoring | Monitoring layer (4 skills) |
+| No knowledge layer | Knowledge layer (3 skills) |
+| 7 skills | 21 skills |
+
+---
+
+*This architecture enables 80% automation while maintaining brand consistency through dedicated human ownership and quality validation.*

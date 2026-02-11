@@ -2,7 +2,8 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import * as fs from 'fs';
 import * as path from 'path';
-import { generateFullPacket } from '../lib/fullPacketGenerator.js';
+import { generateFullPacket, type FullPacketOptions } from '../lib/fullPacketGenerator.js';
+import { fetchWebsiteContent } from '../lib/webFetch.js';
 
 function ensureDir(dir: string): void {
   if (!fs.existsSync(dir)) {
@@ -10,14 +11,35 @@ function ensureDir(dir: string): void {
   }
 }
 
+function extractTweetsFromLabeledThread(text: string): string[] {
+  // Parses content formatted like:
+  // **Tweet 1:**
+  // ...
+  // **Tweet 2:**
+  // ...
+  const parts = text.split(/\*\*Tweet\s+\d+:\*\*\s*/g).map(p => p.trim()).filter(Boolean);
+  if (!parts.length) return [];
+  return parts.map(p => p.replace(/\s+$/g, '').trim());
+}
+
+function toCopyPasteSection(title: string, body: string): string {
+  return `## ${title}\n\n\`\`\`\n${body.trim()}\n\`\`\`\n`;
+}
+
 export const fullPacketCommand = new Command('full-packet')
   .description('Generate a complete GTM packet with all materials (v2)')
-  .requiredOption('--protocol <name>', 'Protocol name (e.g., "Yield.xyz")')
+  .requiredOption('--protocol <name>', 'Protocol name (e.g., "Yield.xyz" or "rFOX")')
   .requiredOption('--url <url>', 'Protocol website URL')
   .option('--tier <tier>', 'Tier level (0, 1, or 2)', '1')
   .option('--output <dir>', 'Output directory')
+  .option('--campaign-type <type>', 'Launch type: integration (external protocol) or program (ShapeShift product)', 'integration')
+  .option('--context-url <url>', 'Additional context URL (e.g. wiki). Repeatable.', (v: string, acc: string[]) => [...(acc || []), v], [] as string[])
+  .option('--context-file <path>', 'Additional context file path. Repeatable.', (v: string, acc: string[]) => [...(acc || []), v], [] as string[])
+  .option('--cta <url>', 'Primary CTA URL (e.g. app.shapeshift.com/#/fox-ecosystem)')
+  .option('--calendar-weeks <n>', 'Number of weeks for content calendar', '4')
+  .option('--seo-count <n>', 'Number of SEO articles to generate', '1')
   .action(async (options) => {
-    const { protocol, url, tier, output } = options;
+    const { protocol, url, tier, output, campaignType, contextUrl, contextFile, cta, calendarWeeks, seoCount } = options;
     const tierNum = parseInt(tier, 10);
 
     // Validate URL
@@ -35,18 +57,52 @@ export const fullPacketCommand = new Command('full-packet')
       process.exit(1);
     }
 
+    const contextUrls = Array.isArray(contextUrl) ? contextUrl : contextUrl ? [contextUrl] : [];
+    const contextFiles = Array.isArray(contextFile) ? contextFile : contextFile ? [contextFile] : [];
+
     console.log(chalk.blue.bold(`\n🚀 Generating Full GTM Packet for ${protocol}...\n`));
     console.log(chalk.gray(`URL: ${url}`));
     console.log(chalk.gray(`Tier: ${tierNum}`));
+    console.log(chalk.gray(`Campaign type: ${campaignType}`));
+    if (contextUrls.length) console.log(chalk.gray(`Context URLs: ${contextUrls.join(', ')}`));
+    if (contextFiles.length) console.log(chalk.gray(`Context files: ${contextFiles.join(', ')}`));
+    if (cta) console.log(chalk.gray(`CTA: ${cta}`));
     console.log();
 
     try {
       const startTime = Date.now();
 
+      // Build context content from URLs and files
+      let contextContent = '';
+      for (const u of contextUrls) {
+        try {
+          const { content } = await fetchWebsiteContent(u);
+          contextContent += `\n\n## Context from ${u}\n\n${content}`;
+        } catch (e) {
+          console.warn(chalk.yellow(`  ⚠ Could not fetch context URL ${u}`));
+        }
+      }
+      for (const f of contextFiles) {
+        try {
+          const content = fs.readFileSync(f, 'utf-8');
+          contextContent += `\n\n## Context from file: ${f}\n\n${content}`;
+        } catch (e) {
+          console.warn(chalk.yellow(`  ⚠ Could not read context file ${f}`));
+        }
+      }
+
+      const packetOpts: FullPacketOptions = {
+        contextContent: contextContent.trim() || undefined,
+        campaignType: campaignType === 'program' ? 'program' : 'integration',
+        ctaUrl: cta,
+        calendarWeeks: parseInt(calendarWeeks, 10) || 4,
+        seoCount: parseInt(seoCount, 10) || 1,
+      };
+
       // Generate the full packet
       const results = await generateFullPacket(protocol, url, tierNum, (step) => {
         console.log(chalk.cyan(`  → ${step}`));
-      });
+      }, packetOpts);
 
       const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
       console.log(chalk.green(`\n✅ Packet generated in ${elapsed}s!\n`));
@@ -55,7 +111,7 @@ export const fullPacketCommand = new Command('full-packet')
       const outputDir = output || path.join(process.cwd(), 'research-output', protocol.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '-'));
 
       // Create all directories
-      const dirs = ['drafts', 'research', 'partner', 'press', 'design', 'outreach', 'intelligence'];
+      const dirs = ['drafts', 'research', 'partner', 'press', 'design', 'outreach', 'intelligence', 'seo', 'calendar'];
       ensureDir(outputDir);
       dirs.forEach(d => ensureDir(path.join(outputDir, d)));
 
@@ -77,41 +133,93 @@ export const fullPacketCommand = new Command('full-packet')
       console.log(chalk.gray('  → research/protocol_analysis.json'));
 
       // Drafts - Main account
-      fs.writeFileSync(path.join(outputDir, 'drafts', 'x_post_main.md'), `# Main Twitter Thread (@ShapeShift)\n\n${results.content.xPostMain}`);
+      {
+        const tweets = extractTweetsFromLabeledThread(results.content.xPostMain);
+        const copy = tweets.length ? tweets.join('\n\n') : results.content.xPostMain;
+        fs.writeFileSync(
+          path.join(outputDir, 'drafts', 'x_post_main.md'),
+          `# Main Twitter Thread (@ShapeShift)\n\n${results.content.xPostMain}\n\n---\n\n${toCopyPasteSection('Copy/paste (thread)', copy)}`
+        );
+      }
       console.log(chalk.gray('  → drafts/x_post_main.md'));
+
+      fs.writeFileSync(
+        path.join(outputDir, 'drafts', 'x_post_blog.md'),
+        `# Blog Promo Tweet (@ShapeShift)\n\n${results.content.xPostBlog}\n\n---\n\n${toCopyPasteSection('Copy/paste', results.content.xPostBlog)}`
+      );
+      console.log(chalk.gray('  → drafts/x_post_blog.md'));
 
       fs.writeFileSync(path.join(outputDir, 'drafts', 'infobot_qt.md'), results.content.infoBotQT);
       console.log(chalk.gray('  → drafts/infobot_qt.md'));
 
-      fs.writeFileSync(path.join(outputDir, 'drafts', 'discord_post.md'), `# Discord Announcement\n\n${results.content.discordPost}`);
+      fs.writeFileSync(
+        path.join(outputDir, 'drafts', 'discord_post.md'),
+        `# Discord Announcement\n\n${results.content.discordPost}\n\n---\n\n${toCopyPasteSection('Copy/paste', results.content.discordPost)}`
+      );
       console.log(chalk.gray('  → drafts/discord_post.md'));
 
-      fs.writeFileSync(path.join(outputDir, 'drafts', 'farcaster_post.md'), `# Farcaster Post\n\n${results.content.farcasterPost}`);
+      fs.writeFileSync(
+        path.join(outputDir, 'drafts', 'discord_reminder.md'),
+        `# Discord Reminder (Update)\n\n${results.content.discordReminder}\n\n---\n\n${toCopyPasteSection('Copy/paste', results.content.discordReminder)}`
+      );
+      console.log(chalk.gray('  → drafts/discord_reminder.md'));
+
+      fs.writeFileSync(
+        path.join(outputDir, 'drafts', 'farcaster_post.md'),
+        `# Farcaster Post\n\n${results.content.farcasterPost}\n\n---\n\n${toCopyPasteSection('Copy/paste', results.content.farcasterPost)}`
+      );
       console.log(chalk.gray('  → drafts/farcaster_post.md'));
 
-      fs.writeFileSync(path.join(outputDir, 'drafts', 'followup_educational.md'), `# Day 1: Educational Thread\n\n${results.content.followupEducational}`);
+      {
+        const tweets = extractTweetsFromLabeledThread(results.content.followupEducational);
+        const copy = tweets.length ? tweets.join('\n\n') : results.content.followupEducational;
+        fs.writeFileSync(
+          path.join(outputDir, 'drafts', 'followup_educational.md'),
+          `# Day 1: Educational Thread\n\n${results.content.followupEducational}\n\n---\n\n${toCopyPasteSection('Copy/paste (thread)', copy)}`
+        );
+      }
       console.log(chalk.gray('  → drafts/followup_educational.md'));
 
-      fs.writeFileSync(path.join(outputDir, 'drafts', 'followup_metrics.md'), results.content.followupMetrics);
+      {
+        const tweets = extractTweetsFromLabeledThread(results.content.followupMetrics);
+        const copy = tweets.length ? tweets.join('\n\n') : results.content.followupMetrics;
+        fs.writeFileSync(
+          path.join(outputDir, 'drafts', 'followup_metrics.md'),
+          `${results.content.followupMetrics}\n\n---\n\n${toCopyPasteSection('Copy/paste (thread template)', copy)}`
+        );
+      }
       console.log(chalk.gray('  → drafts/followup_metrics.md'));
 
-      fs.writeFileSync(path.join(outputDir, 'drafts', 'followup_recap.md'), results.content.followupRecap);
+      {
+        const tweets = extractTweetsFromLabeledThread(results.content.followupRecap);
+        const copy = tweets.length ? tweets.join('\n\n') : results.content.followupRecap;
+        fs.writeFileSync(
+          path.join(outputDir, 'drafts', 'followup_recap.md'),
+          `${results.content.followupRecap}\n\n---\n\n${toCopyPasteSection('Copy/paste (thread template)', copy)}`
+        );
+      }
       console.log(chalk.gray('  → drafts/followup_recap.md'));
 
       // Drafts - Personal account
-      fs.writeFileSync(path.join(outputDir, 'drafts', 'x_post_personal.md'), `# Personal Tweet (Your Account)\n\nQT the main @ShapeShift announcement with:\n\n${results.content.xPostPersonal}`);
+      fs.writeFileSync(
+        path.join(outputDir, 'drafts', 'x_post_personal.md'),
+        `# Personal Tweet (Your Account)\n\nQT the main @ShapeShift announcement with:\n\n${results.content.xPostPersonal}\n\n---\n\n${toCopyPasteSection('Copy/paste', results.content.xPostPersonal)}`
+      );
       console.log(chalk.gray('  → drafts/x_post_personal.md'));
 
       // Drafts - Blog
       fs.writeFileSync(path.join(outputDir, 'drafts', 'blog_draft.md'), `# Blog Post for Strapi\n\n${results.content.blogDraft}`);
       console.log(chalk.gray('  → drafts/blog_draft.md'));
 
+      fs.writeFileSync(path.join(outputDir, 'drafts', 'medium_post.md'), `# Medium Post\n\n${results.content.mediumPost}`);
+      console.log(chalk.gray('  → drafts/medium_post.md'));
+
       fs.writeFileSync(path.join(outputDir, 'drafts', 'release_notes.md'), results.content.releaseNotes);
       console.log(chalk.gray('  → drafts/release_notes.md'));
 
-      // Partner
+      // Partner (or Community Brief for program launches)
       fs.writeFileSync(path.join(outputDir, 'partner', 'partner_kit.md'), results.partnerKit);
-      console.log(chalk.green('  → partner/partner_kit.md') + chalk.yellow(' ← SEND TO PARTNER'));
+      console.log(chalk.gray('  → partner/partner_kit.md') + (campaignType !== 'program' ? chalk.yellow(' ← SEND TO PARTNER') : chalk.yellow(' (Community Brief)')));
 
       // Press
       fs.writeFileSync(path.join(outputDir, 'press', 'press_release.md'), `# Press Release\n\n${results.pressRelease}`);
@@ -143,6 +251,17 @@ export const fullPacketCommand = new Command('full-packet')
       fs.writeFileSync(path.join(outputDir, 'intelligence', 'wild_cards.md'), wildCardsMd);
       console.log(chalk.gray('  → intelligence/wild_cards.md'));
 
+      // SEO articles
+      results.seoArticles.forEach((content, i) => {
+        const name = `seo_article_${String(i + 1).padStart(2, '0')}.md`;
+        fs.writeFileSync(path.join(outputDir, 'seo', name), `# SEO Article ${i + 1}: ${protocol}\n\n${content}`);
+        console.log(chalk.gray(`  → seo/${name}`));
+      });
+
+      // Content calendar
+      fs.writeFileSync(path.join(outputDir, 'calendar', 'content_calendar.md'), results.contentCalendar);
+      console.log(chalk.gray('  → calendar/content_calendar.md'));
+
       // Summary
       console.log(chalk.blue.bold('\n📋 Summary\n'));
       console.log(chalk.white(`Protocol: ${results.protocol.name}`));
@@ -154,8 +273,11 @@ export const fullPacketCommand = new Command('full-packet')
 
       console.log(chalk.blue.bold('\n🚀 Next Steps\n'));
       console.log(chalk.white('1. Open ') + chalk.cyan('checklist.md') + chalk.white(' and follow the instructions'));
-      console.log(chalk.white('2. Send ') + chalk.cyan('partner/partner_kit.md') + chalk.white(` to the ${protocol} team`));
-      console.log(chalk.white('3. Review drafts and post when ready'));
+      if (campaignType !== 'program') {
+        console.log(chalk.white('2. Send ') + chalk.cyan('partner/partner_kit.md') + chalk.white(` to the ${protocol} team`));
+      }
+      const stepNum = campaignType === 'program' ? '2' : '3';
+      console.log(chalk.white(`${stepNum}. Review drafts (blog, X threads, SEO, calendar) and post when ready`));
 
       console.log(chalk.green.bold('\n✅ Done! Good luck with the launch!\n'));
 
