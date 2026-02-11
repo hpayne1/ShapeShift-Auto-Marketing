@@ -17,16 +17,16 @@ Announce the meme bounty on crypto forums and social media channels.,Set up a su
 
 ---
 
-## 2. rFOX Prediction Market Challenge
+## 2. rFOX Prediction / Engagement Challenge
 
-Create a small-scale prediction market on the future price of rFOX, offering crypto rewards for accurate predictions.
+Create a small-scale prediction or engagement challenge around FOX staked in rFOX or USDC rewards (e.g. total USDC distributed next epoch, or staker count milestone), offering crypto rewards for accurate predictions or participation.
 
 - **Budget:** $500-800
 - **Time:** 1-2 weeks
 - **Target:** Crypto Traders and Analysts
 
 **How to Execute:**
-Set up a basic prediction market using a platform like Augur or Polymarket.,Define the prediction question and time frame (e.g., rFOX price at the end of the month).,Publicize the challenge in trading communities and on social media.,Provide rewards to participants with the most accurate predictions.
+Use a platform like Polymarket or a simple community contest. Define the metric (e.g. FOX staked in rFOX, or USDC distributed)—not "price of rFOX," since rFOX is a staking program, not a tradeable ticker. Publicize in trading and DeFi communities. Reward participants with the most accurate predictions or top engagement.
 
 ---
 
@@ -56,13 +56,13 @@ Design a series of clues and puzzles that lead participants through various rFOX
 
 ---
 
-## 5. rFOX Trading Competition
+## 5. rFOX Staking / Engagement Competition
 
-Organize a trading competition where traders compete to achieve the highest trading volume of rFOX over a set period.
+Organize a staking or engagement competition (e.g. most FOX staked in rFOX during a set period, or most referrals to the FOX ecosystem), with rewards for top participants.
 
 - **Budget:** $1,000-5,000
 - **Time:** 1 week
-- **Target:** Active Crypto Traders and Trading Communities
+- **Target:** FOX holders and DeFi users
 
 **How to Execute:**
-Partner with a crypto exchange that lists rFOX.,Define competition rules and timeframe.,Advertise the competition on trading platforms and social media.,Track trading volumes and reward the top traders with cash or crypto prizes.
+rFOX is a staking program on Arbitrum—there is no "trading volume of rFOX" ticker. Frame the competition around staking milestones, USDC rewards earned, or referral/engagement metrics. Define rules and timeframe, advertise on Discord/Twitter/forums, track and reward top stakers or referrers.

@@ -2,20 +2,11 @@
 
 **rFOX is Now Live! 🦊**
 
-- Stake your FOX tokens.
-- Earn USDC rewards directly.
-- Get paid in your wallet every month.
+- Stake FOX on Arbitrum, earn USDC.
+- Rewards in your wallet on the 15th of each month.
 - No custody, no KYC—your keys, your control.
 
-**Ready to start? Here's how:**
-1. Visit the rFOX page [LINK]
-2. Connect your wallet
-3. Stake your FOX
-4. Watch for USDC rewards each month
-
-Explore more and join the discussion. [LINK]
-
-We're here to answer your questions—feedback is always welcome!
+Get started: https://app.shapeshift.com/#/fox-ecosystem
 
 ---
 
@@ -24,18 +15,9 @@ We're here to answer your questions—feedback is always welcome!
 ```
 **rFOX is Now Live! 🦊**
 
-- Stake your FOX tokens.
-- Earn USDC rewards directly.
-- Get paid in your wallet every month.
+- Stake FOX on Arbitrum, earn USDC.
+- Rewards in your wallet on the 15th of each month.
 - No custody, no KYC—your keys, your control.
 
-**Ready to start? Here's how:**
-1. Visit the rFOX page [LINK]
-2. Connect your wallet
-3. Stake your FOX
-4. Watch for USDC rewards each month
-
-Explore more and join the discussion. [LINK]
-
-We're here to answer your questions—feedback is always welcome!
+Get started: https://app.shapeshift.com/#/fox-ecosystem
 ```

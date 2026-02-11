@@ -1,32 +1,29 @@
 # Main Twitter Thread (@ShapeShift)
 
+**Voice:** 3rd person (ShapeShift as platform). No "we" from main account. See `brand/voice.md` and `skills/brand-validator.md`.
+
 **Tweet 1:**
-What if you could earn USDC directly in your wallet every month?
+rFOX is live. Stake FOX on Arbitrum, earn USDC. Rewards in your wallet on the 15th of each month. No custody, no KYC. 🦊
 
 **Tweet 2:**
-rFOX is now live. Stake your FOX and get rewarded in USDC. Enjoy the benefits of monthly payouts.
+Stake FOX on Arbitrum (bridge in ShapeShift UI if on mainnet). Earn a share of the DAO's affiliate-fee revenue in USDC. Your keys, your control.
 
 **Tweet 3:**
-Why does this matter? Because it's all about self-custody. Your keys, your control—no need for KYC.
+Unstake anytime—28-day cooldown before you claim FOX back. Accounting on IPFS and forum each epoch; verify with the open source CLI in the rFOX repo.
 
 **Tweet 4:**
-Ready to start earning USDC? Dive into the FOX ecosystem and stake today: [https://app.shapeshift.com/#/fox-ecosystem](https://app.shapeshift.com/#/fox-ecosystem)
-
-**Tweet 5:**
-No custody, no KYC. Just rewards landing straight in your wallet. 🦊
+Get started: https://app.shapeshift.com/#/fox-ecosystem
 
 ---
 
 ## Copy/paste (thread)
 
 ```
-What if you could earn USDC directly in your wallet every month?
+rFOX is live. Stake FOX on Arbitrum, earn USDC. Rewards in your wallet on the 15th of each month. No custody, no KYC. 🦊
 
-rFOX is now live. Stake your FOX and get rewarded in USDC. Enjoy the benefits of monthly payouts.
+Stake FOX on Arbitrum (bridge in ShapeShift UI if on mainnet). Earn a share of the DAO's affiliate-fee revenue in USDC. Your keys, your control.
 
-Why does this matter? Because it's all about self-custody. Your keys, your control—no need for KYC.
+Unstake anytime—28-day cooldown before you claim FOX back. Accounting on IPFS and forum each epoch; verify with the open source CLI in the rFOX repo.
 
-Ready to start earning USDC? Dive into the FOX ecosystem and stake today: [https://app.shapeshift.com/#/fox-ecosystem](https://app.shapeshift.com/#/fox-ecosystem)
-
-No custody, no KYC. Just rewards landing straight in your wallet. 🦊
+Get started: https://app.shapeshift.com/#/fox-ecosystem
 ```

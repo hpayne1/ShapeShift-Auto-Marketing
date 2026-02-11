@@ -49,9 +49,10 @@ Run the **GTM Final Check** so the packet is release-ready:
 
 ### 5. Execute
 
-- **PRE-FLIGHT** (in the packet's `checklist.md`): Confirm content ready, access verified, partner status. Optionally run the final check again if content changed.
-- **Launch day:** Follow the Day 0 schedule (X, Discord, blog, Medium, Farcaster, DMs, etc.).
-- **Days 1–7:** Follow-up threads, engagement, metrics, recap.
+- **Open the packet:** Serve the packet folder over HTTP (e.g. `npx serve .` in `research-output/<protocol-slug>/`) and open **index.html**. Use **view.html** (linked from Content Drafts) to preview copy as X, Discord, or blog and to copy final text; fill any placeholders in the form. See the packet's **README.md** for run instructions.
+- **PRE-FLIGHT** (in the packet's `checklist.md` or **checklist.html**): Confirm content ready, access verified, partner status. Optionally run the final check again if content changed.
+- **Launch day:** Follow the Day 0 schedule (X, Discord, blog, Medium, Farcaster, DMs, etc.). Copy from the packet previews or from `drafts/` as needed.
+- **Days 1–7:** Follow-up threads, engagement, metrics (editable in checklist.html), recap.
 
 ## Workflow Summary
 

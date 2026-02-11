@@ -1,21 +1,22 @@
-# PR Brief: rFOX Integration
+# PR Brief: rFOX Program
 
 ## Key Messages (Memorize These)
 
-**Primary:** rFOX is now live. Stake FOX, earn USDC. Rewards paid to your wallet every month.
+**Primary:** rFOX is now live. Stake FOX on Arbitrum, earn USDC. Rewards sent to your wallet on the 15th of each month.
 
 **Supporting:**
 - No custody, no KYC—your keys, your control.
 - Get paid in USDC, not volatile reward tokens.
+- Bridge FOX to Arbitrum in ShapeShift UI if on mainnet; 28-day cooldown when unstaking.
 
-**Tweet-Ready:** "rFOX is live. Stake FOX, earn USDC. Get paid in your wallet every month. No custody, no KYC. 🦊"
+**Tweet-Ready:** "rFOX is live. Stake FOX on Arbitrum, earn USDC. Rewards in your wallet on the 15th of each month. No custody, no KYC. 🦊"
 
 ---
 
 ## Talking Points
 
 1. **What is this?**
-   ShapeShift now supports rFOX: stake FOX, earn USDC. Rewards paid to your wallet every month.
+   ShapeShift now supports rFOX: stake FOX on Arbitrum, earn USDC. Rewards sent to your wallet on the 15th of each month.
 
 2. **Why does it matter?**
    - Self-custody: Users maintain control of their assets
@@ -55,6 +56,6 @@ A: Available now at app.shapeshift.com
 ## Bridging Phrases
 
 If asked something you can't answer:
-- "What's really exciting about this is..."
+- "The key point is..."
 - "The key thing to understand is..."
 - "What users care about most is..."

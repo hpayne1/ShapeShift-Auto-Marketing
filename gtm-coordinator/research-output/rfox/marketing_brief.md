@@ -1,5 +1,9 @@
 # Marketing Brief: rFOX Program
 
+**Key message rule:** The one-liner and key messages are actual marketing—earning-first (stake FOX, earn USDC, rewards in your wallet). No custody and privacy are supporting differentiators.
+
+---
+
 ## Who Are We Speaking To?
 
 **Target Audience:** DeFi Power Users, Yield Seekers, Privacy-Conscious Users
@@ -14,7 +18,7 @@
 
 **The Problem:** Crypto users want to earn yield without giving up control of their assets or going through KYC processes.
 
-**The "Aha" Moment:** Realizing they can earn USDC directly in their wallet every month without losing custody.
+**The "Aha" Moment:** Realizing they can earn USDC directly in their wallet (on the 15th of each month) without losing custody.
 
 **Before/After:**
 Before: Users had to rely on volatile reward tokens and centralized platforms. After: They earn USDC monthly with no custody or KYC.
@@ -23,7 +27,7 @@ Before: Users had to rely on volatile reward tokens and centralized platforms. A
 
 ## GTM Idea (One Sentence)
 
-> rFOX lets you stake FOX and earn USDC every month, right into your wallet.
+> rFOX is now live: stake FOX on Arbitrum, earn USDC—rewards in your wallet on the 15th of each month.
 
 ---
 
@@ -57,7 +61,8 @@ Before: Users had to rely on volatile reward tokens and centralized platforms. A
 **Differentiators:**
 - No custody or KYC required
 - Rewards paid in stable USDC, not volatile tokens
-- Monthly rewards distribution
+- Rewards sent on the 15th of each month (for the preceding month)
+- Stake on Arbitrum—bridge FOX in the ShapeShift UI if on mainnet
 
 **Positioning Statement:** ShapeShift offers a self-custodial, privacy-focused way to earn stable returns in USDC.
 
@@ -66,14 +71,16 @@ Before: Users had to rely on volatile reward tokens and centralized platforms. A
 ## Key Messages
 
 **Primary Message:**
-> rFOX is now live. Stake FOX, earn USDC. Rewards paid to your wallet every month.
+> rFOX is now live. Stake FOX on Arbitrum, earn USDC. Rewards sent to your wallet on the 15th of each month.
 
 **Supporting Messages:**
 - No custody, no KYC—your keys, your control.
 - Get paid in USDC, not volatile reward tokens.
+- Rewards come from a share of the DAO's affiliate-fee revenue each epoch.
+- When you unstake, you enter a 28-day cooldown before claiming FOX back.
 
 **Tweet-Ready:**
-> rFOX is live. Stake FOX, earn USDC. Get paid in your wallet every month. No custody, no KYC. 🦊
+> rFOX is live. Stake FOX on Arbitrum, earn USDC. Rewards in your wallet on the 15th of each month. No custody, no KYC. 🦊
 
 ---
 
@@ -83,11 +90,14 @@ Before: Users had to rely on volatile reward tokens and centralized platforms. A
 |-------|-------|
 | **Name** | rFOX |
 | **Category** | Staking / revenue share |
-| **Tagline** | Stake FOX, earn USDC—rewards in your wallet every month. |
+| **Tagline** | Stake FOX on Arbitrum, earn USDC—rewards in your wallet on the 15th of each month. |
 
 **Key Features:**
-- FOX-only staking (no LP). Stake FOX, earn USDC.
-- Off-chain rewards distribution by DAO multisig to staker wallets.
+- FOX-only staking on Arbitrum (bridge FOX in ShapeShift UI if on mainnet). Stake FOX, earn USDC.
+- Off-chain rewards distribution by DAO multisig to staker wallets (15th of each month for preceding month).
+- Rewards from a share of the DAO's affiliate-fee revenue each epoch.
+- 28-day cooldown when unstaking before FOX can be claimed.
 - No custody, no KYC. Your keys, your control.
+- Accounting published to IPFS and forum each epoch; verify with open source CLI in the [rFOX repo](https://github.com/shapeshift/rFOX).
 
-**Value Proposition:** rFOX lets you stake FOX and earn USDC revenue share, paid to your wallet every month, with no custody and no KYC.
+**Value Proposition:** rFOX lets you stake FOX on Arbitrum and earn USDC revenue share (from DAO affiliate fees), paid to your wallet on the 15th of each month, with no custody and no KYC.

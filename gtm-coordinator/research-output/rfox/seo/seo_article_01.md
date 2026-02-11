@@ -2,7 +2,7 @@
 
 # Understanding the rFOX Program on ShapeShift: A Comprehensive Guide
 
-In the rapidly evolving landscape of decentralized finance (DeFi), ShapeShift stands out as a beacon for self-sovereign finance. With its latest offering, the rFOX program, ShapeShift continues to empower individuals with the tools they need to participate in a decentralized financial ecosystem. In this article, we will delve into the intricacies of the rFOX program, guide you through the staking process, and explain how rewards are distributed. 
+In the rapidly evolving landscape of decentralized finance (DeFi), ShapeShift stands out as a beacon for self-sovereign finance. With its latest offering, the rFOX program, ShapeShift continues to empower individuals with the tools they need to participate in a decentralized financial ecosystem. This article covers the rFOX program, the staking process, and how rewards are distributed. 
 
 ## What is the rFOX Program?
 
@@ -12,7 +12,9 @@ The rFOX program is a staking initiative on ShapeShift that allows users to stak
 
 - **Stake FOX, Earn USDC**: Participants can stake their FOX tokens and receive rewards in USDC, the stablecoin, ensuring a consistent value.
 - **No Custody, No KYC**: True to ShapeShift’s principles, the rFOX program requires no custody of your assets and no Know Your Customer (KYC) processes. Your keys, your control.
-- **Monthly Rewards**: Rewards are distributed monthly, landing directly in your wallet, making it a convenient and hassle-free experience.
+- **Monthly Rewards**: Rewards are sent to your wallet on the **15th of each month** for the preceding month (or next business day if the 15th falls on a weekend or holiday).
+- **Stake on Arbitrum**: FOX must be bridged to Arbitrum before staking (via the ShapeShift UI); mainnet FOX cannot be staked directly.
+- **Transparency**: Accounting is published to IPFS and the forum each epoch; you can verify with the open source CLI in the [rFOX repo](https://github.com/shapeshift/rFOX).
 
 [IMAGE: Diagram of the rFOX staking process]
 
@@ -22,21 +24,21 @@ Staking FOX tokens in the rFOX program is a straightforward process. Here’s a 
 
 1. **Visit the ShapeShift Platform**: Navigate to [ShapeShift's FOX Ecosystem](https://app.shapeshift.com/#/fox-ecosystem) to access the rFOX staking interface.
    
-2. **Connect Your Wallet**: Ensure you have a Web3-compatible wallet connected to the platform. Popular options include MetaMask and WalletConnect.
+2. **Bridge FOX to Arbitrum**: If your FOX is on mainnet, bridge it to Arbitrum in the ShapeShift UI—mainnet FOX cannot be staked directly.
    
-3. **Select the Amount to Stake**: Choose the amount of FOX tokens you wish to stake. Remember, the more you stake, the greater your potential rewards.
+3. **Connect Your Wallet**: Ensure a Web3-compatible wallet (e.g. MetaMask, WalletConnect) is connected.
    
-4. **Confirm the Transaction**: Follow the prompts to confirm your staking transaction. Once confirmed, your FOX tokens will be staked in the rFOX program.
+4. **Stake Your FOX**: Select the amount to stake and confirm. When you unstake, you enter a **28-day cooldown** before you can claim your FOX back.
 
 [IMAGE: Screenshot of the staking interface on ShapeShift]
 
 ## Understanding the Rewards System
 
-The rFOX program rewards participants with USDC, distributed directly to their wallets every month. This off-chain distribution by the DAO multisig ensures transparency and reliability. It is important to note that while the program offers consistent rewards, it does not promise specific annual percentage yields (APY) or returns.
+The rFOX program rewards participants with USDC, sent directly to their wallets on the **15th of each month** for the preceding month. Rewards come from a share of the ShapeShift DAO's total revenue from **affiliate fees** each epoch. Distribution is handled off-chain by the DAO multisig (not part of the on-chain contract). The program does not promise specific APY or returns.
 
 ### How Rewards Are Calculated
 
-Rewards in the rFOX program are calculated based on the amount of FOX tokens staked and the overall performance of the program. While specific APYs are not promised, the structure is designed to provide a fair distribution of earnings among participants.
+Rewards are calculated from staked balances and reward units tracked in the contract; a multiplier translates to a USDC amount for off-chain distribution. At the end of each epoch, accounting is posted to IPFS and linked on the forum; users can verify with the open source CLI in the [rFOX repo](https://github.com/shapeshift/rFOX).
 
 ## Epoch and Cooldown Mechanics
 
@@ -44,7 +46,7 @@ The rFOX program operates with specific epoch and cooldown mechanics to manage s
 
 - **Epoch Duration**: The program operates on a monthly epoch basis, meaning rewards are calculated and distributed every month. This regular cycle ensures participants receive their earnings promptly.
   
-- **Cooldown Period**: If you decide to unstake your FOX tokens, a cooldown period may apply. This period is essential for maintaining the integrity of the reward distribution system and ensuring all participants have a fair opportunity to earn.
+- **Cooldown Period**: When you unstake, you immediately stop earning rewards and enter a **28-day cooldown** (configurable by the DAO) before you can claim your FOX back. Multiple concurrent unstakes are supported.
 
 [IMAGE: Timeline of epoch and cooldown periods]
 

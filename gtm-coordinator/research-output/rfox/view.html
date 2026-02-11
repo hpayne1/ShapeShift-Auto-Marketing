@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview | rFOX GTM Packet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-500: #3761F9;
+      --gray-950: #090B11;
+      --gray-900: #10151E;
+      --gray-850: #191d28;
+      --gray-700: #2D3748;
+      --gray-500: #718096;
+      --gray-400: #A0AEC0;
+      --gray-300: #CBD5E0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--gray-900);
+      color: var(--gray-300);
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+    .top-bar {
+      max-width: 680px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .back-link {
+      color: var(--blue-500);
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+    .draft-title {
+      font-family: 'Work Sans', system-ui, sans-serif;
+      font-weight: 600;
+      color: #fff;
+      font-size: 0.9375rem;
+    }
+    .copy-btn {
+      background: var(--blue-500);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+    .copy-btn:hover { opacity: 0.9; }
+    .copy-btn.copied { background: #00CD98; }
+    .error-msg {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      background: rgba(220, 53, 69, 0.15);
+      border: 1px solid #dc3545;
+      border-radius: 12px;
+      color: #f8d7da;
+    }
+    .form-section {
+      max-width: 680px;
+      margin: 0 auto 1.5rem;
+      padding: 1rem;
+      background: var(--gray-850);
+      border: 1px solid var(--gray-700);
+      border-radius: 12px;
+    }
+    .form-section h4 {
+      font-size: 0.8125rem;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+    }
+    .form-grid label {
+      display: block;
+      font-size: 0.8125rem;
+      color: var(--gray-500);
+      margin-bottom: 0.25rem;
+    }
+    .form-grid input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid var(--gray-700);
+      border-radius: 6px;
+      background: var(--gray-900);
+      color: var(--gray-300);
+      font-size: 0.875rem;
+    }
+    .preview-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ----- X (Twitter) mockup ----- */
+    .mock-x {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #fff;
+      color: #0f1419;
+      border: 1px solid #cfd9de;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .mock-x .tweet {
+      padding: 1rem 1rem 0.75rem 1rem;
+      border-bottom: 1px solid #eff3f4;
+    }
+    .mock-x .tweet:last-child { border-bottom: none; }
+    .mock-x .tweet-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+    .mock-x .tweet-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3761F9, #00CD98);
+    }
+    .mock-x .tweet-name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+    }
+    .mock-x .tweet-display-name { font-weight: 700; font-size: 0.9375rem; }
+    .mock-x .tweet-handle { color: #536471; font-size: 0.875rem; }
+    .mock-x .tweet-dot { color: #536471; font-size: 0.875rem; }
+    .mock-x .tweet-time { color: #536471; font-size: 0.875rem; }
+    .mock-x .tweet-body {
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-left: 48px;
+    }
+    .mock-x .tweet-body a { color: #1d9bf0; text-decoration: none; }
+    .mock-x .tweet-body a:hover { text-decoration: underline; }
+    .mock-x .tweet-divider {
+      height: 12px;
+      background: #f7f9f9;
+      margin-left: 56px;
+      border-left: 2px solid #cfd9de;
+    }
+
+    /* ----- Discord mockup ----- */
+    .mock-discord {
+      background: #36393f;
+      color: #dcddde;
+      border-radius: 8px;
+      padding: 1rem 1rem 1.25rem 1.5rem;
+      font-family: "gg sans", "Noto Sans", "Helvetica Neue", Helvetica, sans-serif;
+      font-size: 0.9375rem;
+      line-height: 1.375;
+    }
+    .mock-discord .msg-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+    .mock-discord .msg-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3761F9, #00CD98);
+      flex-shrink: 0;
+    }
+    .mock-discord .msg-meta { display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; }
+    .mock-discord .msg-username { color: #fff; font-weight: 500; }
+    .mock-discord .msg-time { color: #72767d; font-size: 0.75rem; }
+    .mock-discord .msg-body {
+      margin-left: 52px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .mock-discord .msg-body strong { font-weight: 600; color: #fff; }
+    .mock-discord .msg-body a { color: #00b0f4; text-decoration: none; }
+    .mock-discord .msg-body a:hover { text-decoration: underline; }
+
+    /* ----- Blog mockup ----- */
+    .mock-blog {
+      background: #fff;
+      color: #1a1a1a;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      font-family: Georgia, "Times New Roman", serif;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .mock-blog .blog-title {
+      font-family: "Work Sans", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.75rem;
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
+    }
+    .mock-blog .blog-meta { color: #6b7280; font-size: 0.875rem; margin-bottom: 1.5rem; }
+    .mock-blog .blog-body { font-size: 1.0625rem; line-height: 1.7; }
+    .mock-blog .blog-body h2 {
+      font-family: "Work Sans", system-ui, sans-serif;
+      font-size: 1.25rem;
+      margin: 1.5rem 0 0.5rem;
+      font-weight: 600;
+    }
+    .mock-blog .blog-body h3 { font-size: 1.1rem; margin: 1.25rem 0 0.5rem; }
+    .mock-blog .blog-body p { margin-bottom: 1rem; }
+    .mock-blog .blog-body ul { margin: 0.5rem 0 1rem 1.5rem; }
+    .mock-blog .blog-body li { margin-bottom: 0.35rem; }
+    .mock-blog .blog-body a { color: #3761F9; text-decoration: none; }
+    .mock-blog .blog-body a:hover { text-decoration: underline; }
+    .mock-blog .blog-body [data-placeholder] { color: #9ca3af; font-style: italic; }
+
+    /* Doc view (any .md / .txt) */
+    .doc-view {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--gray-850);
+      border: 1px solid var(--gray-700);
+      border-radius: 12px;
+      padding: 2rem;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+    .doc-view h1 { font-family: 'Work Sans', system-ui, sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 1rem; }
+    .doc-view h2 { font-size: 1.2rem; color: #fff; margin: 1.5rem 0 0.5rem; }
+    .doc-view h3 { font-size: 1rem; color: var(--gray-400); margin: 1rem 0 0.5rem; }
+    .doc-view p { margin-bottom: 0.75rem; color: var(--gray-300); }
+    .doc-view ul, .doc-view ol { margin: 0.5rem 0 1rem 1.5rem; color: var(--gray-300); }
+    .doc-view li { margin-bottom: 0.35rem; }
+    .doc-view a { color: var(--blue-500); text-decoration: none; }
+    .doc-view a:hover { text-decoration: underline; }
+    .doc-view strong { color: var(--gray-300); }
+    .doc-view pre, .doc-view code { background: var(--gray-900); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem; }
+    .doc-view pre { padding: 1rem; overflow-x: auto; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <a href="index.html" class="back-link">← Back to packet</a>
+    <span class="draft-title" id="draftTitle">Preview</span>
+    <button type="button" class="copy-btn" id="copyBtn" style="display: none;">Copy to clipboard</button>
+  </div>
+
+  <div id="formSection" class="form-section" style="display: none;">
+    <h4>Fill in placeholders</h4>
+    <div class="form-grid" id="formGrid"></div>
+  </div>
+
+  <div id="errorMsg" class="error-msg" style="display: none;"></div>
+  <div id="previewWrap" class="preview-wrap"></div>
+
+  <script>
+    (function() {
+      const DRAFT_CONFIG = {
+        x_post_main:     { type: 'x', thread: true,  title: 'Main Twitter thread (@ShapeShift)' },
+        x_post_blog:     { type: 'x', thread: false, title: 'Blog promo tweet', placeholders: [{ id: 'BLOG LINK', key: 'blog_link', label: 'Blog URL' }] },
+        x_post_personal: { type: 'x', thread: false, title: 'Personal QT' },
+        discord_post:    { type: 'discord', title: 'Discord #announcements' },
+        discord_reminder:{ type: 'discord', title: 'Discord reminder', placeholders: [{ id: 'X THREAD LINK', key: 'x_thread_link', label: 'X thread URL' }] },
+        blog_draft:      { type: 'blog', title: 'Blog for Strapi' },
+        medium_post:     { type: 'blog', title: 'Medium cross-post' },
+        followup_educational: { type: 'x', thread: true, title: 'Day 1 educational thread' },
+        followup_metrics: {
+          type: 'x',
+          thread: true,
+          title: 'Day 4–6 metrics thread',
+          placeholders: [
+            { id: 'X', key: 'metrics_x', label: 'Transactions' },
+            { id: 'Y', key: 'metrics_y', label: 'Volume' },
+            { id: 'Z', key: 'metrics_z', label: 'Days' },
+            { id: 'W', key: 'metrics_w', label: 'Unique users' },
+            { id: 'PAIR 1', key: 'pair_1', label: 'Pair 1' },
+            { id: 'PAIR 2', key: 'pair_2', label: 'Pair 2' },
+            { id: 'PAIR 3', key: 'pair_3', label: 'Pair 3' }
+          ]
+        },
+        followup_recap:  { type: 'x', thread: true, title: 'Day 7 recap' }
+      };
+
+      const LS_KEYS = { followup_metrics: 'rfox_followup_metrics', x_post_blog: 'rfox_blog_link', discord_reminder: 'rfox_x_thread_link' };
+
+      function getDraftId() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('draft') || '';
+      }
+      function getPath() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('path') || '';
+      }
+      function mdToHtml(md) {
+        let h = escapeHtml(md);
+        h = h.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+        h = h.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+        h = h.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+        h = h.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        h = h.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+        h = h.replace(/^\- (.+)$/gm, '<li>$1</li>');
+        h = h.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+        h = h.replace(/^\|(.+)\|$/gm, function(line) {
+          const cells = line.replace(/^\||\|$/g, '').split('|').map(function(c) { return '<td>' + c.trim() + '</td>'; }).join('');
+          return '<tr>' + cells + '</tr>';
+        });
+        h = h.replace(/(<tr>.*<\/tr>\n?)+/g, '<table><tbody>$&</tbody></table>');
+        h = h.replace(/\n\n+/g, '</p><p>');
+        h = h.replace(/\n/g, '<br>');
+        h = h.replace(/<p><\/p>/g, '').replace(/<p>(<h[123]>)/g, '$1').replace(/(<\/h[123]>)<\/p>/g, '$1');
+        return '<p>' + h + '</p>';
+      }
+      function loadPath(path) {
+        document.getElementById('copyBtn').style.display = 'none';
+        document.getElementById('draftTitle').textContent = path.replace(/.*\//, '');
+        const base = window.location.pathname.replace(/\/view\.html$/, '') || '.';
+        const url = path.indexOf('/') === 0 ? path : base + '/' + path;
+        fetch(url)
+          .then(function(r) {
+            if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
+            return r.text();
+          })
+          .then(function(text) {
+            const wrap = document.getElementById('previewWrap');
+            const div = document.createElement('div');
+            div.className = 'doc-view';
+            if (/\.txt$/i.test(path)) {
+              div.innerHTML = '<pre>' + escapeHtml(text) + '</pre>';
+            } else {
+              div.innerHTML = mdToHtml(text);
+            }
+            wrap.innerHTML = '';
+            wrap.appendChild(div);
+          })
+          .catch(function(err) {
+            document.getElementById('errorMsg').innerHTML =
+              'Could not load file. If you opened this from disk (file://), use a local server (e.g. <code>npx serve .</code>).<br><br>' + escapeHtml(err.message);
+            document.getElementById('errorMsg').style.display = 'block';
+            document.getElementById('previewWrap').innerHTML = '';
+          });
+      }
+
+      function getStoredValues(draftId) {
+        const key = LS_KEYS[draftId];
+        if (!key) return {};
+        try {
+          const s = localStorage.getItem(key);
+          return s ? JSON.parse(s) : {};
+        } catch (_) { return {}; }
+      }
+
+      function setStoredValues(draftId, values) {
+        const key = LS_KEYS[draftId];
+        if (!key) return;
+        try { localStorage.setItem(key, JSON.stringify(values)); } catch (_) {}
+      }
+
+      function escapeHtml(s) {
+        const div = document.createElement('div');
+        div.textContent = s;
+        return div.innerHTML;
+      }
+
+      function linkify(text) {
+        const urlRe = /(https?:\/\/[^\s]+)/g;
+        return escapeHtml(text).replace(urlRe, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+      }
+
+      function extractCopyBlock(md) {
+        const m = md.match(/```\s*([\s\S]*?)```/);
+        if (m) return m[1].trim();
+        const parts = md.split(/^##\s+Copy\/paste/m);
+        if (parts.length > 1) {
+          const block = parts[1].replace(/^```[\s\S]*?```/m, '').trim();
+          const lines = block.split('\n').filter(function(l) { return l.trim() !== ''; });
+          return lines.join('\n');
+        }
+        const beforeCopy = md.split(/^---$/m)[0].trim();
+        const lines = beforeCopy.split('\n').filter(function(l) {
+          return l && !/^#\s/.test(l) && !/^\*\*Tweet \d+:\*\*/.test(l) && !/^\*\*Voice:\*\*/.test(l);
+        });
+        return lines.join('\n').trim();
+      }
+
+      function parseXTweets(md, draftId) {
+        const copyBlock = extractCopyBlock(md);
+        const config = DRAFT_CONFIG[draftId];
+        if (config && config.thread) {
+          const tweets = [];
+          const byNumber = copyBlock.split(/\n(?=\d+\/)/);
+          if (byNumber.length > 1) {
+            byNumber.forEach(function(block) {
+              const t = block.replace(/^\d+\/\s*/, '').trim();
+              if (t) tweets.push(t);
+            });
+          } else {
+            const byTweet = copyBlock.split(/\n\n+/);
+            if (byTweet.length > 1) tweets.push(...byTweet.map(function(t) { return t.trim(); }).filter(Boolean));
+            else tweets.push(copyBlock.trim());
+          }
+          return tweets.length ? tweets : [copyBlock];
+        }
+        return [copyBlock];
+      }
+
+      function parseDiscordBody(md) {
+        const copyBlock = extractCopyBlock(md);
+        return copyBlock.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      }
+
+      function inlineMd(html) {
+        return html
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+          .replace(/\[IMAGE:([^\]]+)\]/g, '<span data-placeholder="true">[IMAGE: $1]</span>')
+          .replace(/\n/g, '<br>');
+      }
+      function parseBlog(md) {
+        let body = md.replace(/^#\s+.+$/m, '').trim();
+        const copyIdx = body.indexOf('## Copy/paste');
+        if (copyIdx !== -1) body = body.slice(0, copyIdx).trim();
+        const blocks = body.split(/\n\n+/);
+        let out = '';
+        blocks.forEach(function(block) {
+          const t = block.trim();
+          if (!t) return;
+          if (/^##\s+/.test(t)) {
+            out += '<h2>' + inlineMd(escapeHtml(t.replace(/^##\s+/, ''))) + '</h2>';
+          } else if (/^###\s+/.test(t)) {
+            out += '<h3>' + inlineMd(escapeHtml(t.replace(/^###\s+/, ''))) + '</h3>';
+          } else if (/^- /.test(t)) {
+            const items = t.split(/\n/).filter(function(l) { return l.trim(); });
+            out += '<ul>' + items.map(function(line) {
+              const text = line.replace(/^- \*\*(.+?)\*\*:?\s*/, '').trim();
+              return '<li>' + inlineMd(escapeHtml(text)) + '</li>';
+            }).join('') + '</ul>';
+          } else {
+            out += '<p>' + inlineMd(escapeHtml(t)) + '</p>';
+          }
+        });
+        return out;
+      }
+
+      function getBlogTitle(md) {
+        const m = md.match(/^#\s+(.+)$/m);
+        return m ? m[1].trim() : 'Blog post';
+      }
+
+      function applyPlaceholders(text, draftId, values) {
+        let out = text;
+        const config = DRAFT_CONFIG[draftId];
+        if (config && config.placeholders) {
+          config.placeholders.forEach(function(p) {
+            const val = values[p.key] || '';
+            out = out.replace(new RegExp('\\[' + p.id + '\\]', 'gi'), val);
+          });
+        }
+        return out;
+      }
+
+      function renderX(tweets, draftId, values) {
+        const wrap = document.getElementById('previewWrap');
+        const div = document.createElement('div');
+        div.className = 'mock-x';
+        tweets.forEach(function(txt, i) {
+          const filled = applyPlaceholders(txt, draftId, values);
+          const tweetEl = document.createElement('div');
+          tweetEl.className = 'tweet';
+          tweetEl.innerHTML =
+            '<div class="tweet-header">' +
+              '<div class="tweet-avatar"></div>' +
+              '<div class="tweet-name-row">' +
+                '<span class="tweet-display-name">ShapeShift</span>' +
+                '<span class="tweet-handle">@ShapeShift</span>' +
+                '<span class="tweet-dot">·</span>' +
+                '<span class="tweet-time">now</span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="tweet-body">' + linkify(filled) + '</div>';
+          div.appendChild(tweetEl);
+          if (i < tweets.length - 1) {
+            const sep = document.createElement('div');
+            sep.className = 'tweet-divider';
+            div.appendChild(sep);
+          }
+        });
+        wrap.innerHTML = '';
+        wrap.appendChild(div);
+        return tweets.map(function(t) { return applyPlaceholders(t, draftId, values); }).join('\n\n');
+      }
+
+      function renderDiscord(htmlBody, draftId, values) {
+        const wrap = document.getElementById('previewWrap');
+        let body = htmlBody;
+        const config = DRAFT_CONFIG[draftId];
+        if (config && config.placeholders) {
+          config.placeholders.forEach(function(p) {
+            const val = (values[p.key] || '').trim();
+            body = body.replace(new RegExp('\\[' + p.id + '\\]', 'gi'), val || '[' + p.id + ']');
+          });
+        }
+        const div = document.createElement('div');
+        div.className = 'mock-discord';
+        div.innerHTML =
+          '<div class="msg-header">' +
+            '<div class="msg-avatar"></div>' +
+            '<div class="msg-meta">' +
+              '<span class="msg-username">ShapeShift</span>' +
+              '<span class="msg-time">Today at ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="msg-body">' + body.replace(/\n/g, '<br>') + '</div>';
+        wrap.innerHTML = '';
+        wrap.appendChild(div);
+        const plain = div.querySelector('.msg-body').innerText;
+        return plain;
+      }
+
+      function renderBlog(md, draftId) {
+        const wrap = document.getElementById('previewWrap');
+        const title = getBlogTitle(md);
+        const bodyHtml = parseBlog(md);
+        const div = document.createElement('div');
+        div.className = 'mock-blog';
+        div.innerHTML =
+          '<h1 class="blog-title">' + escapeHtml(title) + '</h1>' +
+          '<div class="blog-meta">ShapeShift · ' + new Date().toLocaleDateString() + '</div>' +
+          '<div class="blog-body">' + bodyHtml + '</div>';
+        wrap.innerHTML = '';
+        wrap.appendChild(div);
+        return md.slice(0, md.indexOf('## Copy/paste') !== -1 ? md.indexOf('## Copy/paste') : md.length).trim();
+      }
+
+      function buildForm(draftId, values, onInput) {
+        const config = DRAFT_CONFIG[draftId];
+        if (!config || !config.placeholders) return;
+        const grid = document.getElementById('formGrid');
+        grid.innerHTML = '';
+        config.placeholders.forEach(function(p) {
+          const label = document.createElement('label');
+          label.textContent = p.label;
+          label.htmlFor = 'field-' + p.key;
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.id = 'field-' + p.key;
+          input.dataset.key = p.key;
+          input.value = values[p.key] || '';
+          input.placeholder = '[' + p.id + ']';
+          input.addEventListener('input', function() {
+            const v = {};
+            config.placeholders.forEach(function(pp) {
+              const el = document.getElementById('field-' + pp.key);
+              v[pp.key] = el ? el.value : '';
+            });
+            setStoredValues(draftId, v);
+            onInput();
+          });
+          grid.appendChild(label);
+          grid.appendChild(input);
+        });
+        document.getElementById('formSection').style.display = 'block';
+      }
+
+      function getFormValues(draftId) {
+        const config = DRAFT_CONFIG[draftId];
+        if (!config || !config.placeholders) return getStoredValues(draftId);
+        const v = getStoredValues(draftId);
+        config.placeholders.forEach(function(p) {
+          const el = document.getElementById('field-' + p.key);
+          if (el) v[p.key] = el.value;
+        });
+        return v;
+      }
+
+      function loadDraft(draftId) {
+        const config = DRAFT_CONFIG[draftId];
+        if (!config) {
+          document.getElementById('errorMsg').textContent = 'Unknown draft: ' + draftId;
+          document.getElementById('errorMsg').style.display = 'block';
+          document.getElementById('previewWrap').innerHTML = '';
+          return;
+        }
+        document.getElementById('errorMsg').style.display = 'none';
+        document.getElementById('draftTitle').textContent = config.title;
+
+        const base = window.location.pathname.replace(/\/view\.html$/, '') || '.';
+        const url = base + '/drafts/' + draftId + '.md';
+        fetch(url)
+          .then(function(r) {
+            if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
+            return r.text();
+          })
+          .then(function(md) {
+            const values = getStoredValues(draftId);
+            let copyText = '';
+
+            if (config.type === 'x') {
+              const tweets = parseXTweets(md, draftId);
+              copyText = renderX(tweets, draftId, values);
+            } else if (config.type === 'discord') {
+              const body = parseDiscordBody(md);
+              copyText = renderDiscord(body, draftId, values);
+            } else if (config.type === 'blog') {
+              copyText = renderBlog(md, draftId);
+            }
+
+            document.getElementById('copyBtn').style.display = 'inline-block';
+            document.getElementById('copyBtn').dataset.copyText = copyText;
+            document.getElementById('copyBtn').classList.remove('copied');
+            document.getElementById('copyBtn').textContent = 'Copy to clipboard';
+
+            function refreshPreview() {
+              const vals = getFormValues(draftId);
+              if (config.type === 'x') {
+                const tweets = parseXTweets(md, draftId);
+                document.getElementById('copyBtn').dataset.copyText = renderX(tweets, draftId, vals);
+              } else if (config.type === 'discord') {
+                const body = parseDiscordBody(md);
+                document.getElementById('copyBtn').dataset.copyText = renderDiscord(body, draftId, vals);
+              }
+            }
+
+            buildForm(draftId, values, refreshPreview);
+          })
+          .catch(function(err) {
+            document.getElementById('errorMsg').innerHTML =
+              'Could not load draft. If you opened this file from disk (file://), use a local server instead, e.g. <code>npx serve .</code> or <code>python -m http.server</code> in the rfox folder.<br><br>' +
+              'Error: ' + escapeHtml(err.message);
+            document.getElementById('errorMsg').style.display = 'block';
+            document.getElementById('previewWrap').innerHTML = '';
+            document.getElementById('copyBtn').style.display = 'none';
+          });
+      }
+
+      document.getElementById('copyBtn').addEventListener('click', function() {
+        const text = this.dataset.copyText;
+        if (!text) return;
+        navigator.clipboard.writeText(text).then(function() {
+          const btn = document.getElementById('copyBtn');
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function() {
+            btn.textContent = 'Copy to clipboard';
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      });
+
+      const path = getPath();
+      const draftId = getDraftId();
+      if (path) loadPath(path);
+      else if (draftId) loadDraft(draftId);
+      else {
+        document.getElementById('errorMsg').textContent = 'Specify ?draft=x_post_blog or ?path=README.md (or another path) in the URL.';
+        document.getElementById('errorMsg').style.display = 'block';
+      }
+    })();
+  </script>
+</body>
+</html>

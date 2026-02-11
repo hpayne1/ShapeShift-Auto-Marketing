@@ -1,12 +1,30 @@
 {
   "name": "rFOX",
-  "tagline": "ShapeShift You need to enable JavaScript to run this app.",
-  "category": "Unknown",
-  "keyFeatures": [],
-  "targetAudience": [],
-  "valueProposition": "Unknown",
-  "technicalHighlights": [],
+  "tagline": "Stake FOX on Arbitrum, earn USDC—rewards in your wallet on the 15th of each month.",
+  "category": "Staking / revenue share",
+  "sourceOfTruth": "https://github.com/shapeshift/rFOX/wiki/rFOX",
+  "keyFeatures": [
+    "FOX-only staking on Arbitrum (bridge FOX in ShapeShift UI if on mainnet). Stake FOX, earn USDC.",
+    "Off-chain rewards by DAO multisig; sent on the 15th of each month for the preceding month.",
+    "Rewards from a share of the DAO's affiliate-fee revenue each epoch.",
+    "28-day cooldown when unstaking before FOX can be claimed.",
+    "No custody, no KYC. Your keys, your control.",
+    "Accounting on IPFS and forum each epoch; open source CLI to verify."
+  ],
+  "targetAudience": [
+    "DeFi Power Users",
+    "Yield Seekers",
+    "Privacy-Conscious Users"
+  ],
+  "valueProposition": "rFOX lets you stake FOX on Arbitrum and earn USDC revenue share (from DAO affiliate fees), paid to your wallet on the 15th of each month, with no custody and no KYC.",
+  "technicalHighlights": [
+    "USDC rewards",
+    "DAO multisig distribution",
+    "Self-custodial",
+    "Arbitrum",
+    "28-day unstake cooldown"
+  ],
   "integrationOpportunities": [],
   "risks": [],
-  "competitorComparison": "Unknown"
+  "competitorComparison": "Self-custodial, privacy-focused USDC rewards; no volatile reward tokens."
 }

@@ -40,9 +40,24 @@
     a{color:var(--blue-500);text-decoration:none;}
     a:hover{text-decoration:underline;}
     strong{color:var(--gray-300);}
+    .metric-input{width:100%;max-width:140px;padding:0.375rem 0.5rem;border:1px solid var(--gray-700);border-radius:6px;background:var(--gray-900);color:var(--gray-300);font-size:0.875rem;}
+    .start-bar{background:var(--gray-850);border-bottom:1px solid var(--gray-700);padding:0.5rem 2rem;font-size:0.875rem;}
+    .start-bar-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+    .start-bar span{color:var(--gray-500);}
+    .start-bar a{color:var(--blue-500);font-weight:500;}
   </style>
 </head>
 <body>
+  <div class="start-bar">
+    <div class="start-bar-inner">
+      <span>Start here:</span>
+      <a href="view.html?path=README.md">README</a>
+      <span>·</span>
+      <a href="index.html">Packet</a>
+      <span>·</span>
+      <a href="checklist.html">Checklist (this page)</a>
+    </div>
+  </div>
   <div class="hero">
     <div class="hero-content">
       <div class="logo-row">
@@ -187,11 +202,11 @@
       <table>
         <thead><tr><th>Metric</th><th>Target (Tier 1)</th><th>Actual</th></tr></thead>
         <tbody>
-          <tr><td>Twitter Profile Visits</td><td>>500</td><td>_____</td></tr>
-          <tr><td>Tweet Engagements</td><td>>200</td><td>_____</td></tr>
-          <tr><td>Website Traffic</td><td>+10%</td><td>_____</td></tr>
-          <tr><td>Swap Volume</td><td>—</td><td>_____</td></tr>
-          <tr><td>Onchain Txs</td><td>>100</td><td>_____</td></tr>
+          <tr><td>Twitter Profile Visits</td><td>>500</td><td><input type="text" id="metric_profile_visits" placeholder="—" class="metric-input"></td></tr>
+          <tr><td>Tweet Engagements</td><td>>200</td><td><input type="text" id="metric_engagements" placeholder="—" class="metric-input"></td></tr>
+          <tr><td>Website Traffic</td><td>+10%</td><td><input type="text" id="metric_website" placeholder="—" class="metric-input"></td></tr>
+          <tr><td>Swap Volume</td><td>—</td><td><input type="text" id="metric_volume" placeholder="—" class="metric-input"></td></tr>
+          <tr><td>Onchain Txs</td><td>>100</td><td><input type="text" id="metric_onchain" placeholder="—" class="metric-input"></td></tr>
         </tbody>
       </table>
       <p><strong>SUCCESS:</strong> Hit targets + positive response · <strong>OKAY:</strong> Close to targets · <strong>REVIEW:</strong> Missed targets → log learnings</p>
@@ -214,5 +229,34 @@
     <p>Questions? Ping Apotheosis on Discord.</p>
     <p style="margin-top:0.5rem"><a href="index.html">← Back to GTM packet</a></p>
   </footer>
+  <script>
+    (function() {
+      var KEY = 'rfox_checklist_metrics';
+      var ids = ['metric_profile_visits', 'metric_engagements', 'metric_website', 'metric_volume', 'metric_onchain'];
+      try {
+        var saved = localStorage.getItem(KEY);
+        if (saved) {
+          var o = JSON.parse(saved);
+          ids.forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el && o[id]) el.value = o[id];
+          });
+        }
+        ids.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) {
+            el.addEventListener('input', function() {
+              var o = {};
+              ids.forEach(function(i) {
+                var e = document.getElementById(i);
+                o[i] = e ? e.value : '';
+              });
+              try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (_) {}
+            });
+          }
+        });
+      } catch (_) {}
+    })();
+  </script>
 </body>
 </html>

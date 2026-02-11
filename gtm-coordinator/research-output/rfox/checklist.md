@@ -7,6 +7,14 @@
 
 ---
 
+## Using the packet (HTML)
+
+- **Hub:** Open **index.html** in a browser (serve the folder over HTTP so previews work — see [README.md](README.md)).
+- **Content drafts:** Click any draft on the hub to open a **platform preview** (X, Discord, or blog). Fill placeholders in the form, then use **Copy to clipboard**.
+- **Checklist:** From the hub, click **Start Checklist** for **checklist.html**. The Metrics (Day 7) table has editable "Actual" fields (saved in browser).
+
+---
+
 # You Shipped Code. Now Tell People About It.
 
 You merged a PR. A feature is live. This packet helps you announce it.
@@ -159,6 +167,8 @@ Run through before launching:
 
 **FINAL CHECK (recommended)**
 - [ ] Run GTM final check on this packet (Cursor skill: **gtm-final-check**) and fix any placeholders, framing, copy, and cadence issues. See `gtm-coordinator/docs/marketing-release-process.md`.
+- [ ] Cross-reference all product claims with the **source of truth** (for rFOX: [GitHub rFOX Wiki](https://github.com/shapeshift/rFOX/wiki/rFOX)). Reward asset, cadence, chain, and mechanics must match.
+- [ ] Confirm tweets and content match **ShapeShift brand voice**: 3rd person from main account, no banned words (see `brand/voice.md`, `brand/dos-and-donts.md`, `skills/brand-validator.md`).
 
 **CONTENT READY**
 - [ ] Blog draft reviewed (blog_draft.md, medium_post.md)

@@ -1,4 +1,4 @@
-# AI Image Prompts for rFOX Integration
+# AI Image Prompts for rFOX Program
 
 ## Midjourney / DALL-E Prompts
 
@@ -7,7 +7,7 @@
 ```
 Minimalist crypto announcement graphic, dark background #1a1a2e, 
 rFOX logo centered, ShapeShift fox logo subtle in corner, 
-text "Unknown", clean sans-serif font Inter, 
+text "rFOX is now live: stake FOX on Arbitrum, earn USDC—rewards in your wallet on the 15th of each month.", clean sans-serif font Inter, 
 no gradients, professional DeFi aesthetic, high contrast, 
 corporate tech announcement style --ar 16:9 --style raw
 ```
@@ -26,7 +26,7 @@ high contrast --ar 1:1 --style raw
 ```
 Abstract DeFi background, dark blue #1a1a2e base, 
 subtle geometric patterns, space for text overlay, 
-Unknown theme, professional tech aesthetic, 
+staking / revenue share theme, professional tech aesthetic, 
 minimal, clean --ar 16:9 --style raw
 ```
 

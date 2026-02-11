@@ -308,9 +308,36 @@
     
     a { color: var(--blue-500); text-decoration: none; }
     a:hover { text-decoration: underline; }
+    .start-bar {
+      background: var(--gray-850);
+      border-bottom: 1px solid var(--gray-700);
+      padding: 0.5rem 2rem;
+      font-size: 0.875rem;
+    }
+    .start-bar-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .start-bar span { color: var(--gray-500); }
+    .start-bar a { color: var(--blue-500); font-weight: 500; }
+    .start-bar a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
+  <div class="start-bar">
+    <div class="start-bar-inner">
+      <span>Start here:</span>
+      <a href="view.html?path=README.md">README</a>
+      <span>·</span>
+      <a href="index.html">Packet (this page)</a>
+      <span>·</span>
+      <a href="checklist.html">Checklist</a>
+    </div>
+  </div>
   <div class="hero">
     <div class="hero-content">
       <div class="logo-row">
@@ -324,7 +351,7 @@
       </div>
       
       <h1>rFOX Program</h1>
-      <p class="tagline">rFOX lets you stake FOX and earn USDC every month, right into your wallet.</p>
+      <p class="tagline">Stake FOX on Arbitrum, earn USDC—rewards in your wallet on the 15th of each month. <a href="https://github.com/shapeshift/rFOX/wiki/rFOX" target="_blank" rel="noopener">Source of truth (rFOX Wiki)</a></p>
       
       <div class="meta">
         <div class="meta-item">
@@ -342,7 +369,7 @@
         <a href="checklist.html" class="cta-primary">
           Start Checklist
         </a>
-        <a href="partner/partner_kit.md" class="cta-secondary">
+        <a href="view.html?path=partner/partner_kit.md" class="cta-secondary">
           Partner Kit
         </a>
       </div>
@@ -354,7 +381,7 @@
     
     <div class="highlight-box">
       <div class="label">Key Message</div>
-      <div class="value">rFOX is now live. Stake FOX, earn USDC. Rewards paid to your wallet every month.</div>
+      <div class="value">rFOX is now live. Stake FOX on Arbitrum, earn USDC. Rewards sent to your wallet on the 15th of each month.</div>
     </div>
     
     <div class="card">
@@ -366,43 +393,43 @@
     <div class="card">
       <div class="card-title">Problem We're Solving</div>
       <p>Crypto users want to earn yield without giving up control of their assets or going through KYC processes.</p>
-      <p style="margin-top: 0.5rem;"><strong>Aha moment:</strong> Realizing they can earn USDC directly in their wallet every month without losing custody.</p>
+      <p style="margin-top: 0.5rem;"><strong>Aha moment:</strong> Realizing they can earn USDC in their wallet on the 15th of each month without losing custody.</p>
     </div>
     
     <div class="card">
       <div class="card-title">Tweet-Ready</div>
-      <p>"rFOX is live. Stake FOX, earn USDC. Get paid in your wallet every month. No custody, no KYC. 🦊"</p>
+      <p>"rFOX is live. Stake FOX on Arbitrum, earn USDC. Rewards in your wallet on the 15th of each month. No custody, no KYC. 🦊"</p>
     </div>
 
     <h2>Content Drafts</h2>
 
     <h3>Social Media</h3>
     <div class="files">
-      <div class="file" onclick="window.location='drafts/x_post_main.md'">
+      <div class="file" onclick="window.location='view.html?draft=x_post_main'">
         <div class="file-name">x_post_main.md</div>
         <div class="file-desc">Main Twitter thread (@ShapeShift)</div>
       </div>
-      <div class="file" onclick="window.location='drafts/x_post_blog.md'">
+      <div class="file" onclick="window.location='view.html?draft=x_post_blog'">
         <div class="file-name">x_post_blog.md</div>
         <div class="file-desc">Blog promo tweet (@ShapeShift)</div>
       </div>
-      <div class="file" onclick="window.location='drafts/x_post_personal.md'">
+      <div class="file" onclick="window.location='view.html?draft=x_post_personal'">
         <div class="file-name">x_post_personal.md</div>
         <div class="file-desc">Your personal QT</div>
       </div>
-      <div class="file" onclick="window.location='drafts/discord_post.md'">
+      <div class="file" onclick="window.location='view.html?draft=discord_post'">
         <div class="file-name">discord_post.md</div>
         <div class="file-desc">Discord #announcements</div>
       </div>
-      <div class="file" onclick="window.location='drafts/discord_reminder.md'">
+      <div class="file" onclick="window.location='view.html?draft=discord_reminder'">
         <div class="file-name">discord_reminder.md</div>
         <div class="file-desc">Discord reminder/update</div>
       </div>
-      <div class="file" onclick="window.location='drafts/blog_draft.md'">
+      <div class="file" onclick="window.location='view.html?draft=blog_draft'">
         <div class="file-name">blog_draft.md</div>
         <div class="file-desc">Full blog for Strapi</div>
       </div>
-      <div class="file" onclick="window.location='drafts/medium_post.md'">
+      <div class="file" onclick="window.location='view.html?draft=medium_post'">
         <div class="file-name">medium_post.md</div>
         <div class="file-desc">Medium cross-post</div>
       </div>
@@ -410,15 +437,15 @@
 
     <h3>Follow-ups (Days 1-7)</h3>
     <div class="files">
-      <div class="file" onclick="window.location='drafts/followup_educational.md'">
+      <div class="file" onclick="window.location='view.html?draft=followup_educational'">
         <div class="file-name">followup_educational.md</div>
         <div class="file-desc">Day 1 educational thread</div>
       </div>
-      <div class="file" onclick="window.location='drafts/followup_metrics.md'">
+      <div class="file" onclick="window.location='view.html?draft=followup_metrics'">
         <div class="file-name">followup_metrics.md</div>
-        <div class="file-desc">Day 4-6 metrics thread</div>
+        <div class="file-desc">Day 4-6 metrics thread (fill placeholders)</div>
       </div>
-      <div class="file" onclick="window.location='drafts/followup_recap.md'">
+      <div class="file" onclick="window.location='view.html?draft=followup_recap'">
         <div class="file-name">followup_recap.md</div>
         <div class="file-desc">Day 7 recap</div>
       </div>
@@ -427,7 +454,7 @@
     <h3>SEO Articles</h3>
     <div class="files">
       
-      <div class="file" onclick="window.location='seo/seo_article_01.md'">
+      <div class="file" onclick="window.location='view.html?path=seo/seo_article_01.md'">
         <div class="file-name">seo_article_01.md</div>
         <div class="file-desc">SEO article 1</div>
       </div>
@@ -435,7 +462,7 @@
 
     <h3>Content Calendar</h3>
     <div class="files">
-      <div class="file" onclick="window.location='calendar/content_calendar.md'">
+      <div class="file" onclick="window.location='view.html?path=calendar/content_calendar.md'">
         <div class="file-name">content_calendar.md</div>
         <div class="file-desc">4-week content calendar</div>
       </div>
@@ -446,7 +473,7 @@
     
     <h3>Partner Materials</h3>
     <div class="files">
-      <div class="file" onclick="window.location='partner/partner_kit.md'">
+      <div class="file" onclick="window.location='view.html?path=partner/partner_kit.md'">
         <div class="file-name">partner_kit.md</div>
         <div class="file-desc">Send to rFOX team</div>
       </div>
@@ -454,19 +481,19 @@
 
     <h3>Press Materials</h3>
     <div class="files">
-      <div class="file" onclick="window.location='press/press_release.md'">
+      <div class="file" onclick="window.location='view.html?path=press/press_release.md'">
         <div class="file-name">press_release.md</div>
         <div class="file-desc">Formal press release</div>
       </div>
-      <div class="file" onclick="window.location='press/pr_brief.md'">
+      <div class="file" onclick="window.location='view.html?path=press/pr_brief.md'">
         <div class="file-name">pr_brief.md</div>
         <div class="file-desc">Talking points</div>
       </div>
-      <div class="file" onclick="window.location='press/op_ed_political.md'">
+      <div class="file" onclick="window.location='view.html?path=press/op_ed_political.md'">
         <div class="file-name">op_ed_political.md</div>
         <div class="file-desc">Political/regulatory angle</div>
       </div>
-      <div class="file" onclick="window.location='press/op_ed_technical.md'">
+      <div class="file" onclick="window.location='view.html?path=press/op_ed_technical.md'">
         <div class="file-name">op_ed_technical.md</div>
         <div class="file-desc">Technical/builder angle</div>
       </div>
@@ -476,11 +503,11 @@
     
     <h3>Design</h3>
     <div class="files">
-      <div class="file" onclick="window.location='design/design_brief.md'">
+      <div class="file" onclick="window.location='view.html?path=design/design_brief.md'">
         <div class="file-name">design_brief.md</div>
         <div class="file-desc">For human designers</div>
       </div>
-      <div class="file" onclick="window.location='design/ai_prompts.txt'">
+      <div class="file" onclick="window.location='view.html?path=design/ai_prompts.txt'">
         <div class="file-name">ai_prompts.txt</div>
         <div class="file-desc">Midjourney/DALL-E prompts</div>
       </div>
@@ -488,7 +515,7 @@
 
     <h3>Outreach</h3>
     <div class="files">
-      <div class="file" onclick="window.location='outreach/dm_targets.md'">
+      <div class="file" onclick="window.location='view.html?path=outreach/dm_targets.md'">
         <div class="file-name">dm_targets.md</div>
         <div class="file-desc">Who to DM + templates</div>
       </div>
@@ -496,18 +523,22 @@
 
     <h2>Protocol Analysis</h2>
     <div class="card">
-      <p><strong>Category:</strong> Unknown</p>
-      <p><strong>Tagline:</strong> ShapeShift You need to enable JavaScript to run this app.</p>
+      <p><strong>Category:</strong> Staking / revenue share</p>
+      <p><strong>Tagline:</strong> Stake FOX on Arbitrum, earn USDC—rewards in your wallet on the 15th of each month.</p>
+      <p><strong>Source of truth:</strong> <a href="https://github.com/shapeshift/rFOX/wiki/rFOX" target="_blank" rel="noopener">rFOX Wiki</a></p>
     </div>
     <div class="card">
       <div class="card-title">Key Features</div>
       <ul>
-        
+        <li>FOX-only staking on Arbitrum (bridge in ShapeShift UI if on mainnet). Stake FOX, earn USDC.</li>
+        <li>Off-chain rewards by DAO multisig; sent on the 15th of each month for the preceding month.</li>
+        <li>28-day cooldown when unstaking before FOX can be claimed.</li>
+        <li>No custody, no KYC. Your keys, your control.</li>
       </ul>
     </div>
     <div class="card">
       <div class="card-title">Value Proposition</div>
-      <p>Unknown</p>
+      <p>rFOX lets you stake FOX on Arbitrum and earn USDC revenue share (from DAO affiliate fees), paid to your wallet on the 15th of each month, with no custody and no KYC.</p>
     </div>
   </div>
 

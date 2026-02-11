@@ -1,7 +1,7 @@
-# Design Brief: rFOX Integration
+# Design Brief: rFOX Program
 
 ## Concept
-Announcement graphic for rFOX integration on ShapeShift.
+Announcement graphic for the rFOX program launch on ShapeShift.
 
 ## Dimensions Needed
 - Twitter: 1200x675
@@ -36,7 +36,8 @@ Clean, minimalist, professional DeFi aesthetic.
 ## Must Include
 - rFOX logo
 - ShapeShift fox logo (subtle, corner)
-- Key message: "rFOX is now live: stake FOX, earn USDC—rewards land in your wallet every month."
+- Key message: "rFOX is now live: stake FOX on Arbitrum, earn USDC—rewards in your wallet on the 15th of each month."
+- **Source of truth (product):** https://github.com/shapeshift/rFOX/wiki/rFOX
 
 ## References
 Look at previous ShapeShift announcement graphics for style consistency.

@@ -2,20 +2,17 @@
 
 **rFOX is Now Live! 🦊**
 
-- Stake your FOX tokens.
-- Earn USDC rewards directly.
-- Get paid in your wallet every month.
+- Stake FOX on Arbitrum (bridge in ShapeShift UI if on mainnet).
+- Earn USDC rewards—sent to your wallet on the 15th of each month.
 - No custody, no KYC—your keys, your control.
 
-**Ready to start? Here's how:**
-1. Visit the rFOX page [LINK]
-2. Connect your wallet
+**How to get started:**
+1. Visit the FOX ecosystem: https://app.shapeshift.com/#/fox-ecosystem
+2. Bridge FOX to Arbitrum if needed, then connect your wallet
 3. Stake your FOX
-4. Watch for USDC rewards each month
+4. Rewards land on the 15th of each month (28-day cooldown when you unstake)
 
-Explore more and join the discussion. [LINK]
-
-We're here to answer your questions—feedback is always welcome!
+Questions? The team is here—feedback welcome.
 
 ---
 
@@ -24,18 +21,15 @@ We're here to answer your questions—feedback is always welcome!
 ```
 **rFOX is Now Live! 🦊**
 
-- Stake your FOX tokens.
-- Earn USDC rewards directly.
-- Get paid in your wallet every month.
+- Stake FOX on Arbitrum (bridge in ShapeShift UI if on mainnet).
+- Earn USDC rewards—sent to your wallet on the 15th of each month.
 - No custody, no KYC—your keys, your control.
 
-**Ready to start? Here's how:**
-1. Visit the rFOX page [LINK]
-2. Connect your wallet
+**How to get started:**
+1. Visit the FOX ecosystem: https://app.shapeshift.com/#/fox-ecosystem
+2. Bridge FOX to Arbitrum if needed, then connect your wallet
 3. Stake your FOX
-4. Watch for USDC rewards each month
+4. Rewards land on the 15th of each month (28-day cooldown when you unstake)
 
-Explore more and join the discussion. [LINK]
-
-We're here to answer your questions—feedback is always welcome!
+Questions? The team is here—feedback welcome.
 ```

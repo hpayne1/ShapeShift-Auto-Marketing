@@ -2,11 +2,11 @@
 
 **FOR IMMEDIATE RELEASE**
 
-**ShapeShift DAO Launches rFOX: Stake FOX, Earn USDC—Rewards in Your Wallet Every Month**
+**ShapeShift DAO Launches rFOX: Stake FOX on Arbitrum, Earn USDC—Rewards on the 15th of Each Month**
 
-**[CITY, DATE]** – ShapeShift DAO today announced the launch of rFOX, a program that lets users stake FOX tokens and earn USDC rewards paid directly to their wallets every month. No custody, no KYC.
+**[CITY, DATE]** – ShapeShift DAO today announced the launch of rFOX, a staking program that lets users stake FOX on Arbitrum and earn USDC rewards. Rewards are sent to staker wallets on the 15th of each month for the preceding month. No custody, no KYC.
 
-rFOX is a new staking program on ShapeShift. Users stake FOX and receive USDC rewards monthly via off-chain distribution by the DAO multisig. The program is designed for DeFi users and yield seekers who want stable rewards without giving up control of their assets.
+rFOX is a staking program on ShapeShift. Users bridge FOX to Arbitrum (in the ShapeShift UI if on mainnet), stake FOX, and receive USDC rewards from a share of the DAO's affiliate-fee revenue each epoch. Distribution is off-chain by the DAO multisig. When users unstake, a 28-day cooldown applies before FOX can be claimed. The program is designed for DeFi users and yield seekers who want stable rewards without giving up control of their assets.
 
 The program is live now. ShapeShift users can stake FOX and start earning USDC with a straightforward, self-custodial flow.
 
