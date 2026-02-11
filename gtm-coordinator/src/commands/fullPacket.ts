@@ -123,7 +123,9 @@ export const fullPacketCommand = new Command('full-packet')
       console.log(chalk.gray('  → index.html'));
 
       fs.writeFileSync(path.join(outputDir, 'checklist.md'), results.checklist);
-      console.log(chalk.green('  → checklist.md') + chalk.yellow(' ← START HERE'));
+      console.log(chalk.gray('  → checklist.md'));
+      fs.writeFileSync(path.join(outputDir, 'checklist.html'), results.checklistHtml);
+      console.log(chalk.green('  → checklist.html') + chalk.yellow(' ← START HERE (open in browser)'));
 
       fs.writeFileSync(path.join(outputDir, 'marketing_brief.md'), results.marketingBriefMarkdown);
       console.log(chalk.gray('  → marketing_brief.md'));
@@ -272,7 +274,7 @@ export const fullPacketCommand = new Command('full-packet')
       console.log(chalk.white(outputDir));
 
       console.log(chalk.blue.bold('\n🚀 Next Steps\n'));
-      console.log(chalk.white('1. Open ') + chalk.cyan('checklist.md') + chalk.white(' and follow the instructions'));
+      console.log(chalk.white('1. Open ') + chalk.cyan('index.html') + chalk.white(' in a browser, then click Start Checklist (or open checklist.html directly)'));
       if (campaignType !== 'program') {
         console.log(chalk.white('2. Send ') + chalk.cyan('partner/partner_kit.md') + chalk.white(` to the ${protocol} team`));
       }
