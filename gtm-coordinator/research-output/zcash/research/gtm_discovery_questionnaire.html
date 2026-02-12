@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zcash GTM Discovery Questionnaire</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --bg-card: #16213e;
+    --bg-input: #0f3460;
+    --accent: #3761F9;
+    --accent-hover: #2a4fd6;
+    --text: #FFFFFF;
+    --text-muted: #a0a0b8;
+    --text-prefill: #7ec8e3;
+    --border: #2a2a4a;
+    --success: #00c853;
+    --warning: #ffab00;
+    --red: #ff5252;
+    --radius: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--accent);
+  }
+
+  header h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  header .meta {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .instructions {
+    background: var(--bg-card);
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .instructions strong { color: var(--text); }
+
+  .section {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+  }
+
+  .section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+    color: var(--accent);
+  }
+
+  .section .section-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .priority-critical { border-left: 4px solid var(--red); }
+  .priority-important { border-left: 4px solid var(--warning); }
+  .priority-confirm { border-left: 4px solid var(--success); }
+
+  .priority-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  .priority-label.critical { background: var(--red); color: #fff; }
+  .priority-label.important { background: var(--warning); color: #1a1a2e; }
+  .priority-label.confirm { background: var(--success); color: #1a1a2e; }
+
+  .field {
+    margin-bottom: 1.25rem;
+  }
+
+  .field:last-child { margin-bottom: 0; }
+
+  .field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
+  }
+
+  .field .current {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .field .current .val {
+    color: var(--text-prefill);
+    font-family: 'Courier New', monospace;
+  }
+
+  .field .hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="email"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    background: var(--bg-input);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(55, 97, 249, 0.25);
+  }
+
+  textarea { resize: vertical; min-height: 80px; }
+
+  input.prefilled {
+    border-color: var(--success);
+    background: rgba(0, 200, 83, 0.08);
+  }
+
+  .radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.35rem;
+  }
+
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 400;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .radio-group input[type="radio"] {
+    width: auto;
+    accent-color: var(--accent);
+  }
+
+  .confirm-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  .confirm-table th {
+    text-align: left;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .confirm-table td {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .confirm-table td.val {
+    color: var(--text-prefill);
+    font-family: 'Courier New', monospace;
+  }
+
+  .confirm-table select {
+    width: 80px;
+    padding: 0.3rem;
+    font-size: 0.8rem;
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 0.75rem 1.75rem;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn:active { transform: scale(0.97); }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--accent-hover); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+  }
+  .btn-secondary:hover {
+    background: rgba(55, 97, 249, 0.1);
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--success);
+    color: #1a1a2e;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+    z-index: 999;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  .sub-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .sub-fields .field { margin-bottom: 0; }
+
+  @media (max-width: 600px) {
+    .sub-fields { grid-template-columns: 1fr; }
+    .actions { flex-direction: column; }
+    .btn { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Zcash GTM Discovery Questionnaire</h1>
+    <div class="meta">Packet: zcash &middot; Generated: 2026-02-12</div>
+  </header>
+
+  <div class="instructions">
+    <strong>Instructions:</strong> Fill out the gap fields below. Pre-filled values (green border) are already extracted from the packet — confirm or override them. When done, click <strong>Save as File</strong> to download your responses as JSON, or <strong>Copy to Clipboard</strong> to paste them back. The questionnaire merger will propagate your answers across all packet files.
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: TIMELINE -->
+  <!-- ============================================================ -->
+  <div class="section priority-critical">
+    <span class="priority-label critical">Critical</span>
+    <h2>Timeline</h2>
+    <p class="section-desc">All content scheduling, partner coordination, and press timing depend on these dates.</p>
+
+    <div class="field">
+      <label for="launchDate">Launch Date</label>
+      <div class="current">Current: <span class="val">TBD</span></div>
+      <input type="date" id="launchDate" name="launchDate">
+      <div class="hint">When will the Zcash integration be publicly announced?</div>
+    </div>
+
+    <div class="field">
+      <label for="embargoDate">Embargo Date</label>
+      <div class="current">Current: <span class="val">TBD</span></div>
+      <input type="date" id="embargoDate" name="embargoDate">
+      <div class="hint">Press embargo date. Leave blank if no embargo (will default to "None").</div>
+    </div>
+
+    <div class="field">
+      <label for="assetApprovalDate">Asset Approval Date</label>
+      <div class="current">Current: <span class="val">TBD</span></div>
+      <input type="date" id="assetApprovalDate" name="assetApprovalDate">
+      <div class="hint">When was/will ZEC integration be approved for production?</div>
+    </div>
+
+    <div class="field">
+      <label for="scopeLockDate">Scope Lock Date</label>
+      <div class="current">Current: <span class="val">TBD</span></div>
+      <input type="date" id="scopeLockDate" name="scopeLockDate">
+      <div class="hint">When is feature scope finalized (no more changes before launch)?</div>
+    </div>
+
+    <div class="field">
+      <label for="launchOwner">Launch Owner</label>
+      <div class="current">Current: <span class="val">[YOUR NAME]</span></div>
+      <input type="text" id="launchOwner" name="launchOwner" placeholder="Name or Discord/Telegram handle">
+      <div class="hint">Who owns this launch and will execute the checklist?</div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: CTA AND CONVERSION -->
+  <!-- ============================================================ -->
+  <div class="section priority-important">
+    <span class="priority-label important">Important</span>
+    <h2>CTA and Conversion</h2>
+    <p class="section-desc">Ensure the call-to-action and success metrics are well-defined.</p>
+
+    <div class="field">
+      <label for="ctaUrl">CTA URL</label>
+      <div class="current">Current: <span class="val">app.shapeshift.com</span> (consistent across all files)</div>
+      <input type="text" id="ctaUrl" name="ctaUrl" value="app.shapeshift.com" class="prefilled">
+      <div class="hint">Confirm or update. This URL appears in all drafts and the content calendar.</div>
+    </div>
+
+    <div class="field">
+      <label for="conversionEvent">Conversion Event (Specific Definition)</label>
+      <div class="current">Current: <span class="val">"ZEC wallet activations and first swaps into ZEC"</span> (directional, not measurable)</div>
+      <textarea id="conversionEvent" name="conversionEvent" placeholder="e.g. First ZEC receive or first swap into ZEC within 7 days of launch"></textarea>
+      <div class="hint">Define the specific, measurable conversion event for this launch.</div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: CO-MARKETING -->
+  <!-- ============================================================ -->
+  <div class="section priority-critical">
+    <span class="priority-label critical">Critical</span>
+    <h2>Co-Marketing</h2>
+    <p class="section-desc">Partner coordination for launch-day amplification.</p>
+
+    <div class="field">
+      <label for="comarketingPartners">Co-Marketing Partners</label>
+      <div class="current">Current: <span class="val">References to ECC / Zcash Foundation, not confirmed</span></div>
+      <textarea id="comarketingPartners" name="comarketingPartners" placeholder="e.g. Electric Coin Company — Josh Swihart; Zcash Foundation — Jack Gavigan"></textarea>
+      <div class="hint">List confirmed co-marketing partners with contact names.</div>
+    </div>
+
+    <div class="field">
+      <label for="partnerContact">ShapeShift Partner Contact</label>
+      <div class="current">Current: <span class="val">[YOUR DISCORD/TELEGRAM]</span></div>
+      <input type="text" id="partnerContact" name="partnerContact" placeholder="Name + Discord/Telegram handle">
+      <div class="hint">Who should the partner reach out to for coordination?</div>
+    </div>
+
+    <div class="field">
+      <label>Partner Confirmation Status</label>
+      <div class="current">Current: <span class="val">Unknown</span></div>
+      <div class="radio-group">
+        <label><input type="radio" name="partnerStatus" value="not_contacted"> Not yet contacted</label>
+        <label><input type="radio" name="partnerStatus" value="awaiting"> Contacted, awaiting response</label>
+        <label><input type="radio" name="partnerStatus" value="confirmed"> Confirmed participation</label>
+        <label><input type="radio" name="partnerStatus" value="without"> Proceeding without partner</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="walletPartnerCriteria">Wallet Partner Criteria</label>
+      <div class="current">Current: <span class="val">Not defined</span></div>
+      <input type="text" id="walletPartnerCriteria" name="walletPartnerCriteria" placeholder="Criteria or N/A for single-asset integration">
+      <div class="hint">Are there wallet partner criteria for this integration? Write "N/A" if not applicable.</div>
+    </div>
+
+    <div class="field">
+      <label>Joint Twitter Space / Co-Event</label>
+      <div class="current">Current: <span class="val">Listed as optional</span></div>
+      <div class="radio-group">
+        <label><input type="radio" name="twitterSpace" value="yes"> Yes</label>
+        <label><input type="radio" name="twitterSpace" value="no"> No</label>
+        <label><input type="radio" name="twitterSpace" value="tbd"> TBD</label>
+      </div>
+      <input type="text" id="twitterSpaceDetails" name="twitterSpaceDetails" placeholder="If yes: date + topic" style="margin-top: 0.5rem;">
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: PRESS / PR -->
+  <!-- ============================================================ -->
+  <div class="section priority-important">
+    <span class="priority-label important">Important</span>
+    <h2>Press / PR</h2>
+    <p class="section-desc">Fill placeholders in the press release and PR brief.</p>
+
+    <div class="field">
+      <label>Press Release Quote</label>
+      <div class="current">Current: <span class="val">[NAME], [TITLE], [QUOTE]</span></div>
+      <div class="sub-fields">
+        <div class="field">
+          <input type="text" id="quoteName" name="quoteName" placeholder="Name (e.g. Erik Voorhees)">
+        </div>
+        <div class="field">
+          <input type="text" id="quoteTitle" name="quoteTitle" placeholder="Title (e.g. Founder, ShapeShift)">
+        </div>
+      </div>
+      <textarea id="quoteText" name="quoteText" placeholder="Quote text for the press release..." style="margin-top: 0.5rem;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Media Contact</label>
+      <div class="current">Current: <span class="val">[Name], [Title], [Email Address]</span></div>
+      <div class="sub-fields">
+        <div class="field">
+          <input type="text" id="mediaName" name="mediaName" placeholder="Contact name">
+        </div>
+        <div class="field">
+          <input type="text" id="mediaTitle" name="mediaTitle" placeholder="Contact title">
+        </div>
+      </div>
+      <input type="email" id="mediaEmail" name="mediaEmail" placeholder="Contact email" style="margin-top: 0.5rem;">
+    </div>
+
+    <div class="field">
+      <label for="pressDateline">Press Release Dateline (City)</label>
+      <div class="current">Current: <span class="val">[CITY, DATE]</span></div>
+      <input type="text" id="pressDateline" name="pressDateline" placeholder="e.g. Denver, CO or Decentralized">
+      <div class="hint">What city/dateline convention does ShapeShift use?</div>
+    </div>
+
+    <div class="field">
+      <label>Design Contacts</label>
+      <div class="current">Current: <span class="val">[contact] for both Hoff and Atlin</span></div>
+      <div class="sub-fields">
+        <div class="field">
+          <input type="text" id="contactHoff" name="contactHoff" placeholder="Hoff — Discord/Telegram handle">
+        </div>
+        <div class="field">
+          <input type="text" id="contactAtlin" name="contactAtlin" placeholder="Atlin — Discord/Telegram handle">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: CONFIRM PRE-FILLED VALUES -->
+  <!-- ============================================================ -->
+  <div class="section priority-confirm">
+    <span class="priority-label confirm">Confirm</span>
+    <h2>Pre-Filled Values</h2>
+    <p class="section-desc">These values are already set in the packet. Confirm they are correct or override below.</p>
+
+    <table class="confirm-table">
+      <thead>
+        <tr><th>Field</th><th>Value</th><th>OK?</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Campaign type</td>
+          <td class="val">Integration</td>
+          <td><select id="confirmCampaignType" name="confirmCampaignType"><option value="yes" selected>Yes</option><option value="no">No</option></select></td>
+        </tr>
+        <tr>
+          <td>Primary audience</td>
+          <td class="val">Privacy-conscious crypto users</td>
+          <td><select id="confirmAudience" name="confirmAudience"><option value="yes" selected>Yes</option><option value="no">No</option></select></td>
+        </tr>
+        <tr>
+          <td>Lead value prop</td>
+          <td class="val">Send, receive, and swap ZEC on ShapeShift</td>
+          <td><select id="confirmValueProp" name="confirmValueProp"><option value="yes" selected>Yes</option><option value="no">No</option></select></td>
+        </tr>
+        <tr>
+          <td>Asset</td>
+          <td class="val">ZEC</td>
+          <td><select id="confirmAsset" name="confirmAsset"><option value="yes" selected>Yes</option><option value="no">No</option></select></td>
+        </tr>
+        <tr>
+          <td>Chain</td>
+          <td class="val">Zcash</td>
+          <td><select id="confirmChain" name="confirmChain"><option value="yes" selected>Yes</option><option value="no">No</option></select></td>
+        </tr>
+        <tr>
+          <td>Differentiation</td>
+          <td class="val">No KYC, no custody, multichain, UTXO mgmt, DAO-governed</td>
+          <td><select id="confirmDiff" name="confirmDiff"><option value="yes" selected>Yes</option><option value="no">No</option></select></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="field" style="margin-top: 1rem;">
+      <label for="overrideNotes">Override Notes (if any "No" above)</label>
+      <textarea id="overrideNotes" name="overrideNotes" placeholder="Explain what should change..."></textarea>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ACTIONS -->
+  <!-- ============================================================ -->
+  <div class="actions">
+    <button class="btn btn-primary" onclick="saveAsFile()">Save as File</button>
+    <button class="btn btn-secondary" onclick="copyToClipboard()">Copy to Clipboard</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function getFormData() {
+  const radio = (name) => {
+    const el = document.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : '';
+  };
+  const val = (id) => (document.getElementById(id)?.value || '').trim();
+
+  return {
+    _packet: 'zcash',
+    _updated: new Date().toISOString(),
+
+    // Timeline
+    launchDate: val('launchDate'),
+    embargoDate: val('embargoDate') || 'None',
+    assetApprovalDate: val('assetApprovalDate'),
+    scopeLockDate: val('scopeLockDate'),
+    launchOwner: val('launchOwner'),
+
+    // CTA / Conversion
+    ctaUrl: val('ctaUrl'),
+    conversionEvent: val('conversionEvent'),
+
+    // Co-Marketing
+    comarketingPartners: val('comarketingPartners'),
+    partnerContact: val('partnerContact'),
+    partnerStatus: radio('partnerStatus'),
+    walletPartnerCriteria: val('walletPartnerCriteria'),
+    twitterSpace: radio('twitterSpace'),
+    twitterSpaceDetails: val('twitterSpaceDetails'),
+
+    // Press
+    quoteName: val('quoteName'),
+    quoteTitle: val('quoteTitle'),
+    quoteText: val('quoteText'),
+    mediaName: val('mediaName'),
+    mediaTitle: val('mediaTitle'),
+    mediaEmail: val('mediaEmail'),
+    pressDateline: val('pressDateline'),
+    contactHoff: val('contactHoff'),
+    contactAtlin: val('contactAtlin'),
+
+    // Protocol roster (single asset)
+    protocolsPerChain: {
+      zcash: {
+        primary: 'ZEC',
+        secondary: '',
+        notes: 'Single asset integration — ZEC on Zcash (transparent t-addresses)'
+      }
+    },
+
+    // Pre-fill confirmations
+    confirmations: {
+      campaignType: val('confirmCampaignType'),
+      primaryAudience: val('confirmAudience'),
+      leadValueProp: val('confirmValueProp'),
+      asset: val('confirmAsset'),
+      chain: val('confirmChain'),
+      differentiation: val('confirmDiff')
+    },
+    overrideNotes: val('overrideNotes'),
+
+    // Carried forward (pre-filled, not editable in form)
+    campaignType: 'Integration',
+    primaryAudience: 'Privacy-conscious crypto users',
+    leadValueProp: 'Send, receive, and swap ZEC on ShapeShift',
+    differentiation: 'No KYC, no custody, multichain, UTXO management, DAO-governed'
+  };
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function saveAsFile() {
+  const data = getFormData();
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'zcash_gtm_questionnaire_responses.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Saved! Upload the JSON file to merge into the packet.');
+}
+
+function copyToClipboard() {
+  const data = getFormData();
+  const json = JSON.stringify(data, null, 2);
+  navigator.clipboard.writeText(json).then(() => {
+    showToast('Copied to clipboard!');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = json;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Copied to clipboard!');
+  });
+}
+</script>
+
+</body>
+</html>

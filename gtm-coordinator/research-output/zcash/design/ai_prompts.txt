@@ -1,0 +1,61 @@
+# AI Image Prompts for Zcash Integration
+
+## Midjourney / DALL-E Prompts
+
+### Prompt 1: Twitter Announcement Graphic (16:9)
+
+```
+Dark minimal crypto announcement graphic, deep navy background #1a1a2e,
+centered golden shield emblem representing privacy and protection,
+subtle blue accent lines #3761F9, faint geometric grid pattern,
+text area for "ZEC is live on ShapeShift", clean sans-serif typography,
+professional fintech aesthetic, no gradients, high contrast,
+dark mode design, privacy and security theme,
+subtle golden yellow #F4B728 accent on shield only --ar 16:9 --style raw --v 6
+```
+
+### Prompt 2: Square Graphic — Dual Brand (1:1)
+
+```
+Minimalist crypto integration announcement, dark background #1a1a2e,
+two abstract logo shapes converging — one blue #3761F9 fox silhouette,
+one golden #F4B728 shield shape — meeting in the center,
+subtle connecting lines between them suggesting partnership,
+clean negative space, no text, professional DeFi aesthetic,
+high contrast, modern fintech design, dark mode --ar 1:1 --style raw --v 6
+```
+
+### Prompt 3: Blog Header — Privacy Theme (16:9)
+
+```
+Abstract dark background for crypto blog header, base color #1a1a2e,
+subtle shield motif composed of thin geometric lines,
+faint lock/key pattern embedded in background texture,
+blue #3761F9 and gold #F4B728 accent lines intersecting,
+large negative space on right for text overlay,
+privacy and security aesthetic, minimal, professional,
+no faces, no surveillance imagery, empowering tone --ar 16:9 --style raw --v 6
+```
+
+### Prompt 4: Social Graphic — "Your Keys, Your ZEC" (1:1)
+
+```
+Dark atmospheric crypto graphic, #1a1a2e background,
+abstract golden key shape dissolving into geometric particles,
+surrounded by a subtle blue #3761F9 circular border,
+privacy-themed, empowering, not ominous,
+clean modern design, high contrast white text area at bottom,
+cryptocurrency aesthetic, dark mode, minimal detail,
+no stock imagery, no faces --ar 1:1 --style raw --v 6
+```
+
+---
+
+## Tips
+
+1. Generate 4-6 variations per prompt
+2. Pick the cleanest composition with the most negative space
+3. Add text overlay in Figma/Canva — AI-generated text is unreliable
+4. Composite logos separately (download from z.cash/brand and ShapeShift brand kit)
+5. Zcash yellow (#F4B728) should be an accent, not dominant — keep it to ~20% of color usage
+6. If the output feels too "techy" or cold, try adding: "warm undertone, human, approachable"

@@ -1,0 +1,41 @@
+{
+  "name": "Zcash",
+  "sourceOfTruth": "https://z.cash",
+  "tagline": "Privacy-protecting digital currency",
+  "category": "UTXO Chain / Privacy",
+  "keyFeatures": [
+    "Zero-knowledge encryption (zk-SNARKs) for private peer-to-peer payments",
+    "Transparent (t-address) and shielded (z-address) transaction types",
+    "UTXO-based architecture (similar to Bitcoin)",
+    "Fast transactions with low fees",
+    "Encrypted memo field for secret messages with transactions",
+    "Self-funded development via block reward allocation"
+  ],
+  "targetAudience": [
+    "Privacy-conscious crypto users",
+    "Zcash holders wanting self-custody multichain access",
+    "UTXO coin holders wanting unified wallet management",
+    "Users wanting to acquire ZEC without KYC"
+  ],
+  "valueProposition": "Zcash is the first cryptocurrency to implement zero-knowledge encryption for private digital payments. With ShapeShift, users can send, receive, and swap ZEC alongside BTC, ETH, and 100+ other assets — no KYC, no custody, no exchange account required.",
+  "technicalHighlights": [
+    "zk-SNARKs (zero-knowledge succinct non-interactive arguments of knowledge) for transaction privacy",
+    "UTXO model with transparent t-addresses and shielded z-addresses",
+    "~16.5M ZEC outstanding supply, ~5M ZEC in shielded pool",
+    "ShapeShift integration supports transparent/unshielded t-addresses for send, receive, and swap",
+    "Built-in UTXO management within ShapeShift (same approach as Bitcoin)"
+  ],
+  "integrationOpportunities": [
+    "ShapeShift supports ZEC send, receive, and swap via transparent t-addresses",
+    "Users can swap any supported asset (BTC, ETH, etc.) into ZEC without a centralized exchange",
+    "UTXO management handled natively by ShapeShift, same as Bitcoin",
+    "Future opportunity: shielded z-address support for full Zcash privacy"
+  ],
+  "risks": [
+    "Regulatory scrutiny around privacy coins (delistings from some exchanges)",
+    "Current integration limited to transparent t-addresses — not full Zcash privacy",
+    "Potential confusion between transparent and shielded transaction types",
+    "Market perception challenges around privacy coin utility and compliance"
+  ],
+  "competitorComparison": "Zashi (by Electric Coin Company) is the official Zcash wallet but supports ZEC only — no multichain. Exodus, Trust Wallet, and Atomic Wallet support ZEC alongside other assets but are centralized companies with limited privacy guarantees. CEXs like Coinbase and Gemini require KYC to buy/sell ZEC, undermining the privacy ethos. ShapeShift is the only self-custodial multichain platform where users can hold ZEC alongside BTC, ETH, and 100+ assets, swap into ZEC from any supported token, and manage UTXOs — all without KYC or custody."
+}
