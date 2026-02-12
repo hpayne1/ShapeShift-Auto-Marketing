@@ -1,0 +1,35 @@
+{
+  "website": {
+    "tagline": "Yield.xyz - Ultimate Web3 Yield Infrastructure | Staking, DeFi, Data APIs",
+    "heroCopy": "One unified API for every Web3 yield across 75+ networks. Access staking, stablecoin yields, and DeFi with zero complexity and up to 2.8x higher revenue.",
+    "terminology": [
+      "yield",
+      "ultimate",
+      "infrastructure",
+      "staking"
+    ]
+  },
+  "twitter": {
+    "recentPosts": [
+      "JavaScript is not available.",
+      "We’ve detected that JavaScript is disabled in this browser.",
+      "Please enable JavaScript or switch to a supported browser to continue using x.",
+      "You can see a list of supported browsers in our Help Center.",
+      "Help Center Terms of Service Privacy Policy Cookie Policy Imprint Ads info © 2026 X Corp."
+    ],
+    "ctas": [],
+    "tone": "Best-effort extraction; verify manually.",
+    "whatWorks": "Infer from structure: short threads, questions, direct CTAs."
+  },
+  "messagingAlignment": {
+    "useTerms": [
+      "yield",
+      "ultimate",
+      "infrastructure",
+      "staking"
+    ],
+    "channelTone": {
+      "twitter": "Best-effort extraction; verify manually."
+    }
+  }
+}

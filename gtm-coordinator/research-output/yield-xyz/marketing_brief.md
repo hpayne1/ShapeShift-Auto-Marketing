@@ -1,136 +1,82 @@
 # Marketing Brief: Yield.xyz Integration
 
-## Launch Timeline
-
-| Date | Milestone |
-|------|-----------|
-| Mon Feb 2 | Lock scope + confirm protocol roster |
-| Tue Feb 3 | Collect all partner briefs/creatives |
-| Wed Feb 4 | Feedback pass + revisions requested |
-| **Thu Feb 5** | **Final asset approvals + press embargo** |
-| Mon Feb 9 | Final QA + scheduling (ads + PR + social) |
-| **Tue Feb 10** | **🚀 Launch Day** |
-
----
-
 ## Who Are We Speaking To?
 
-**Target Audience:** DeFi Power Users and Yield Seekers
+**Target Audience:** Yield seekers (primary); DeFi power users, cross-chain traders
 
-**What We Know About Them:** They actively manage crypto portfolios, seek the best APY, and value self-custody.
+**What We Know About Them:** They regularly manage portfolios across multiple protocols, seek the best APY, and move assets between chains.
 
-**Psychographics:** They are tech-savvy, constantly optimizing their investments, and prioritize control over their assets.
+**Psychographics:** They value self-custody, efficiency, and maximizing returns without compromising on privacy.
 
 ---
 
 ## What Problem Are We Solving?
 
-**The Problem:** Users want to optimize yield without losing control of their crypto.
+**The Problem:** Accessing diverse yield opportunities across multiple networks is complex and time-consuming.
 
-**The "Aha" Moment:** Realizing they can stake and earn without giving up their keys.
+**The "Aha" Moment:** Users realize they can earn higher yields without the hassle of managing multiple platforms.
 
 **Before/After:**
-Before: Users juggle multiple platforms, risking custody. After: Seamless staking with full control.
+Before: Juggling multiple platforms for yield. After: One interface for all yield opportunities.
 
 ---
 
 ## GTM Idea (One Sentence)
 
-> Put your idle assets to work. Earn yield without giving up control.
-
----
-
-## Launch Scope (Feb 10, 2026)
-
-**ShapeShift Chain Support:** 26 chains
-
-**EVM Chains:** Ethereum, Avalanche, Optimism, BNB Smart Chain, Polygon, Gnosis, Arbitrum, Arbitrum Nova, Base, Monad, HyperEVM, Plasma
-
-**Non-EVM Chains:** Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash, Cosmos, THORChain, MAYAChain, Solana, Tron, SUI, NEAR, Starknet
-
-**Featured Launch Chains:** Tron, Katana, Solana, Plasma
-
-**Feature flags (default):**
-- Native staking assets: Yes
-- Liquid staking assets: Yes (where available)
-- DeFi protocols at launch: Yes (limited roster)
-
----
-
-## Co-Marketing Roster (Protocols)
-
-**Featured Protocols:**
-Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, Fluid
-
-**Target roster (by chain):**
-- Tron: StakeKit (native staking on Tron)
-- Katana: Morpho (Vault Bridge USDC yields)
-- Solana: Kamino (primary) + Drift Protocol (secondary)
-- Plasma: Fluid (USDe yields)
-
----
-
-## Wallet Partner Shortlist (5)
-
-**Criteria:** No native staking/earn, WalletConnect for EVM, not already partnered with Yield.xyz.
-
-**Shortlist:**
-- Rabby Wallet
-- Frame Wallet
-- Infinity Wallet
-- Safe (treasury earn angle)
-- SubWallet
+> ShapeShift users can now earn more by easily accessing yield opportunities across many blockchains, all without leaving the platform.
 
 ---
 
 ## Business Outcomes
 
 **What Changes:**
-- Increased user engagement on ShapeShift platform
-- Higher staking volumes
-- Enhanced user satisfaction and retention
+- Increased user engagement and retention
+- Higher transaction volumes
+- Broader user adoption of ShapeShift's DeFi offerings
 
 **How We'll Measure:**
-- Number of new staking users
-- Volume of assets staked
+- **Conversion event:** TVL from deposits into DeFi opportunities
+- Number of users accessing Yield.xyz through ShapeShift
+- Transaction volume related to yield activities
 - User retention rates
 
 ---
 
 ## Wild Success (Best Case Scenario)
 
-**Vision:** ShapeShift becomes the go-to platform for DeFi users seeking yield without compromise.
+**Vision:** ShapeShift becomes the go-to platform for DeFi users seeking diverse and high-yield opportunities across multiple blockchains.
 
 **Indicators:**
-- Dominant market share in DeFi staking
-- Recognition as a leader in self-custodial solutions
-- Strong community growth and advocacy
+- Significant growth in active user base
+- Recognition as a leader in DeFi yield aggregation
+- Partnerships with additional yield protocols
 
 ---
 
 ## Why ShapeShift? (vs Competitors)
 
 **Differentiators:**
-- No custody, no KYC
-- Comprehensive integration with Yield.xyz's cross-chain capabilities
-- Focus on user empowerment and financial sovereignty
+- No custody, no KYC, fully decentralized
+- **Multichain routing and earning:** Enter and exit (unlike LiFi, which is enter-only). Manage UTXOs and your yield in one place.
+- ShapeShift already has Yearn integrated; Yield.xyz adds breadth and multichain access.
+- Unified access to 75+ networks via Yield.xyz; comprehensive yield analytics and insights
 
-**Positioning Statement:** ShapeShift offers the most user-centric, self-custodial yield experience in DeFi.
+**Positioning Statement:** ShapeShift offers unparalleled access to yield opportunities across multiple blockchains without compromising on user sovereignty and privacy.
 
 ---
 
 ## Key Messages
 
 **Primary Message:**
-> Put your idle assets to work.
+> ShapeShift integrates Yield.xyz to offer users access to diverse yield opportunities without leaving the platform.
 
 **Supporting Messages:**
-- Your keys, your yield.
-- Cross-chain staking made simple.
-- No KYC. No custody. Just returns.
+- Access yield across 75+ networks with no custody.
+- Maximize returns with minimal complexity.
+- No KYC. No compromise. Just yield.
 
 **Tweet-Ready:**
-> Put your idle assets to work. Earn yield across 26 chains—ETH, Solana, Arbitrum, Avalanche, Polygon, Tron, Bitcoin, and more—without giving up custody. No KYC. Just yield.
+> What if you could earn yield across 75+ networks without leaving ShapeShift? Now you can. No custody. No KYC. Just yield. 🦊
 
 ---
 
@@ -143,10 +89,10 @@ Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, Fluid
 | **Tagline** | Ultimate Web3 Yield Infrastructure | Staking, DeFi, Data APIs |
 
 **Key Features:**
-- Comprehensive staking solutions
-- Advanced DeFi tools
-- Robust data APIs for developers
-- Cross-chain yield optimization
-- User-friendly interface
+- Unified API for Web3 yield across 75+ networks
+- Access to staking, stablecoin yields, and DeFi
+- Potential for up to 2.8x higher revenue
 
-**Value Proposition:** Yield.xyz provides a comprehensive yield infrastructure that combines staking, DeFi tools, and data APIs to optimize returns for users across multiple blockchains.
+**Value Proposition:** Yield.xyz provides a comprehensive and simplified infrastructure for accessing diverse yield opportunities across multiple blockchain networks, enhancing revenue potential with minimal complexity.
+
+**Source of truth (chains/assets/providers):** research/yield_assets_chains_summary.md — 13 networks, 29 assets, 18 providers (Aave, Lido, Yearn, Kamino, etc.).

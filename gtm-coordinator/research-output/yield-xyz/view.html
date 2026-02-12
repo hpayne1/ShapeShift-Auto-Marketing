@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview | GTM Packet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-500: #3761F9;
+      --gray-950: #090B11;
+      --gray-900: #10151E;
+      --gray-850: #191d28;
+      --gray-700: #2D3748;
+      --gray-500: #718096;
+      --gray-400: #A0AEC0;
+      --gray-300: #CBD5E0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--gray-900);
+      color: var(--gray-300);
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+    .top-bar {
+      max-width: 680px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .back-link {
+      color: var(--blue-500);
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+    .draft-title {
+      font-family: 'Work Sans', system-ui, sans-serif;
+      font-weight: 600;
+      color: #fff;
+      font-size: 0.9375rem;
+    }
+    .copy-btn {
+      background: var(--blue-500);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+    .copy-btn:hover { opacity: 0.9; }
+    .copy-btn.copied { background: #00CD98; }
+    .error-msg {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      background: rgba(220, 53, 69, 0.15);
+      border: 1px solid #dc3545;
+      border-radius: 12px;
+      color: #f8d7da;
+    }
+    .form-section {
+      max-width: 680px;
+      margin: 0 auto 1.5rem;
+      padding: 1rem;
+      background: var(--gray-850);
+      border: 1px solid var(--gray-700);
+      border-radius: 12px;
+    }
+    .form-section h4 {
+      font-size: 0.8125rem;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+    }
+    .form-grid label {
+      display: block;
+      font-size: 0.8125rem;
+      color: var(--gray-500);
+      margin-bottom: 0.25rem;
+    }
+    .form-grid input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid var(--gray-700);
+      border-radius: 6px;
+      background: var(--gray-900);
+      color: var(--gray-300);
+      font-size: 0.875rem;
+    }
+    .preview-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ----- X (Twitter) mockup ----- */
+    .mock-x {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #fff;
+      color: #0f1419;
+      border: 1px solid #cfd9de;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .mock-x .tweet {
+      padding: 1rem 1rem 0.75rem 1rem;
+      border-bottom: 1px solid #eff3f4;
+    }
+    .mock-x .tweet:last-child { border-bottom: none; }
+    .mock-x .tweet-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+    .mock-x .tweet-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3761F9, #00CD98);
+    }
+    .mock-x .tweet-name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+    }
+    .mock-x .tweet-display-name { font-weight: 700; font-size: 0.9375rem; }
+    .mock-x .tweet-handle { color: #536471; font-size: 0.875rem; }
+    .mock-x .tweet-dot { color: #536471; font-size: 0.875rem; }
+    .mock-x .tweet-time { color: #536471; font-size: 0.875rem; }
+    .mock-x .tweet-body {
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-left: 48px;
+    }
+    .mock-x .tweet-body a { color: #1d9bf0; text-decoration: none; }
+    .mock-x .tweet-body a:hover { text-decoration: underline; }
+    .mock-x .tweet-divider {
+      height: 12px;
+      background: #f7f9f9;
+      margin-left: 56px;
+      border-left: 2px solid #cfd9de;
+    }
+
+    /* ----- Discord mockup ----- */
+    .mock-discord {
+      background: #36393f;
+      color: #dcddde;
+      border-radius: 8px;
+      padding: 1rem 1rem 1.25rem 1.5rem;
+      font-family: "gg sans", "Noto Sans", "Helvetica Neue", Helvetica, sans-serif;
+      font-size: 0.9375rem;
+      line-height: 1.375;
+    }
+    .mock-discord .msg-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+    .mock-discord .msg-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3761F9, #00CD98);
+      flex-shrink: 0;
+    }
+    .mock-discord .msg-meta { display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; }
+    .mock-discord .msg-username { color: #fff; font-weight: 500; }
+    .mock-discord .msg-time { color: #72767d; font-size: 0.75rem; }
+    .mock-discord .msg-body {
+      margin-left: 52px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .mock-discord .msg-body strong { font-weight: 600; color: #fff; }
+    .mock-discord .msg-body a { color: #00b0f4; text-decoration: none; }
+    .mock-discord .msg-body a:hover { text-decoration: underline; }
+
+    /* ----- Blog mockup ----- */
+    .mock-blog {
+      background: #fff;
+      color: #1a1a1a;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      font-family: Georgia, "Times New Roman", serif;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .mock-blog .blog-title {
+      font-family: "Work Sans", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.75rem;
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
+    }
+    .mock-blog .blog-meta { color: #6b7280; font-size: 0.875rem; margin-bottom: 1.5rem; }
+    .mock-blog .blog-body { font-size: 1.0625rem; line-height: 1.7; }
+    .mock-blog .blog-body h2 {
+      font-family: "Work Sans", system-ui, sans-serif;
+      font-size: 1.25rem;
+      margin: 1.5rem 0 0.5rem;
+      font-weight: 600;
+    }
+    .mock-blog .blog-body h3 { font-size: 1.1rem; margin: 1.25rem 0 0.5rem; }
+    .mock-blog .blog-body p { margin-bottom: 1rem; }
+    .mock-blog .blog-body ul { margin: 0.5rem 0 1rem 1.5rem; }
+    .mock-blog .blog-body li { margin-bottom: 0.35rem; }
+    .mock-blog .blog-body a { color: #3761F9; text-decoration: none; }
+    .mock-blog .blog-body a:hover { text-decoration: underline; }
+    .mock-blog .blog-body [data-placeholder] { color: #9ca3af; font-style: italic; }
+
+    /* Doc view (any .md / .txt) */
+    .doc-view {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--gray-850);
+      border: 1px solid var(--gray-700);
+      border-radius: 12px;
+      padding: 2rem;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+    .doc-view h1 { font-family: 'Work Sans', system-ui, sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 1rem; }
+    .doc-view h2 { font-size: 1.2rem; color: #fff; margin: 1.5rem 0 0.5rem; }
+    .doc-view h3 { font-size: 1rem; color: var(--gray-400); margin: 1rem 0 0.5rem; }
+    .doc-view p { margin-bottom: 0.75rem; color: var(--gray-300); }
+    .doc-view ul, .doc-view ol { margin: 0.5rem 0 1rem 1.5rem; color: var(--gray-300); }
+    .doc-view li { margin-bottom: 0.35rem; }
+    .doc-view a { color: var(--blue-500); text-decoration: none; }
+    .doc-view a:hover { text-decoration: underline; }
+    .doc-view strong { color: var(--gray-300); }
+    .doc-view pre, .doc-view code { background: var(--gray-900); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem; }
+    .doc-view pre { padding: 1rem; overflow-x: auto; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <a href="index.html" class="back-link">← Back to packet</a>
+    <span class="draft-title" id="draftTitle">Preview</span>
+    <button type="button" class="copy-btn" id="copyBtn" style="display: none;">Copy to clipboard</button>
+  </div>
+
+  <div id="formSection" class="form-section" style="display: none;">
+    <h4>Fill in placeholders</h4>
+    <div class="form-grid" id="formGrid"></div>
+  </div>
+
+  <div id="errorMsg" class="error-msg" style="display: none;"></div>
+  <div id="previewWrap" class="preview-wrap"></div>
+
+  <script>
+    (function() {
+      const DRAFT_CONFIG = {
+        x_post_main:     { type: 'x', thread: true,  title: 'Main Twitter thread (@ShapeShift)' },
+        x_post_blog:     { type: 'x', thread: false, title: 'Blog promo tweet', placeholders: [{ id: 'BLOG LINK', key: 'blog_link', label: 'Blog URL' }] },
+        x_post_personal: { type: 'x', thread: false, title: 'Personal QT' },
+        discord_post:    { type: 'discord', title: 'Discord #announcements' },
+        discord_reminder:{ type: 'discord', title: 'Discord reminder', placeholders: [{ id: 'X THREAD LINK', key: 'x_thread_link', label: 'X thread URL' }] },
+        blog_draft:      { type: 'blog', title: 'Blog for Strapi' },
+        medium_post:     { type: 'blog', title: 'Medium cross-post' },
+        followup_educational: { type: 'x', thread: true, title: 'Day 1 educational thread' },
+        followup_metrics: {
+          type: 'x',
+          thread: true,
+          title: 'Day 4–6 metrics thread',
+          placeholders: [
+            { id: 'X', key: 'metrics_x', label: 'Transactions' },
+            { id: 'Y', key: 'metrics_y', label: 'Volume' },
+            { id: 'Z', key: 'metrics_z', label: 'Days' },
+            { id: 'W', key: 'metrics_w', label: 'Unique users' },
+            { id: 'PAIR 1', key: 'pair_1', label: 'Pair 1' },
+            { id: 'PAIR 2', key: 'pair_2', label: 'Pair 2' },
+            { id: 'PAIR 3', key: 'pair_3', label: 'Pair 3' }
+          ]
+        },
+        followup_recap:  { type: 'x', thread: true, title: 'Day 7 recap' }
+      };
+
+      const LS_KEYS = { followup_metrics: 'gtm_followup_metrics', x_post_blog: 'gtm_blog_link', discord_reminder: 'gtm_x_thread_link' };
+
+      // Base URL for fetches: same directory as this view.html (works from main HTML links and preview panes)
+      function getBaseUrl() {
+        var href = window.location.href.split('?')[0].split('#')[0];
+        return href.replace(/\/[^/]*$/, '/');
+      }
+      function getParam(name) {
+        var search = (window.location.search || '').replace(/^\?/, '');
+        var hash = (window.location.hash || '').replace(/^#/, '');
+        var fromSearch = search ? new URLSearchParams(search).get(name) : '';
+        if (fromSearch) return fromSearch;
+        return hash ? (new URLSearchParams(hash).get(name) || '') : '';
+      }
+      function getDraftId() {
+        return (getParam('draft') || '').trim();
+      }
+      function getPath() {
+        return (getParam('path') || '').trim();
+      }
+      function mdToHtml(md) {
+        let h = escapeHtml(md);
+        h = h.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+        h = h.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+        h = h.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+        h = h.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        h = h.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+        h = h.replace(/^\- (.+)$/gm, '<li>$1</li>');
+        h = h.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+        h = h.replace(/^\|(.+)\|$/gm, function(line) {
+          const cells = line.replace(/^\||\|$/g, '').split('|').map(function(c) { return '<td>' + c.trim() + '</td>'; }).join('');
+          return '<tr>' + cells + '</tr>';
+        });
+        h = h.replace(/(<tr>.*<\/tr>\n?)+/g, '<table><tbody>$&</tbody></table>');
+        h = h.replace(/\n\n+/g, '</p><p>');
+        h = h.replace(/\n/g, '<br>');
+        h = h.replace(/<p><\/p>/g, '').replace(/<p>(<h[123]>)/g, '$1').replace(/(<\/h[123]>)<\/p>/g, '$1');
+        return '<p>' + h + '</p>';
+      }
+      function loadPath(pathKey) {
+        document.getElementById('copyBtn').style.display = 'none';
+        document.getElementById('draftTitle').textContent = pathKey.replace(/.*\//, '');
+        function renderPathContent(text) {
+          const wrap = document.getElementById('previewWrap');
+          const div = document.createElement('div');
+          div.className = 'doc-view';
+          if (/\.txt$/i.test(pathKey)) {
+            div.innerHTML = '<pre>' + escapeHtml(text) + '</pre>';
+          } else {
+            div.innerHTML = mdToHtml(text);
+          }
+          wrap.innerHTML = '';
+          wrap.appendChild(div);
+        }
+        var embedded = (window.__PACKET_DATA__ && window.__PACKET_DATA__.paths && window.__PACKET_DATA__.paths[pathKey]);
+        if (embedded !== undefined) {
+          renderPathContent(embedded);
+          return;
+        }
+        const base = getBaseUrl();
+        const url = pathKey.indexOf('/') === 0 ? pathKey : base + pathKey.replace(/^\.\//, '');
+        fetch(url)
+          .then(function(r) {
+            if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
+            return r.text();
+          })
+          .then(renderPathContent)
+          .catch(function(err) {
+            document.getElementById('errorMsg').innerHTML =
+              'Could not load file. If you opened this from disk (file://), use a local server (e.g. <code>npx serve .</code>).<br><br>' + escapeHtml(err.message);
+            document.getElementById('errorMsg').style.display = 'block';
+            document.getElementById('previewWrap').innerHTML = '';
+          });
+      }
+
+      function getStoredValues(draftId) {
+        const key = LS_KEYS[draftId];
+        if (!key) return {};
+        try {
+          const s = localStorage.getItem(key);
+          return s ? JSON.parse(s) : {};
+        } catch (_) { return {}; }
+      }
+
+      function setStoredValues(draftId, values) {
+        const key = LS_KEYS[draftId];
+        if (!key) return;
+        try { localStorage.setItem(key, JSON.stringify(values)); } catch (_) {}
+      }
+
+      function escapeHtml(s) {
+        const div = document.createElement('div');
+        div.textContent = s;
+        return div.innerHTML;
+      }
+
+      function linkify(text) {
+        const urlRe = /(https?:\/\/[^\s]+)/g;
+        return escapeHtml(text).replace(urlRe, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+      }
+
+      function extractCopyBlock(md) {
+        const m = md.match(/```\s*([\s\S]*?)```/);
+        if (m) return m[1].trim();
+        const parts = md.split(/^##\s+Copy\/paste/m);
+        if (parts.length > 1) {
+          const block = parts[1].replace(/^```[\s\S]*?```/m, '').trim();
+          const lines = block.split('\n').filter(function(l) { return l.trim() !== ''; });
+          return lines.join('\n');
+        }
+        const beforeCopy = md.split(/^---$/m)[0].trim();
+        const lines = beforeCopy.split('\n').filter(function(l) {
+          return l && !/^#\s/.test(l) && !/^\*\*Tweet \d+:\*\*/.test(l) && !/^\*\*Voice:\*\*/.test(l);
+        });
+        return lines.join('\n').trim();
+      }
+
+      function parseXTweets(md, draftId) {
+        const copyBlock = extractCopyBlock(md);
+        const config = DRAFT_CONFIG[draftId];
+        if (config && config.thread) {
+          const tweets = [];
+          const byNumber = copyBlock.split(/\n(?=\d+\/)/);
+          if (byNumber.length > 1) {
+            byNumber.forEach(function(block) {
+              const t = block.replace(/^\d+\/\s*/, '').trim();
+              if (t) tweets.push(t);
+            });
+          } else {
+            const byTweet = copyBlock.split(/\n\n+/);
+            if (byTweet.length > 1) tweets.push(...byTweet.map(function(t) { return t.trim(); }).filter(Boolean));
+            else tweets.push(copyBlock.trim());
+          }
+          return tweets.length ? tweets : [copyBlock];
+        }
+        return [copyBlock];
+      }
+
+      function parseDiscordBody(md) {
+        const copyBlock = extractCopyBlock(md);
+        return copyBlock.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      }
+
+      function inlineMd(html) {
+        return html
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+          .replace(/\[IMAGE:([^\]]+)\]/g, '<span data-placeholder="true">[IMAGE: $1]</span>')
+          .replace(/\n/g, '<br>');
+      }
+      function parseBlog(md) {
+        let body = md.replace(/^#\s+.+$/m, '').trim();
+        const copyIdx = body.indexOf('## Copy/paste');
+        if (copyIdx !== -1) body = body.slice(0, copyIdx).trim();
+        const blocks = body.split(/\n\n+/);
+        let out = '';
+        blocks.forEach(function(block) {
+          const t = block.trim();
+          if (!t) return;
+          if (/^##\s+/.test(t)) {
+            out += '<h2>' + inlineMd(escapeHtml(t.replace(/^##\s+/, ''))) + '</h2>';
+          } else if (/^###\s+/.test(t)) {
+            out += '<h3>' + inlineMd(escapeHtml(t.replace(/^###\s+/, ''))) + '</h3>';
+          } else if (/^- /.test(t)) {
+            const items = t.split(/\n/).filter(function(l) { return l.trim(); });
+            out += '<ul>' + items.map(function(line) {
+              const text = line.replace(/^- \*\*(.+?)\*\*:?\s*/, '').trim();
+              return '<li>' + inlineMd(escapeHtml(text)) + '</li>';
+            }).join('') + '</ul>';
+          } else {
+            out += '<p>' + inlineMd(escapeHtml(t)) + '</p>';
+          }
+        });
+        return out;
+      }
+
+      function getBlogTitle(md) {
+        const m = md.match(/^#\s+(.+)$/m);
+        return m ? m[1].trim() : 'Blog post';
+      }
+
+      function applyPlaceholders(text, draftId, values) {
+        let out = text;
+        const config = DRAFT_CONFIG[draftId];
+        if (config && config.placeholders) {
+          config.placeholders.forEach(function(p) {
+            const val = values[p.key] || '';
+            out = out.replace(new RegExp('\\[' + p.id + '\\]', 'gi'), val);
+          });
+        }
+        return out;
+      }
+
+      function renderX(tweets, draftId, values) {
+        const wrap = document.getElementById('previewWrap');
+        const div = document.createElement('div');
+        div.className = 'mock-x';
+        tweets.forEach(function(txt, i) {
+          const filled = applyPlaceholders(txt, draftId, values);
+          const tweetEl = document.createElement('div');
+          tweetEl.className = 'tweet';
+          tweetEl.innerHTML =
+            '<div class="tweet-header">' +
+              '<div class="tweet-avatar"></div>' +
+              '<div class="tweet-name-row">' +
+                '<span class="tweet-display-name">ShapeShift</span>' +
+                '<span class="tweet-handle">@ShapeShift</span>' +
+                '<span class="tweet-dot">·</span>' +
+                '<span class="tweet-time">now</span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="tweet-body">' + linkify(filled) + '</div>';
+          div.appendChild(tweetEl);
+          if (i < tweets.length - 1) {
+            const sep = document.createElement('div');
+            sep.className = 'tweet-divider';
+            div.appendChild(sep);
+          }
+        });
+        wrap.innerHTML = '';
+        wrap.appendChild(div);
+        return tweets.map(function(t) { return applyPlaceholders(t, draftId, values); }).join('\n\n');
+      }
+
+      function renderDiscord(htmlBody, draftId, values) {
+        const wrap = document.getElementById('previewWrap');
+        let body = htmlBody;
+        const config = DRAFT_CONFIG[draftId];
+        if (config && config.placeholders) {
+          config.placeholders.forEach(function(p) {
+            const val = (values[p.key] || '').trim();
+            body = body.replace(new RegExp('\\[' + p.id + '\\]', 'gi'), val || '[' + p.id + ']');
+          });
+        }
+        const div = document.createElement('div');
+        div.className = 'mock-discord';
+        div.innerHTML =
+          '<div class="msg-header">' +
+            '<div class="msg-avatar"></div>' +
+            '<div class="msg-meta">' +
+              '<span class="msg-username">ShapeShift</span>' +
+              '<span class="msg-time">Today at ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="msg-body">' + body.replace(/\n/g, '<br>') + '</div>';
+        wrap.innerHTML = '';
+        wrap.appendChild(div);
+        const plain = div.querySelector('.msg-body').innerText;
+        return plain;
+      }
+
+      function renderBlog(md, draftId) {
+        const wrap = document.getElementById('previewWrap');
+        const title = getBlogTitle(md);
+        const bodyHtml = parseBlog(md);
+        const div = document.createElement('div');
+        div.className = 'mock-blog';
+        div.innerHTML =
+          '<h1 class="blog-title">' + escapeHtml(title) + '</h1>' +
+          '<div class="blog-meta">ShapeShift · ' + new Date().toLocaleDateString() + '</div>' +
+          '<div class="blog-body">' + bodyHtml + '</div>';
+        wrap.innerHTML = '';
+        wrap.appendChild(div);
+        return md.slice(0, md.indexOf('## Copy/paste') !== -1 ? md.indexOf('## Copy/paste') : md.length).trim();
+      }
+
+      function buildForm(draftId, values, onInput) {
+        const config = DRAFT_CONFIG[draftId];
+        if (!config || !config.placeholders) return;
+        const grid = document.getElementById('formGrid');
+        grid.innerHTML = '';
+        config.placeholders.forEach(function(p) {
+          const label = document.createElement('label');
+          label.textContent = p.label;
+          label.htmlFor = 'field-' + p.key;
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.id = 'field-' + p.key;
+          input.dataset.key = p.key;
+          input.value = values[p.key] || '';
+          input.placeholder = '[' + p.id + ']';
+          input.addEventListener('input', function() {
+            const v = {};
+            config.placeholders.forEach(function(pp) {
+              const el = document.getElementById('field-' + pp.key);
+              v[pp.key] = el ? el.value : '';
+            });
+            setStoredValues(draftId, v);
+            onInput();
+          });
+          grid.appendChild(label);
+          grid.appendChild(input);
+        });
+        document.getElementById('formSection').style.display = 'block';
+      }
+
+      function getFormValues(draftId) {
+        const config = DRAFT_CONFIG[draftId];
+        if (!config || !config.placeholders) return getStoredValues(draftId);
+        const v = getStoredValues(draftId);
+        config.placeholders.forEach(function(p) {
+          const el = document.getElementById('field-' + p.key);
+          if (el) v[p.key] = el.value;
+        });
+        return v;
+      }
+
+      function loadDraft(draftId) {
+        const config = DRAFT_CONFIG[draftId];
+        if (!config) {
+          document.getElementById('errorMsg').textContent = 'Unknown draft: ' + draftId;
+          document.getElementById('errorMsg').style.display = 'block';
+          document.getElementById('previewWrap').innerHTML = '';
+          return;
+        }
+        document.getElementById('errorMsg').style.display = 'none';
+        document.getElementById('draftTitle').textContent = config.title;
+
+        function renderDraftContent(md) {
+          const values = getStoredValues(draftId);
+          let copyText = '';
+          if (config.type === 'x') {
+            const tweets = parseXTweets(md, draftId);
+            copyText = renderX(tweets, draftId, values);
+          } else if (config.type === 'discord') {
+            const body = parseDiscordBody(md);
+            copyText = renderDiscord(body, draftId, values);
+          } else if (config.type === 'blog') {
+            copyText = renderBlog(md, draftId);
+          }
+          document.getElementById('copyBtn').style.display = 'inline-block';
+          document.getElementById('copyBtn').dataset.copyText = copyText;
+          document.getElementById('copyBtn').classList.remove('copied');
+          document.getElementById('copyBtn').textContent = 'Copy to clipboard';
+          function refreshPreview() {
+            const vals = getFormValues(draftId);
+            if (config.type === 'x') {
+              const tweets = parseXTweets(md, draftId);
+              document.getElementById('copyBtn').dataset.copyText = renderX(tweets, draftId, vals);
+            } else if (config.type === 'discord') {
+              const body = parseDiscordBody(md);
+              document.getElementById('copyBtn').dataset.copyText = renderDiscord(body, draftId, vals);
+            }
+          }
+          buildForm(draftId, values, refreshPreview);
+        }
+
+        var embedded = (window.__PACKET_DATA__ && window.__PACKET_DATA__.drafts && window.__PACKET_DATA__.drafts[draftId]);
+        if (embedded !== undefined) {
+          renderDraftContent(embedded);
+          return;
+        }
+        const url = getBaseUrl() + 'drafts/' + draftId + '.md';
+        fetch(url)
+          .then(function(r) {
+            if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
+            return r.text();
+          })
+          .then(renderDraftContent)
+          .catch(function(err) {
+            document.getElementById('errorMsg').innerHTML =
+              'Could not load draft. If you opened this file from disk (file://), use a local server in this folder, e.g. <code>npx serve .</code> or <code>python -m http.server</code>.<br><br>' +
+              'Error: ' + escapeHtml(err.message);
+            document.getElementById('errorMsg').style.display = 'block';
+            document.getElementById('previewWrap').innerHTML = '';
+            document.getElementById('copyBtn').style.display = 'none';
+          });
+      }
+
+      document.getElementById('copyBtn').addEventListener('click', function() {
+        const text = this.dataset.copyText;
+        if (!text) return;
+        navigator.clipboard.writeText(text).then(function() {
+          const btn = document.getElementById('copyBtn');
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function() {
+            btn.textContent = 'Copy to clipboard';
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      });
+
+      const path = getPath();
+      const draftId = getDraftId();
+      if (path) loadPath(path);
+      else if (draftId) loadDraft(draftId);
+      else {
+        document.getElementById('errorMsg').textContent = 'Specify ?draft=x_post_blog or ?path=README.md (or another path) in the URL.';
+        document.getElementById('errorMsg').style.display = 'block';
+      }
+    })();
+  </script>
+<script>window.__PACKET_DATA__={"drafts":{"blog_draft":"# Blog Post for Strapi\n\n**Earn Without Sacrifice: Yield.xyz Integration on ShapeShift**\n\n---\n\n### What new opportunities does the Yield.xyz integration bring to ShapeShift users?\n\nWith the latest integration of Yield.xyz on ShapeShift, users can now stake and optimize their yields across multiple blockchains without compromising their control or privacy. This collaboration opens doors to a streamlined, self-custodial experience in the decentralized finance (DeFi) world.\n\n---\n\n### What is Yield.xyz?\n\nYield.xyz stands as a beacon for those navigating the complex seas of decentralized finance. As the ultimate Web3 yield infrastructure, Yield.xyz offers comprehensive staking solutions, advanced DeFi tools, and robust data APIs. These features are crafted to serve both seasoned yield seekers and developers looking to harness data for cross-chain yield optimization.\n\nYield.xyz's tagline, \"Ultimate Web3 Yield Infrastructure,\" encapsulates its mission. By providing a user-friendly interface, it bridges the gap between complex yield strategies and everyday crypto enthusiasts. Yield.xyz's infrastructure supports staking, DeFi, and data management, ensuring users enjoy optimized returns without unnecessary complexity.\n\n---\n\n### What can you do now?\n\nThe integration with ShapeShift brings Yield.xyz's powerful tools to your fingertips. Here's a closer look at what users can now access:\n\n1. **Comprehensive Staking Solutions**: Stake your assets without relinquishing custody. Yield.xyz offers a secure environment where your keys remain in your hands, allowing you to earn yield while maintaining full control.\n\n2. **Advanced DeFi Tools**: Benefit from sophisticated tools designed to maximize your returns. Whether you're a power user or a newcomer, Yield.xyz provides the instruments needed to navigate and profit from the DeFi landscape.\n\n3. **Robust Data APIs**: Developers can leverage Yield.xyz's data APIs to build more informed and optimized yield strategies. These APIs support cross-chain activities, offering insights that empower better decision-making.\n\n4. **Cross-Chain Yield Optimization**: Yield.xyz's integration allows users to efficiently manage their assets across various blockchains, maximizing their yield potential through strategic allocation.\n\n5. **User-Friendly Interface**: Enjoy an intuitive interface designed to simplify the staking and yield optimization processes. Even complex strategies become manageable, with clear pathways to execution.\n\n---\n\n### Why does this matter?\n\nIn the evolving world of DeFi, self-custody and privacy are not just preferences—they are imperatives. The integration of Yield.xyz on ShapeShift represents a significant step toward this ideal. Users can now stake and earn yields without the need for KYC (Know Your Customer) procedures, ensuring that their financial activities remain private and autonomous.\n\nThis development underscores a fundamental principle of decentralized finance: you remain in control. By eliminating middlemen and custodians, ShapeShift and Yield.xyz empower users to engage with financial protocols directly, preserving their sovereignty over their assets.\n\n---\n\n### How to get started?\n\nReady to dive into the world of self-custodial yield optimization? Here's a step-by-step guide to help you begin:\n\n1. **Visit ShapeShift**: Navigate to the ShapeShift platform and log into your account. If you're new, create an account to get started.\n\n2. **Connect Your Wallet**: Ensure your wallet is connected to ShapeShift. This enables seamless access to Yield.xyz's features.\n\n3. **Explore Yield.xyz**: Once connected, locate the Yield.xyz integration within the platform's interface. Here, you can explore the various staking options and DeFi tools available.\n\n4. **Select Assets to Stake**: Choose the assets you wish to stake. Review the potential yields and terms to make informed decisions.\n\n5. **Stake and Monitor**: Initiate the staking process. Use Yield.xyz's tools to monitor your yields and optimize your strategies as needed.\n\n6. **Leverage Data APIs**: If you're a developer, explore Yield.xyz's data APIs to enhance your yield strategies and build robust solutions.\n\n---\n\n### Conclusion\n\nShapeShift's integration with Yield.xyz marks a pivotal moment for those seeking to harness the full potential of decentralized finance. As users navigate this new landscape, they can do so with confidence, knowing that their privacy and control are uncompromised.\n\nFor those ready to take control of their financial future, the path is clear. Visit ShapeShift today and explore the possibilities with Yield.xyz. Stake smart, earn more, and let decentralized finance work for you. 🦊\n\n[IMAGE: A user-friendly interface showing the integration of Yield.xyz on ShapeShift with staking options]","discord_post":"# Discord Announcement\n\n**Introducing Yield.xyz on ShapeShift 🦊**\n\n- Access comprehensive staking solutions without giving up custody\n- Utilize advanced DeFi tools to optimize your returns\n- Leverage robust data APIs for seamless developer integration\n- Optimize cross-chain yield with a user-friendly interface\n\nReady to enhance your yield experience? Follow these simple steps:\n1. Visit the Yield.xyz section on ShapeShift [LINK]\n2. Connect your wallet\n3. Start staking, exploring DeFi tools, and accessing data APIs\n\nWe welcome your feedback and questions. Share your thoughts in the #feedback channel!","farcaster_post":"# Farcaster Post\n\n**Introducing Yield.xyz on ShapeShift 🦊**\n\n- Access comprehensive staking solutions without giving up custody\n- Utilize advanced DeFi tools to optimize your returns\n- Leverage robust data APIs for seamless developer integration\n- Optimize cross-chain yield with a user-friendly interface\n\nReady to enhance your yield experience? Follow these simple steps:\n1. Visit the Yield.xyz section on ShapeShift [LINK]\n2. Connect your wallet\n3. Start staking, exploring DeFi tools, and accessing data APIs\n\nWe welcome your feedback and questions. Share your thoughts in the #feedback channel!","followup_educational":"# Day 1: Educational Thread\n\n1/ Curious about staking with Yield.xyz on ShapeShift? Here's how to get started and earn yield without giving up custody.\n\n2/ First, visit the ShapeShift platform and connect your wallet. Ensure your wallet holds the assets you wish to stake. [SCREENSHOT: Connecting Wallet]\n\n3/ Navigate to the Yield.xyz integration. Select the asset you want to stake. Input the amount, review the details, and confirm your transaction. [SCREENSHOT: Staking Interface]\n\n4/ Your assets are now staked, working to earn yield. You maintain full control throughout. Track your rewards and manage your positions directly within ShapeShift. [SCREENSHOT: Rewards Dashboard]\n\n5/ Ready to stake and earn yield on your terms? Dive into the world of decentralized finance with ShapeShift today: [link] 🦊","followup_metrics":"# Day 4-6 Metrics Thread Template\n\n**Only post this if metrics look good. Otherwise skip.**\n\n---\n\n**Tweet 1:**\nYield.xyz on ShapeShift - the numbers so far.\n\n**Tweet 2:**\n[X] positions opened\n[Y] volume in first [Z] days\n[W] unique users\n\nAll self-custody. No KYC.\n\n**Tweet 3:**\nTop assets staked:\n• [ASSET 1]\n• [ASSET 2]\n• [ASSET 3]\n\n**Tweet 4:**\nQuestions? Drop them below.\n\n---\n\n*Fill in actual numbers before posting. Skip if numbers aren't impressive. NO emojis needed.*","followup_recap":"# Day 7 Recap Thread\n\n**Tweet 1:**\nIn case you missed it: Yield.xyz is live on ShapeShift 🦊\n\n**Tweet 2:**\nWhat you can now stake:\n• Comprehensive staking solutions\n• Advanced DeFi tools\n• Robust data APIs for developers\n\n**Tweet 3:**\nYield.xyz provides a comprehensive yield infrastructure that combines staking, DeFi tools, and data APIs to optimize returns for users across multiple blockchains.\n\nSelf-custody. No KYC.\n\n**Tweet 4:**\nTry it: app.shapeshift.com\n\n---\n\n*Recap for people who missed the original. NO hashtags. Only emoji is the 🦊 in tweet 1.*","infobot_qt":"**QT @ShapeShiftInfoBot showing a yield position:**\n\nYield.xyz in action 🦊\n\n[Screenshot of staking/yield interface with Yield.xyz]\n\nSelf-custody yield. Your keys, your rewards.\n\n---\n*Post this as a QT of @ShapeShiftInfoBot when showing a live staking position or yield earning. NO other emojis.*","release_notes":"# Yield.xyz Integration\n\nYield.xyz provides a comprehensive yield infrastructure that combines staking, DeFi tools, and data APIs to optimize returns for users across multiple blockchains.\n\n## What's New\n\n- Comprehensive staking solutions\n- Advanced DeFi tools\n- Robust data APIs for developers\n- Cross-chain yield optimization\n- User-friendly interface","x_post_main":"# Main Twitter Thread (@ShapeShift)\n\n**Tweet 1:**  \nWhat if you could earn yield without giving up control?\n\n**Tweet 2:**  \nWith ShapeShift and Yield.xyz, you can now stake and optimize your returns across multiple blockchains—no custody needed.\n\n**Tweet 3:**  \nSelf-custody is king. Keep your keys while accessing comprehensive yield infrastructure and DeFi tools to maximize your earnings.\n\n**Tweet 4:**  \nReady to take control of your financial future? Dive into staking with ShapeShift and explore Yield.xyz's powerful tools today.\n\n**Tweet 5:**  \nExplore more with @Yield_xyz and ShapeShift. Your keys. Your yield. Your future. 🦊","x_post_personal":"# Personal Tweet (Your Account)\n\nQT the main @ShapeShift announcement with:\n\nWorking on Yield.xyz has been a rewarding challenge. We focused on seamless integration of staking, DeFi tools, and cross-chain yield optimization. Getting the data APIs right was crucial to ensure developers can build on it easily. Excited to see how everyone uses it!"},"paths":{"partner/partner_kit.md":"# Yield.xyz Integration - Partner Marketing Kit\n\n**For:** Yield.xyz Marketing Team  \n**From:** ShapeShift DAO  \n**Launch:** Tuesday, Feb 10, 2026  \n**Asset Approval:** Thursday, Feb 5, 2026  \n**Contact:** [YOUR DISCORD/TELEGRAM]\n\n---\n\n## What We're Announcing\n\nPut your idle assets to work. ShapeShift's Earn experience now brings Yield.xyz opportunities to new chains—without giving up custody.\n\n**Primary Narrative:**  \n\"Put your idle assets to work.\"\n\n**ShapeShift Chain Support:** 26 chains\n\n**EVM:** Ethereum, Avalanche, Optimism, BNB Smart Chain, Polygon, Gnosis, Arbitrum, Arbitrum Nova, Base, Monad, HyperEVM, Plasma\n\n**Non-EVM:** Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash, Cosmos, THORChain, MAYAChain, Solana, Tron, SUI, NEAR, Starknet\n\n**Featured Launch Chains:** Tron, Katana, Solana, Plasma\n\n**Featured Protocols:**\nLido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, Fluid\n\n**Protocol Roster (by chain):**\n| Chain | Protocol | Notes |\n|-------|----------|-------|\n| Tron | StakeKit | Native staking |\n| Katana | Morpho | Vault Bridge USDC yields |\n| Solana | Kamino (primary) + Drift (secondary) | DeFi yields |\n| Plasma | Fluid | USDe yields |\n\n**Key Messages:**\n- Your keys, your yield.\n- Cross-chain staking made simple.\n- No KYC. No custody. Just returns.\n\n---\n\n## Launch Timeline\n\n| Date | Milestone | Owner |\n|------|-----------|-------|\n| Mon Feb 2 | Lock scope + confirm protocol roster + decide paid structure | Both |\n| Tue Feb 3 | Collect all partner briefs/creatives | Both |\n| Wed Feb 4 | Feedback pass + revisions requested | Both |\n| **Thu Feb 5** | **Final asset approvals + press embargo moment** | Both |\n| Mon Feb 9 | Final QA + scheduling (ads + PR + social) | Both |\n| **Tue Feb 10** | **Launch** | Both |\n\n---\n\n## Press Coordination\n\n**Embargo:**  \nEmbargo until Thu Feb 5, 8:00am PT (tentative).\n\n**One-liner for press:**  \n\"Put your idle assets to work. ShapeShift's Earn experience now brings Yield.xyz opportunities across 26 chains—ETH, Solana, Arbitrum, Avalanche, Bitcoin, Tron, and more—without giving up custody.\"\n\n**Boilerplates:**\n- **ShapeShift:** \"ShapeShift DAO is a self-custodial crypto platform enabling users to trade, earn, and manage assets without giving up control.\"\n- **Yield.xyz:** \"Yield.xyz provides cross-chain yield infrastructure, staking tools, and data APIs to help users optimize returns.\"\n\n**Quotes (ready to use):**\n\n*You (operator / product-market):*\n> \"Yield should feel as simple as holding. This launch is about turning idle assets into productive assets without adding complexity for the user.\"\n\n*Gomes (credibility / strategy):*\n> \"The best yield products win on distribution and UX. This launch is designed to meet users where they are—and help them take the next step confidently.\"\n\n*Serafim (vision / partnership):*\n> \"Partnerships like this work when incentives and execution are aligned. We're bringing both—press, creative, and shared conversion spend—to drive outcomes.\"\n\n**Op-ed theme:**  \n\"Put your idle assets to work\" (action-oriented)\n\n---\n\n## Paid Conversions (Co-Marketing)\n\n**Budget:** $2,500 ShapeShift + $2,500 Yield.xyz = $5,000 total  \n**Structure:** One core campaign + small protocol spotlight ad sets  \n**Split:** 70% prospecting / 30% retargeting\n\n**Conversion event:** Start Earn / Start Yield flow (or email signup if not instrumented)\n\n**UTM standard:**\n- `utm_source=shapeshift|yieldxyz`\n- `utm_medium=paid`\n- `utm_campaign=earn_launch`\n- `utm_content=<protocol_or_chain>`\n\n**Attribution owner:** [TBD - one person daily reporting Feb 5-12]\n\n**Landing page:** app.shapeshift.com/earn\n\n---\n\n## What ShapeShift Is Doing\n\n| Day | Our Action | Platform |\n|-----|------------|----------|\n| 0 | Main announcement | Twitter, Discord, Blog |\n| 0 | Tag Yield.xyz | Twitter |\n| 1 | Educational thread | Twitter |\n| 2-3 | User content, metrics | Twitter |\n| 7 | Recap thread | Twitter |\n\n---\n\n## Partner Asks\n\n### High Impact (These really help!)\n\n- [ ] **QT our main announcement**\n  - When: Day 0, within 30 minutes of our post\n  - We'll DM you when we're about to post\n  \n- [ ] **Post to your Discord**\n  - Copy provided below\n  - When: Day 0, after announcement\n\n### Medium Impact\n\n- [ ] **Include in newsletter** (if you have one)\n- [ ] **Share to Telegram** (if applicable)\n\n### Optional\n\n- [ ] **Create a tutorial video**\n- [ ] **Host a Twitter Space together**\n\n---\n\n## Ready-to-Use Copy\n\n### For Yield.xyz's Twitter\n\n```\nYield.xyz is now live on @ShapeShift across 26 chains.\n\nPut your idle assets to work—ETH, Solana, Arbitrum, Avalanche, Bitcoin, Tron, and more.\n\nFeatured protocols: Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, Fluid\n\nSelf-custody. No KYC. Try it: app.shapeshift.com/earn\n```\n\n### For Yield.xyz's Discord\n\n```\nHey Yield.xyz community!\n\nShapeShift just shipped Yield.xyz support across 26 chains:\n\n**EVM:** ETH, Arbitrum, Avalanche, Base, Optimism, Polygon, and more\n**Non-EVM:** Solana, Bitcoin, Tron, Cosmos, and more\n\nFeatured protocols: Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, Fluid\n\nPut your idle assets to work:\n- Earn yield without giving up custody\n- No KYC required\n- Cross-chain access in one place\n\nCheck it out: app.shapeshift.com/earn\n```\n\n---\n\n## Suggested Timeline\n\n| When | Action | Owner |\n|------|--------|-------|\n| Mon Feb 2 | Lock scope, confirm protocol list | Both |\n| Tue Feb 3 | Partner kit sent / creatives collected | ShapeShift |\n| Wed Feb 4 | Feedback + revisions | Both |\n| Thu Feb 5 | Final approval + embargo drop | Both |\n| Mon Feb 9 | Final QA | Both |\n| Tue Feb 10 AM | ShapeShift posts | ShapeShift |\n| Tue Feb 10 +30min | Partner QTs | **Yield.xyz** |\n| Tue Feb 10 +1hr | Discord posts | Both |\n\n---\n\n## Wallet Partners (for co-marketing)\n\n**Criteria:**\n- Wallet does NOT already offer yield/earn features\n- WalletConnect compatible OR already supported in ShapeShift\n\n**Shortlist:**\n- Rabby Wallet\n- Frame Wallet\n- Infinity Wallet\n- Safe (treasury earn angle)\n- SubWallet\n\n---\n\n## Feedback\n\nHave feedback on this kit? Need different assets? Want to adjust copy?\n\nReply to this message or reach out on Discord/Telegram.\n\nWe'll adapt the plan based on your input!\n\n---\n\n**Questions?** Reach [YOUR HANDLE] on Discord/Telegram.\n","press/op_ed_political.md":"# Op-Ed: Political/Regulatory Angle\n\n**Op-Ed Template: The Integration of Yield.xyz - A Step Forward in Self-Custody and Financial Sovereignty**\n\n**Hook Options:**\n\n1. **Option 1:** In the wake of escalating concerns over centralized financial systems, Yield.xyz's recent integration emerges as a beacon of hope for those advocating for financial independence and robust self-custody rights.\n\n2. **Option 2:** As global regulators tighten their grip on cryptocurrency exchanges, Yield.xyz's innovative approach offers a refreshing alternative that champions user autonomy and financial sovereignty.\n\n3. **Option 3:** Amidst the ongoing debate on digital asset regulation, Yield.xyz's integration stands out as a testament to the growing demand for decentralized finance solutions that prioritize user control and transparency.\n\n**Main Argument:**\n\nIn an era where financial landscapes are rapidly evolving, the concept of self-custody rights has never been more critical. Yield.xyz's integration into the broader DeFi ecosystem represents a pivotal shift towards empowering individuals to take control of their financial assets. Unlike traditional financial institutions that often impose restrictions and fees, Yield.xyz provides users with the tools to manage their investments independently, securely, and transparently.\n\nSelf-custody rights are not just a technical feature; they are a fundamental aspect of financial freedom. By enabling users to hold and manage their assets without third-party interference, Yield.xyz underscores the importance of personal financial sovereignty in today's digital age. This shift is not merely about financial gain; it's about reclaiming control over one's economic destiny.\n\n**How This Integration Supports Financial Sovereignty:**\n\nYield.xyz's integration is a significant stride towards enhancing financial sovereignty for individuals globally. By offering a decentralized platform for yield generation, it allows users to bypass traditional financial middlemen, reducing costs and increasing efficiency. This decentralized approach not only democratizes access to financial tools but also mitigates the risks associated with centralized entities, such as security breaches and regulatory overreach.\n\nMoreover, Yield.xyz's commitment to transparency and user empowerment aligns perfectly with the ethos of the decentralized finance movement. By giving users the ability to generate yields on their assets directly, it fosters a more inclusive financial environment where individuals can take charge of their financial futures without undue reliance on centralized institutions.\n\n**[PERSONALIZE] Placeholder:**\n\n**Insert Personal Perspective Here:** [As a [role or position], I have witnessed firsthand the transformative power of decentralized finance solutions like Yield.xyz. This integration not only aligns with my vision for a more equitable financial system but also reinforces the importance of self-custody rights in safeguarding individual financial autonomy.]\n\n**Call to Action:**\n\nThe integration of Yield.xyz is a significant milestone in the journey towards financial sovereignty and self-custody rights. However, for this movement to gain momentum, it requires the active participation of individuals, policymakers, and industry leaders alike. I urge regulators to consider the benefits of decentralized finance and support frameworks that encourage innovation while safeguarding user rights. Together, we can build a financial ecosystem that is more inclusive, transparent, and empowering for everyone.\n\n**Suitable Authors:**\n\n- Founder of a DeFi project\n- Policy advisor with expertise in digital finance\n- Community leader in the cryptocurrency space\n\n**How to Personalize:**\n\n- Incorporate specific anecdotes or experiences related to decentralized finance or self-custody rights.\n- Highlight personal involvement or interest in financial sovereignty initiatives.\n- Address specific regulatory challenges or opportunities relevant to the context.\n\n**What to Avoid:**\n\n- Avoid overly technical jargon that may alienate a non-technical audience.\n- Steer clear of partisan rhetoric that may detract from the main argument.\n- Refrain from making unsubstantiated claims about potential financial returns. Focus instead on the broader implications for financial sovereignty.","press/op_ed_technical.md":"# Op-Ed: Technical/Builder Angle\n\n**Title: Unlocking the Future of DeFi: How Yield.xyz Integration is a Game Changer for Builders**\n\n**Introduction: The Technical Problem Solved**\n\nIn the ever-evolving landscape of decentralized finance (DeFi), the constant pursuit of seamless, efficient, and secure integrations across multiple blockchain networks remains a daunting challenge. Cross-chain compatibility is not just a technical hurdle; it's a necessary evolution for the DeFi ecosystem to mature. As decentralized applications (dApps) proliferate, the demand for high-performance data APIs, secure staking mechanisms, and integration with major DeFi protocols becomes imperative. Enter Yield.xyz, a pioneering protocol designed to tackle these very challenges, offering builders a robust platform for creating innovative DeFi solutions.\n\n**Understanding Yield.xyz: A Simplified Overview**\n\nYield.xyz stands at the forefront of DeFi innovation, offering a protocol that seamlessly integrates cross-chain compatibility, high-performance data APIs, and secure staking mechanisms. At its core, Yield.xyz is designed to enable developers to build applications that are not restricted by the limitations of individual blockchains. Its architecture facilitates the flow of data and transactions across multiple networks, ensuring that dApps can leverage the full potential of DeFi protocols without compromising on speed or security.\n\n**The Technical Enablement of Yield.xyz Integration**\n\n1. **Cross-Chain Compatibility:** Yield.xyz's cross-chain capabilities empower developers to create applications that can interact with multiple blockchain networks simultaneously. This interoperability is achieved through a sophisticated bridging technology that maintains the integrity and security of transactions across chains.\n\n2. **High-Performance Data APIs:** The protocol offers high-performance APIs that provide developers with real-time data access across different blockchains. This feature is crucial for applications that require up-to-the-minute information to function effectively, such as trading platforms and yield farming dApps.\n\n3. **Secure and Scalable Staking Mechanisms:** Yield.xyz has implemented advanced staking mechanisms that ensure both security and scalability. These mechanisms are designed to handle a large number of transactions securely, providing a reliable foundation for DeFi applications that depend on staking as a core functionality.\n\n4. **Integration with Major DeFi Protocols:** By integrating with major DeFi protocols, Yield.xyz enables developers to tap into a vast ecosystem of financial services and products. This integration simplifies the process of building complex DeFi applications, allowing developers to focus on innovation rather than infrastructure.\n\n**[PERSONALIZE] Placeholder:**\n\n[Insert a personalized statement acknowledging the specific audience or publication. For instance, \"As readers of The Block well understand, the need for robust cross-chain solutions is more critical than ever.\"]\n\n**Why Builders Should Care**\n\nThe implications of Yield.xyz's integration for builders are profound. By providing a comprehensive suite of tools and capabilities, Yield.xyz addresses several pain points that have historically hindered DeFi development. Here’s why builders should pay attention:\n\n1. **Enhanced Flexibility:** The ability to build applications that can operate across multiple blockchains offers developers unprecedented flexibility. This flexibility allows for the creation of more complex and feature-rich applications that can reach a broader audience.\n\n2. **Improved Efficiency:** With high-performance APIs and secure staking mechanisms, developers can optimize the performance of their applications, ensuring that users have a seamless experience. This efficiency is critical in a competitive market where user retention can hinge on the performance of a platform.\n\n3. **Reduced Development Complexity:** By integrating with major DeFi protocols, Yield.xyz reduces the complexity involved in developing DeFi applications. This integration allows builders to leverage existing infrastructures, significantly reducing development time and costs.\n\n4. **Increased Innovation Potential:** With the technical constraints of cross-chain interoperability and data performance addressed, developers are free to focus on innovation. This potential is crucial for driving the next wave of DeFi applications that can offer users new and exciting financial products.\n\n**Conclusion**\n\nIn the dynamic world of DeFi, the Yield.xyz integration represents a significant leap forward in addressing some of the most pressing technical challenges facing developers today. By enabling cross-chain compatibility, offering high-performance data APIs, and ensuring secure and scalable staking, Yield.xyz sets a new standard for DeFi infrastructure. For builders, this integration is not just an opportunity to refine existing projects but a gateway to pioneering the next generation of decentralized applications.\n\n**[Author Placeholder]**\n\n[Insert author's name and credentials, such as \"Written by [Author Name], a blockchain engineer with over [X] years of experience in DeFi infrastructure.\"]\n\n**[Personalization Note]**\n\n[Consider mentioning specific trends or examples relevant to the publication's audience to make the op-ed more relatable and impactful.]","press/press_release.md":"# Press Release\n\n**FOR IMMEDIATE RELEASE**\n\n**ShapeShift DAO Integrates Yield.xyz to Enhance DeFi Yield Opportunities**\n\n**Stake with ShapeShift and Yield.xyz to earn without giving up control**\n\n**[Denver, CO, October 20, 2023]** – ShapeShift DAO, a leading decentralized autonomous organization in the crypto space, is excited to announce its integration with Yield.xyz, the ultimate Web3 yield infrastructure platform known for its comprehensive staking solutions, advanced DeFi tools, and robust data APIs. This collaboration aims to provide ShapeShift users with enhanced yield optimization opportunities across multiple blockchains, reinforcing ShapeShift's commitment to empowering users with control over their crypto assets.\n\nThrough this integration, ShapeShift users can now access Yield.xyz's cross-chain yield optimization features, secure and scalable staking mechanisms, and high-performance data APIs. By incorporating these advanced tools, ShapeShift enhances its platform's capabilities, offering users a more seamless and user-friendly experience in managing their decentralized finance (DeFi) investments.\n\n\"Yield.xyz's integration with ShapeShift represents a significant step forward in our mission to provide a comprehensive yield infrastructure,\" said [NAME], [TITLE] at ShapeShift. \"Our users can now take advantage of Yield.xyz's innovative solutions to maximize their returns while maintaining control over their assets. This partnership aligns with our vision of fostering a decentralized financial ecosystem that is accessible, secure, and efficient.\"\n\nThe integration of Yield.xyz into ShapeShift's platform brings several key benefits to users, including cross-chain compatibility, which allows for seamless yield optimization across different blockchain networks. Additionally, Yield.xyz's data APIs provide enhanced analytics, enabling users to make informed decisions based on real-time data. The user-friendly interface ensures that both novice and experienced DeFi investors can efficiently navigate the platform to optimize their yield strategies.\n\nThis collaboration also opens up new opportunities for cross-promotion of yield optimization strategies and the integration of staking solutions into ShapeShift's existing offerings. By leveraging Yield.xyz's expertise in DeFi tools and staking, ShapeShift is poised to deliver even greater value to its diverse user base, which includes DeFi investors, crypto developers, yield farmers, and institutional investors.\n\nDespite the promising opportunities presented by this integration, ShapeShift and Yield.xyz remain vigilant about potential risks, such as smart contract vulnerabilities, market volatility, and regulatory changes that could impact DeFi operations. Both organizations are committed to maintaining the highest standards of security and compliance to mitigate these risks and ensure a safe environment for their users.\n\n**About ShapeShift DAO**\n\nShapeShift DAO is a decentralized autonomous organization dedicated to revolutionizing the way people interact with digital assets. By providing a secure, user-friendly platform for trading and managing cryptocurrencies, ShapeShift empowers individuals to maintain control over their financial future. The DAO's commitment to decentralization and transparency drives its mission to build a more open and inclusive financial system.\n\n**Media Contact:**\n\n[Media Contact Name]  \n[Media Contact Title]  \n[Email Address]  \n[Phone Number]  \n[Website URL]\n\nFor more information about ShapeShift DAO and its integration with Yield.xyz, please visit [ShapeShift's website URL] or contact the media representative listed above.\n\n**###**","press/pr_brief.md":"# PR Brief: Yield.xyz Integration\n\n## Key Messages (Memorize These)\n\n**Primary:** Put your idle assets to work.\n\n**Supporting:**\n- Your keys, your yield.\n- Cross-chain staking made simple.\n- No KYC. No custody. Just returns.\n\n**Tweet-Ready:** \"Put your idle assets to work. Earn yield across Tron, Katana, Solana, and Plasma—without giving up custody.\"\n\n---\n\n## Talking Points\n\n1. **What is this?**\n   ShapeShift now supports Yield.xyz, enabling users to earn yield across multiple chains with protocols like Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, and Fluid.\n\n2. **Why does it matter?**\n   - Self-custody: Users maintain control of their assets\n   - No KYC: Privacy-preserving access to DeFi\n   - Comprehensive staking and DeFi solutions across Tron, Katana, Solana, and Plasma\n\n3. **Who is this for?**\n   DeFi Power Users and Yield Seekers\n\n4. **How is this different from competitors?**\n   ShapeShift offers the most user-centric, self-custodial yield experience in DeFi.\n\n---\n\n## Anticipated Questions & Answers\n\n**Q: What makes this different from [competitor]?**\nA: ShapeShift is fully self-custodial with no KYC requirements. Users connect their own wallet and maintain complete control.\n\n**Q: Is this safe?**\nA: Yield.xyz is [established/audited]. ShapeShift never takes custody of user funds.\n\n**Q: When is this available?**\nA: Available now at app.shapeshift.com\n\n---\n\n## Do NOT Say\n\n- Don't make specific price or return predictions\n- Don't compare directly to competitor security\n- Don't promise features not yet shipped\n- Don't speak for the Yield.xyz team\n\n---\n\n## Bridging Phrases\n\nIf asked something you can't answer:\n- \"What's really exciting about this is...\"\n- \"The key thing to understand is...\"\n- \"What users care about most is...\"\n","design/ai_prompts.txt":"# AI Image Prompts for Yield.xyz Integration\n\n## Midjourney / DALL-E Prompts\n\n### Twitter Graphic (16:9)\n\n```\nMinimalist crypto announcement graphic, dark background #1a1a2e, \nYield.xyz logo centered, ShapeShift fox logo subtle in corner, \ntext \"Yield.xyz provides a comprehensive yield infrastructure that combines staking, DeFi tools, and data APIs to optimize returns for users across multiple blockchains.\", clean sans-serif font Inter, \nno gradients, professional DeFi aesthetic, high contrast, \ncorporate tech announcement style --ar 16:9 --style raw\n```\n\n### Square Graphic (1:1)\n\n```\nMinimalist crypto announcement, dark background #1a1a2e, \nYield.xyz logo prominent, subtle ShapeShift branding, \nclean typography, professional DeFi style, no gradients, \nhigh contrast --ar 1:1 --style raw\n```\n\n### Blog Header (16:9, more space for text overlay)\n\n```\nAbstract DeFi background, dark blue #1a1a2e base, \nsubtle geometric patterns, space for text overlay, \nYield theme, professional tech aesthetic, \nminimal, clean --ar 16:9 --style raw\n```\n\n---\n\n## Tips\n\n1. Generate 4-6 variations\n2. Pick the cleanest one\n3. Add text overlay in Figma/Canva if needed\n4. Ensure logos are crisp (may need to composite separately)\n","design/design_brief.md":"# Design Brief: Yield.xyz Integration\n\n## Concept\nAnnouncement graphic for Yield.xyz integration on ShapeShift.\n\n## Dimensions Needed\n- Twitter: 1200x675\n- Square (Discord/Instagram): 1080x1080\n- Blog header: 1600x900\n\n## Brand Guidelines\n\n**Colors:**\n- Primary: #3761F9 (ShapeShift blue)\n- Background: #1a1a2e (dark)\n- Accent: #00D395 (green for positive)\n- Text: #FFFFFF\n\n**Typography:**\n- Headlines: Inter Bold\n- Body: Space Grotesk\n\n**Logo:**\n- ShapeShift fox in corner (not center)\n- Yield.xyz logo can be centered or prominent\n- Never distort logos\n\n## Visual Direction\n\nClean, minimalist, professional DeFi aesthetic.\n- No gradients\n- No 3D effects\n- No stock photos\n- High contrast\n\n## Must Include\n- Yield.xyz logo\n- ShapeShift fox logo (subtle, corner)\n- Key message: \"Yield.xyz provides a comprehensive yield infrastructure that combines staking, DeFi tools, and data APIs to optimize returns for users across multiple blockchains.\"\n\n## References\nLook at previous ShapeShift announcement graphics for style consistency.\n\n---\n\n## Designers\n\n**Option 1: AI Generation**\nSee ai_prompts.txt for Midjourney/DALL-E prompts.\n\n**Option 2: Freelancers**\n- Hoff - [contact]\n- Atlin - [contact]\n","outreach/dm_targets.md":"# DM Targets\n\n**Best Practices:**\n- No links in first DM\n- First 30 chars = value hook\n- Ask \"want the link?\" to get response first\n\n---\n\n## 1. @defi_whale_42\n\n**Why:** They actively invest in DeFi projects and are always seeking new yield opportunities.\n\n**Opener angle:** Saw your latest thread on DeFi strategies.\n\n**Suggested DM:**\n```\nImpressive insights on DeFi! Ever explored ShapeShift's offerings? Could be a game-changer for yield.\n```\n\n---\n\n## 2. @crypto_dev_guru\n\n**Why:** They develop smart contracts and can integrate Yield.xyz into their projects.\n\n**Opener angle:** Loved your recent smart contract workshop.\n\n**Suggested DM:**\n```\nFantastic workshop on smart contracts! What if ShapeShift's integration could enhance your projects?\n```\n\n---\n\n## 3. @yield_farmer_pro\n\n**Why:** They are constantly optimizing yield farming strategies.\n\n**Opener angle:** Your yield farming tips are gold.\n\n**Suggested DM:**\n```\nYour farming strategies are top-notch! Have you checked out ShapeShift's new Yield.xyz feature?\n```\n\n---\n\n## 4. @institutional_investor_101\n\n**Why:** They manage crypto portfolios for institutions and seek secure yield options.\n\n**Opener angle:** Your analysis on crypto trends is insightful.\n\n**Suggested DM:**\n```\nInsightful crypto trend analysis! Interested in a robust yield solution with ShapeShift integration?\n```\n\n---\n\n## 5. @crypto_educator_x\n\n**Why:** They educate others about DeFi and could introduce Yield.xyz to their audience.\n\n**Opener angle:** Your educational content is empowering.\n\n**Suggested DM:**\n```\nLove your educational content! Would ShapeShift's new yield feature be a good topic for your audience?\n```\n\n---\n\n## 6. @web3_enthusiast_007\n\n**Why:** They follow and share the latest Web3 innovations.\n\n**Opener angle:** Your enthusiasm for Web3 is inspiring.\n\n**Suggested DM:**\n```\nInspiring enthusiasm for Web3! How about exploring ShapeShift's latest Yield.xyz integration?\n```\n\n---\n\n## 7. @crypto_influencer_daily\n\n**Why:** They influence a large audience in the crypto space and can amplify Yield.xyz's reach.\n\n**Opener angle:** Your influence in the crypto space is notable.\n\n**Suggested DM:**\n```\nNotable influence in crypto! Would you be interested in discovering ShapeShift's new yield feature?\n```\n\n---\n\n## 8. @defi_analyst_expert\n\n**Why:** They provide analysis on DeFi protocols, making them key to spreading the word about new features.\n\n**Opener angle:** Your DeFi analytics are always spot on.\n\n**Suggested DM:**\n```\nSpot-on DeFi analytics! What if ShapeShift's Yield.xyz could offer new insights for your audience?\n```\n\n---\n\n## 9. @tech_innovator_crypto\n\n**Why:** They are always on the lookout for innovative tech in crypto.\n\n**Opener angle:** Your tech innovation reviews are insightful.\n\n**Suggested DM:**\n```\nInsightful tech reviews! Have you considered the new innovations from ShapeShift's Yield.xyz?\n```\n\n---\n\n## 10. @finance_guru_crypto\n\n**Why:** They provide financial advice on crypto investments, often looking for reliable yield options.\n\n**Opener angle:** Your financial advice is greatly valued.\n\n**Suggested DM:**\n```\nValuable financial advice! Could ShapeShift's Yield.xyz integration be the next big thing for your portfolio?\n```\n"}};</script>
+</body>
+</html>

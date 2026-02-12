@@ -7,7 +7,7 @@
 ```
 Minimalist crypto announcement graphic, dark background #1a1a2e, 
 Yield.xyz logo centered, ShapeShift fox logo subtle in corner, 
-text "Yield.xyz provides a comprehensive yield infrastructure that combines staking, DeFi tools, and data APIs to optimize returns for users across multiple blockchains.", clean sans-serif font Inter, 
+text "Yield.xyz provides a comprehensive and simplified infrastructure for accessing diverse yield opportunities across multiple blockchain networks, enhancing revenue potential with minimal complexity.", clean sans-serif font Inter, 
 no gradients, professional DeFi aesthetic, high contrast, 
 corporate tech announcement style --ar 16:9 --style raw
 ```

@@ -174,7 +174,7 @@
 <body>
   <div class="header">
     <h1>Yield.xyz GTM Discovery Questionnaire</h1>
-    <p class="subtitle">Fill out before generating the GTM full packet. Answers will be used to create accurate, launch-ready materials.</p>
+    <p class="subtitle">Fill out the form, then click <strong>Save as file</strong> to download JSON, or <strong>Copy responses</strong> to paste back. Upload the file or paste responses for the gtm-questionnaire-merger to update the packet.</p>
   </div>
 
   <form id="questionnaire">
@@ -183,8 +183,8 @@
       
       <h3>1. Timeline and Launch Type</h3>
       <div class="field">
-        <label for="launch-date">Launch date</label>
-        <input type="date" id="launch-date" name="launch-date" placeholder="e.g. 2026-03-15">
+        <label for="launch-date">Launch date <span style="color: var(--gray-500); font-weight: 400;">(pre-filled)</span></label>
+        <input type="date" id="launch-date" name="launch-date" value="2026-03-03" placeholder="e.g. 2026-03-15">
       </div>
       <div class="field">
         <label>New launch or refresh?</label>
@@ -225,12 +225,12 @@
       <div class="row"><span>Katana</span><input type="text" name="katana-pri"><input type="text" name="katana-sec"><input type="text" name="katana-notes"></div>
       
       <div class="field" style="margin-top: 1.25rem;">
-        <label for="lead-protocols">Lead protocols (2–3 for headlines)</label>
-        <input type="text" id="lead-protocols" name="lead-protocols" placeholder="e.g. Lido, Morpho, Kamino">
+        <label for="lead-protocols">Lead protocols (2–3 for headlines) <span style="color: var(--gray-500); font-weight: 400;">(pre-filled)</span></label>
+        <input type="text" id="lead-protocols" name="lead-protocols" value="Lido, Aave, Yearn" placeholder="e.g. Lido, Morpho, Kamino">
       </div>
       <div class="field">
         <label for="and-more">Others as "and more"</label>
-        <input type="text" id="and-more" name="and-more" placeholder="e.g. Aave, Compound, Fluid, Venus, Gearbox">
+        <input type="text" id="and-more" name="and-more" value="Kamino, Morpho, Compound, Drift, Figment, Fluid, StakeKit, Venus" placeholder="e.g. Aave, Compound, Fluid, Venus, Gearbox">
       </div>
       <div class="field">
         <label>Protocol list alignment</label>
@@ -246,8 +246,8 @@
 
       <h3>3. Conversion and CTA</h3>
       <div class="field">
-        <label for="cta-url">CTA URL</label>
-        <input type="text" id="cta-url" name="cta-url" placeholder="e.g. app.shapeshift.com/#/earn">
+        <label for="cta-url">CTA URL <span style="color: var(--gray-500); font-weight: 400;">(pre-filled)</span></label>
+        <input type="text" id="cta-url" name="cta-url" value="app.shapeshift.com" placeholder="e.g. app.shapeshift.com/#/yields">
       </div>
       <div class="field">
         <label for="conversion-event">Conversion event</label>
@@ -296,7 +296,7 @@
       <h3>6. Campaign Type</h3>
       <div class="field">
         <div class="radio-group">
-          <label><input type="radio" name="campaign-type" value="integration"> Integration (external Yield.xyz)</label>
+          <label><input type="radio" name="campaign-type" value="integration" checked> Integration (external Yield.xyz)</label>
           <label><input type="radio" name="campaign-type" value="program"> Program (ShapeShift-owned product like rFOX)</label>
         </div>
       </div>
@@ -319,7 +319,7 @@
       <div class="field">
         <label>Folder choice</label>
         <div class="radio-group">
-          <label><input type="radio" name="folder" value="yield-xyz"> yield-xyz</label>
+          <label><input type="radio" name="folder" value="yield-xyz" checked> yield-xyz</label>
           <label><input type="radio" name="folder" value="yield.xyz"> yield.xyz</label>
           <label><input type="radio" name="folder" value="new"> New slug:</label>
           <input type="text" name="folder-new" placeholder="e.g. yield-earn-2026" style="width: 180px; display: inline-block;">
@@ -332,7 +332,8 @@
     </div>
 
     <div class="actions">
-      <button type="button" class="btn-primary" id="copy-btn">Copy responses (return via email/paste)</button>
+      <button type="button" class="btn-primary" id="save-btn">Save as file (JSON)</button>
+      <button type="button" class="btn-secondary" id="copy-btn">Copy responses (paste back for merger)</button>
       <button type="button" class="btn-secondary" onclick="window.print()">Print / Save as PDF</button>
     </div>
   </form>
@@ -357,13 +358,8 @@
     }
     initOtherInputs();
 
-    document.getElementById('copy-btn').addEventListener('click', function() {
+    function getFormData() {
       const form = document.getElementById('questionnaire');
-      const parts = [];
-      
-      function add(label, value) {
-        if (value) parts.push(label + ': ' + value);
-      }
       function getRadio(name) {
         const el = form.querySelector('input[name="' + name + '"]:checked');
         return el ? el.value : '';
@@ -371,41 +367,87 @@
       function getCheckbox(name) {
         return form.querySelector('input[name="' + name + '"]')?.checked ? 'Yes' : '';
       }
-      
+      const chains = ['ethereum','arbitrum','base','optimism','polygon','binance','avalanche','gnosis','cosmos','solana','sui','monad','tron','hyperevm','near','plasma','katana'];
+      const ids = ['eth','arb','base','op','poly','bsc','avax','gnosis','cosmos','sol','sui','monad','tron','hyper','near','plasma','katana'];
+      const protocolsPerChain = {};
+      chains.forEach((chain, i) => {
+        const pri = document.querySelector('input[name="' + ids[i] + '-pri"]')?.value;
+        const sec = document.querySelector('input[name="' + ids[i] + '-sec"]')?.value;
+        const notes = document.querySelector('input[name="' + ids[i] + '-notes"]')?.value;
+        if (pri || sec || notes) protocolsPerChain[chain] = { primary: pri || '', secondary: sec || '', notes: notes || '' };
+      });
+      return {
+        launchDate: document.getElementById('launch-date')?.value || '',
+        launchType: getRadio('launch-type'),
+        embargoDate: document.getElementById('embargo')?.value || '',
+        ctaUrl: document.getElementById('cta-url')?.value || '',
+        conversionEvent: document.getElementById('conversion-event')?.value || '',
+        leadProtocols: document.getElementById('lead-protocols')?.value || '',
+        andMore: document.getElementById('and-more')?.value || '',
+        definitiveRoster: document.getElementById('definitive-roster')?.value || '',
+        campaignType: getRadio('campaign-type'),
+        comarketingProtocols: document.getElementById('comarketing')?.value || '',
+        primaryAudience: getRadio('audience') === 'other' ? (document.getElementById('audience-other')?.value || '') : getRadio('audience'),
+        leadValueProp: getRadio('valueprop') === 'other' ? (document.getElementById('valueprop-other')?.value || '') : getRadio('valueprop'),
+        differentiation: document.getElementById('differentiation')?.value || '',
+        walletPartnerCriteria: getCheckbox('wallet-criteria'),
+        assetApprovalDate: document.getElementById('asset-approval')?.value || '',
+        scopeLockDate: document.getElementById('scope-lock')?.value || '',
+        folder: getRadio('folder') === 'new' ? (document.querySelector('input[name="folder-new"]')?.value || '') : getRadio('folder'),
+        protocolsPerChain: protocolsPerChain,
+        _packet: 'yield-xyz',
+        _updated: new Date().toISOString().slice(0, 10)
+      };
+    }
+
+    document.getElementById('save-btn').addEventListener('click', function() {
+      const data = getFormData();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'yield_xyz_gtm_discovery_' + (data._updated || '') + '.json';
+      a.click();
+      URL.revokeObjectURL(a.href);
+      const btn = this;
+      btn.textContent = 'Saved!';
+      setTimeout(() => { btn.textContent = 'Save as file (JSON)'; }, 2000);
+    });
+
+    document.getElementById('copy-btn').addEventListener('click', function() {
+      const form = document.getElementById('questionnaire');
+      const data = getFormData();
+      const parts = [];
+      function add(label, value) {
+        if (value) parts.push(label + ': ' + value);
+      }
       parts.push('=== YIELD.XYZ GTM DISCOVERY QUESTIONNAIRE ===\n');
       parts.push('--- Critical ---');
-      add('Launch date', document.getElementById('launch-date')?.value);
-      add('Launch type', getRadio('launch-type'));
-      add('Embargo date', document.getElementById('embargo')?.value);
-      add('CTA URL', document.getElementById('cta-url')?.value);
-      add('Conversion event', document.getElementById('conversion-event')?.value);
-      add('Lead protocols', document.getElementById('lead-protocols')?.value);
-      add('Others (and more)', document.getElementById('and-more')?.value);
-      add('Definitive roster', document.getElementById('definitive-roster')?.value);
-      add('Campaign type', getRadio('campaign-type'));
-      add('Co-marketing protocols', document.getElementById('comarketing')?.value);
-      add('Primary audience', getRadio('audience') === 'other' ? (document.getElementById('audience-other')?.value || 'Other') : getRadio('audience'));
-      add('Lead value prop', getRadio('valueprop') === 'other' ? (document.getElementById('valueprop-other')?.value || 'Other') : getRadio('valueprop'));
-      add('Differentiation', document.getElementById('differentiation')?.value);
-      add('Wallet partner criteria', getCheckbox('wallet-criteria'));
-      add('Asset approval date', document.getElementById('asset-approval')?.value);
-      add('Scope lock date', document.getElementById('scope-lock')?.value);
-      add('Folder choice', getRadio('folder') === 'new' ? document.querySelector('input[name="folder-new"]')?.value : getRadio('folder'));
-      
+      add('Launch date', data.launchDate);
+      add('Launch type', data.launchType);
+      add('Embargo date', data.embargoDate);
+      add('CTA URL', data.ctaUrl);
+      add('Conversion event', data.conversionEvent);
+      add('Lead protocols', data.leadProtocols);
+      add('Others (and more)', data.andMore);
+      add('Definitive roster', data.definitiveRoster);
+      add('Campaign type', data.campaignType);
+      add('Co-marketing protocols', data.comarketingProtocols);
+      add('Primary audience', data.primaryAudience);
+      add('Lead value prop', data.leadValueProp);
+      add('Differentiation', data.differentiation);
+      add('Wallet partner criteria', data.walletPartnerCriteria);
+      add('Asset approval date', data.assetApprovalDate);
+      add('Scope lock date', data.scopeLockDate);
+      add('Folder choice', data.folder);
       parts.push('\n--- Protocol roster by chain ---');
-      const chains = ['Ethereum','Arbitrum','Base','Optimism','Polygon','BSC','Avalanche','Gnosis','Cosmos','Solana','Sui','Monad','Tron','Hyperevm','NEAR','Plasma','Katana'];
-      const ids = ['eth','arb','base','op','poly','bsc','avax','gnosis','cosmos','sol','sui','monad','tron','hyper','near','plasma','katana'];
-      chains.forEach((c, i) => {
-        const pri = document.querySelector(`input[name="${ids[i]}-pri"]`)?.value;
-        const sec = document.querySelector(`input[name="${ids[i]}-sec"]`)?.value;
-        const notes = document.querySelector(`input[name="${ids[i]}-notes"]`)?.value;
-        if (pri || sec || notes) parts.push(c + ': ' + [pri, sec, notes].filter(Boolean).join(' | '));
+      Object.keys(data.protocolsPerChain || {}).forEach(function(c) {
+        const o = data.protocolsPerChain[c];
+        parts.push(c + ': ' + [o.primary, o.secondary, o.notes].filter(Boolean).join(' | '));
       });
-      
       const text = parts.join('\n');
       navigator.clipboard.writeText(text).then(() => {
-        this.textContent = 'Copied to clipboard!';
-        setTimeout(() => { this.textContent = 'Copy responses (return via email/paste)'; }, 2000);
+        this.textContent = 'Copied!';
+        setTimeout(() => { this.textContent = 'Copy responses (paste back for merger)'; }, 2000);
       });
     });
   </script>

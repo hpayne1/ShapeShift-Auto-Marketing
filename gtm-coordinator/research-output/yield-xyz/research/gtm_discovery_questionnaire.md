@@ -1,6 +1,8 @@
 # Yield.xyz GTM Discovery Questionnaire
 
-Fill out this questionnaire before generating the GTM full packet. Your answers will be used to create accurate, launch-ready materials.
+**Use the fillable form:** [gtm_discovery_questionnaire.html](gtm_discovery_questionnaire.html) — open in a browser, fill out, then click **Save as file (JSON)** or **Copy responses**. Upload the JSON file or paste the copied text for the gtm-questionnaire-merger to update the packet.
+
+**Current pre-fills (as of 2026-02-12):** Launch date March 3, 2026; CTA app.shapeshift.com; campaign type Integration; lead protocols Lido, Aave, Yearn; folder yield-xyz.
 
 ---
 

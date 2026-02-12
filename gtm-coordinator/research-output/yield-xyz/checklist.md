@@ -1,14 +1,13 @@
 # Yield.xyz Launch Checklist
 
-**Generated:** 2026-01-29
+**Generated:** 2026-02-12
+**Launch date:** March 3, 2026
+**Embargo date:** February 23, 2026 *(interpreted from questionnaire 2/23/25 → 2026)*
+**Asset approval date:** 2026-02-27
+**Scope lock date:** 2026-02-25
 **Tier:** 1
+**Type:** Integration
 **Owner:** [YOUR NAME]
-
----
-
-## Before You Start: New Packet?
-
-If you're generating a **new** GTM full packet (not using existing materials), fill out [research/gtm_discovery_questionnaire.md](research/gtm_discovery_questionnaire.md) first. It captures launch date, CTA URL, protocol roster by chain, campaign type, and co-marketing details.
 
 ---
 
@@ -97,14 +96,20 @@ Message **Apotheosis** (Head of Engineering): "Need to hand off Yield.xyz launch
 - [ ] Confirm launch timing with partner
 - [ ] If no response: ping again, then proceed without
 
+
 ## Day -1: Final Review — 30 min
 - [ ] Review blog draft (drafts/blog_draft.md)
 - [ ] Review tweet thread (drafts/x_post_main.md)
+- [ ] Review blog promo tweet (drafts/x_post_blog.md)
 - [ ] Review personal tweet (drafts/x_post_personal.md)
+- [ ] Review Discord announcement + reminder (drafts/discord_post.md, drafts/discord_reminder.md)
+- [ ] Review Medium post (drafts/medium_post.md)
 - [ ] Generate images if needed (design/ai_prompts.txt)
 - [ ] Confirm partner is ready to QT
 
 ---
+
+
 
 # LAUNCH PHASE
 
@@ -112,16 +117,24 @@ Message **Apotheosis** (Head of Engineering): "Need to hand off Yield.xyz launch
 
 | Time | Task | File |
 |------|------|------|
-| 08:30 | Publish blog to Strapi | drafts/blog_draft.md |
 | 09:00 | Post main tweet thread (@ShapeShift) | drafts/x_post_main.md |
 | 09:05 | QT from your personal account | drafts/x_post_personal.md |
 | 09:10 | Post Discord announcement | drafts/discord_post.md |
-| 09:15 | DM partner: "We're live!" | — |
-| 09:30 | Confirm partner QT'd | — |
-| 09:30 | Start sending DMs | outreach/dm_targets.md |
-| 10:00 | Cross-post to Farcaster | drafts/farcaster_post.md |
+| 09:20 | Publish blog to Strapi | drafts/blog_draft.md |
+| 09:30 | Post blog promo tweet (add the Strapi link) | drafts/x_post_blog.md |
+| 09:35 | Cross-post to Medium | drafts/medium_post.md |
+| 09:12 | DM partner: "We're live!" | — |
+| 09:40 | Confirm partner QT'd | — |
+| 09:50 | Start sending DMs | outreach/dm_targets.md |
+| 10:15 | Cross-post to Farcaster | drafts/farcaster_post.md |
 | 12:00 | Check replies, respond | — |
-| 15:00 | QT @ShapeShiftInfoBot showing swap | drafts/infobot_qt.md |
+| 15:00 | QT @ShapeShiftInfoBot showing yield position / staking | drafts/infobot_qt.md |
+
+## Press (Optional, Tier 2-ish) — 20 min
+- [ ] Skim press release (press/press_release.md) and fix anything inaccurate
+- [ ] Skim PR brief (press/pr_brief.md) so you can answer questions
+- [ ] Pick ONE op-ed angle and personalize it (press/op_ed_political.md or press/op_ed_technical.md)
+- [ ] If sending pitches: include the press release + PR brief, and offer an interview
 
 ## Day 1 — 20 min
 - [ ] Post educational thread (@ShapeShift) - drafts/followup_educational.md
@@ -163,9 +176,10 @@ Everything else is bonus. A shipped launch beats a perfect plan.
 Run through before launching:
 
 **CONTENT READY**
-- [ ] Blog draft reviewed
-- [ ] Tweet thread reviewed
-- [ ] Discord post reviewed
+- [ ] Fill placeholders before posting: [BLOG LINK] in x_post_blog.md (use Strapi URL after publish); [X THREAD LINK] in discord_reminder + calendar (use main thread URL after posting); [NAME], [TITLE], [QUOTE] in press_release.md if using quote
+- [ ] Blog draft reviewed (blog_draft.md, medium_post.md)
+- [ ] Tweet thread + blog promo tweet reviewed (x_post_main.md, x_post_blog.md)
+- [ ] Discord post + reminder reviewed (discord_post.md, discord_reminder.md)
 
 **ACCESS VERIFIED**
 - [ ] Can log into Strapi
@@ -188,7 +202,7 @@ Run through before launching:
 | Twitter Profile Visits | >500 | _____ |
 | Tweet Engagements | >200 | _____ |
 | Website Traffic | +10% | _____ |
-| Swap Volume | — | _____ |
+| Yield TVL / deposits | — | _____ |
 | Onchain Txs | >100 | _____ |
 
 **SUCCESS:** Hit targets + positive response

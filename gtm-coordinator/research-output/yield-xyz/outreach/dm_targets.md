@@ -9,128 +9,128 @@
 
 ## 1. @defi_whale_42
 
-**Why:** They actively invest in DeFi projects and are always seeking new yield opportunities.
+**Why:** They actively invest in DeFi protocols.
 
-**Opener angle:** Saw your latest thread on DeFi strategies.
+**Opener angle:** Your insightful DeFi strategy threads
 
 **Suggested DM:**
 ```
-Impressive insights on DeFi! Ever explored ShapeShift's offerings? Could be a game-changer for yield.
+Curious about new DeFi tools? Yield.xyz is live on ShapeShift. Interested in learning more?
 ```
 
 ---
 
 ## 2. @crypto_dev_guru
 
-**Why:** They develop smart contracts and can integrate Yield.xyz into their projects.
+**Why:** They're a developer creating Web3 solutions.
 
-**Opener angle:** Loved your recent smart contract workshop.
+**Opener angle:** Your recent Web3 project updates
 
 **Suggested DM:**
 ```
-Fantastic workshop on smart contracts! What if ShapeShift's integration could enhance your projects?
+Working on any DeFi projects? Yield.xyz is live on ShapeShift. Want the details?
 ```
 
 ---
 
-## 3. @yield_farmer_pro
+## 3. @blockchain_buff
 
-**Why:** They are constantly optimizing yield farming strategies.
+**Why:** They frequently discuss blockchain tech advancements.
 
-**Opener angle:** Your yield farming tips are gold.
+**Opener angle:** Your blockchain tech insights
 
 **Suggested DM:**
 ```
-Your farming strategies are top-notch! Have you checked out ShapeShift's new Yield.xyz feature?
+Into DeFi advancements? Yield.xyz is live on ShapeShift. Interested in how it works?
 ```
 
 ---
 
-## 4. @institutional_investor_101
+## 4. @web3_innovator
 
-**Why:** They manage crypto portfolios for institutions and seek secure yield options.
+**Why:** They focus on innovative Web3 solutions.
 
-**Opener angle:** Your analysis on crypto trends is insightful.
+**Opener angle:** Your focus on Web3 innovations
 
 **Suggested DM:**
 ```
-Insightful crypto trend analysis! Interested in a robust yield solution with ShapeShift integration?
+Exploring new Web3 tools? Yield.xyz is live on ShapeShift. Could this be useful for you?
 ```
 
 ---
 
-## 5. @crypto_educator_x
+## 5. @crypto_enthusiast_01
 
-**Why:** They educate others about DeFi and could introduce Yield.xyz to their audience.
+**Why:** They are passionate about crypto developments.
 
-**Opener angle:** Your educational content is empowering.
+**Opener angle:** Your enthusiasm for crypto growth
 
 **Suggested DM:**
 ```
-Love your educational content! Would ShapeShift's new yield feature be a good topic for your audience?
+Following DeFi trends? Yield.xyz is live on ShapeShift. Want to know more about it?
 ```
 
 ---
 
-## 6. @web3_enthusiast_007
+## 6. @defi_investor_pro
 
-**Why:** They follow and share the latest Web3 innovations.
+**Why:** They are known for deep dives into DeFi investments.
 
-**Opener angle:** Your enthusiasm for Web3 is inspiring.
+**Opener angle:** Your detailed DeFi investment analyses
 
 **Suggested DM:**
 ```
-Inspiring enthusiasm for Web3! How about exploring ShapeShift's latest Yield.xyz integration?
+Exploring new investments? ShapeShift integrated Yield.xyz. Want to discuss its potential?
 ```
 
 ---
 
-## 7. @crypto_influencer_daily
+## 7. @web3_builder
 
-**Why:** They influence a large audience in the crypto space and can amplify Yield.xyz's reach.
+**Why:** They build products in the Web3 space.
 
-**Opener angle:** Your influence in the crypto space is notable.
+**Opener angle:** Your Web3 product development journey
 
 **Suggested DM:**
 ```
-Notable influence in crypto! Would you be interested in discovering ShapeShift's new yield feature?
+Building in DeFi? Yield.xyz is now part of ShapeShift. Could this integration assist you?
 ```
 
 ---
 
-## 8. @defi_analyst_expert
+## 8. @crypto_researcher
 
-**Why:** They provide analysis on DeFi protocols, making them key to spreading the word about new features.
+**Why:** They conduct research in cryptocurrency space.
 
-**Opener angle:** Your DeFi analytics are always spot on.
+**Opener angle:** Your in-depth crypto research reports
 
 **Suggested DM:**
 ```
-Spot-on DeFi analytics! What if ShapeShift's Yield.xyz could offer new insights for your audience?
+Researching DeFi protocols? We've integrated Yield.xyz on ShapeShift. Would this interest you?
 ```
 
 ---
 
-## 9. @tech_innovator_crypto
+## 9. @defi_strategy_master
 
-**Why:** They are always on the lookout for innovative tech in crypto.
+**Why:** They share strategies for maximizing DeFi yields.
 
-**Opener angle:** Your tech innovation reviews are insightful.
+**Opener angle:** Your strategic approach to DeFi
 
 **Suggested DM:**
 ```
-Insightful tech reviews! Have you considered the new innovations from ShapeShift's Yield.xyz?
+Strategizing yields? Yield.xyz is now on ShapeShift. Think it could fit your strategies?
 ```
 
 ---
 
-## 10. @finance_guru_crypto
+## 10. @web3_hacker
 
-**Why:** They provide financial advice on crypto investments, often looking for reliable yield options.
+**Why:** They participate in hackathons and build Web3 tools.
 
-**Opener angle:** Your financial advice is greatly valued.
+**Opener angle:** Your hackathon successes
 
 **Suggested DM:**
 ```
-Valuable financial advice! Could ShapeShift's Yield.xyz integration be the next big thing for your portfolio?
+Hacking on something new? ShapeShift added Yield.xyz. Could this be a tool for you?
 ```

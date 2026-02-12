@@ -2,32 +2,32 @@
 
 ## Key Messages (Memorize These)
 
-**Primary:** Put your idle assets to work.
+**Primary:** ShapeShift integrates Yield.xyz to offer users access to diverse yield opportunities without leaving the platform.
 
 **Supporting:**
-- Your keys, your yield.
-- Cross-chain staking made simple.
-- No KYC. No custody. Just returns.
+- Access yield across 75+ networks with no custody.
+- Maximize returns with minimal complexity.
+- No KYC. No compromise. Just yield.
 
-**Tweet-Ready:** "Put your idle assets to work. Earn yield across Tron, Katana, Solana, and Plasma—without giving up custody."
+**Tweet-Ready:** "What if you could earn yield across 75+ networks without leaving ShapeShift? Now you can. No custody. No KYC. Just yield. 🦊"
 
 ---
 
 ## Talking Points
 
 1. **What is this?**
-   ShapeShift now supports Yield.xyz, enabling users to earn yield across multiple chains with protocols like Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, and Fluid.
+   ShapeShift now supports Yield.xyz, enabling users to yield.xyz provides a comprehensive and simplified infrastructure for accessing diverse yield opportunities across multiple blockchain networks, enhancing revenue potential with minimal complexity.
 
 2. **Why does it matter?**
    - Self-custody: Users maintain control of their assets
    - No KYC: Privacy-preserving access to DeFi
-   - Comprehensive staking and DeFi solutions across Tron, Katana, Solana, and Plasma
+   - Unified API for Web3 yield across 75+ networks
 
 3. **Who is this for?**
-   DeFi Power Users and Yield Seekers
+   Yield seekers (primary); DeFi power users, cross-chain traders
 
 4. **How is this different from competitors?**
-   ShapeShift offers the most user-centric, self-custodial yield experience in DeFi.
+   Multichain routing and earning: enter and exit in one place (unlike LiFi, enter-only). Manage UTXOs and yield here. ShapeShift has Yearn integrated; Yield.xyz adds breadth and multichain access. Self-custody, no KYC.
 
 ---
 
@@ -40,7 +40,7 @@ A: ShapeShift is fully self-custodial with no KYC requirements. Users connect th
 A: Yield.xyz is [established/audited]. ShapeShift never takes custody of user funds.
 
 **Q: When is this available?**
-A: Available now at app.shapeshift.com
+A: Available now at app.shapeshift.com/#/yields
 
 ---
 

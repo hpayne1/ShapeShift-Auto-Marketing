@@ -26,3 +26,34 @@ Questions? Drop them below.
 ---
 
 *Fill in actual numbers before posting. Skip if numbers aren't impressive. NO emojis needed.*
+
+---
+
+## Copy/paste (thread template)
+
+```
+# Day 4-6 Metrics Thread Template
+
+**Only post this if metrics look good. Otherwise skip.**
+
+---
+
+Yield.xyz on ShapeShift - the numbers so far.
+
+[X] positions opened
+[Y] volume in first [Z] days
+[W] unique users
+
+All self-custody. No KYC.
+
+Top assets staked:
+• [ASSET 1]
+• [ASSET 2]
+• [ASSET 3]
+
+Questions? Drop them below.
+
+---
+
+*Fill in actual numbers before posting. Skip if numbers aren't impressive. NO emojis needed.*
+```

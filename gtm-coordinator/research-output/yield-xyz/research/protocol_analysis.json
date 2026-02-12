@@ -1,36 +1,33 @@
 {
   "name": "Yield.xyz",
+  "sourceOfTruth": "research/yield_assets_chains_summary.md (from yields_response.json)",
   "tagline": "Ultimate Web3 Yield Infrastructure | Staking, DeFi, Data APIs",
   "category": "Yield",
   "keyFeatures": [
-    "Comprehensive staking solutions",
-    "Advanced DeFi tools",
-    "Robust data APIs for developers",
-    "Cross-chain yield optimization",
-    "User-friendly interface"
+    "Unified API for Web3 yield across 75+ networks",
+    "Access to staking, stablecoin yields, and DeFi",
+    "Potential for up to 2.8x higher revenue"
   ],
   "targetAudience": [
     "DeFi investors",
-    "Crypto developers",
-    "Yield farmers",
-    "Institutional investors"
+    "Web3 developers",
+    "Crypto enthusiasts"
   ],
-  "valueProposition": "Yield.xyz provides a comprehensive yield infrastructure that combines staking, DeFi tools, and data APIs to optimize returns for users across multiple blockchains.",
+  "valueProposition": "Yield.xyz provides a comprehensive and simplified infrastructure for accessing diverse yield opportunities across multiple blockchain networks, enhancing revenue potential with minimal complexity.",
   "technicalHighlights": [
-    "Cross-chain compatibility",
-    "High-performance data APIs",
-    "Secure and scalable staking mechanisms",
-    "Integration with major DeFi protocols"
+    "Supports 13 blockchain networks including Ethereum, Solana, and Polygon",
+    "Offers 29 different asset symbols for yield opportunities",
+    "Integrates with 18 providers/protocols such as Aave, Lido, and Yearn"
   ],
   "integrationOpportunities": [
-    "Integration of staking solutions into ShapeShift's platform",
-    "Utilizing data APIs for enhanced analytics",
-    "Cross-promotion of yield optimization strategies"
+    "ShapeShift could integrate Yield.xyz's API to offer users access to a wide range of yield opportunities across multiple networks.",
+    "Collaboration on staking solutions to enhance ShapeShift's DeFi offerings.",
+    "Utilizing Yield.xyz's data APIs to provide comprehensive yield analytics to ShapeShift users."
   ],
   "risks": [
-    "Smart contract vulnerabilities",
-    "Market volatility affecting yields",
-    "Regulatory changes impacting DeFi operations"
+    "Smart contract vulnerabilities across supported networks",
+    "Regulatory changes affecting DeFi operations",
+    "Market volatility impacting yield returns"
   ],
-  "competitorComparison": "Yield.xyz offers a more integrated approach to yield infrastructure compared to competitors like Yearn Finance and Aave, focusing on cross-chain capabilities and developer-friendly APIs."
+  "competitorComparison": "Yield.xyz competes with other yield aggregation platforms like Yearn Finance and Lido by offering a broader network reach and a unified API for ease of use. Its focus on maximizing revenue potential and simplifying access to yield opportunities distinguishes it from competitors."
 }

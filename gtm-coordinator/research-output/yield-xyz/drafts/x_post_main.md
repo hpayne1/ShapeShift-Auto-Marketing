@@ -1,16 +1,32 @@
 # Main Twitter Thread (@ShapeShift)
 
 **Tweet 1:**  
-What if you could earn yield without giving up control?
+What if you could stake across multiple blockchains without leaving one platform?
 
 **Tweet 2:**  
-With ShapeShift and Yield.xyz, you can now stake and optimize your returns across multiple blockchains—no custody needed.
+With ShapeShift's integration of Yield.xyz, you can now access diverse yield opportunities directly on our platform. Stake without losing custody.
 
 **Tweet 3:**  
-Self-custody is king. Keep your keys while accessing comprehensive yield infrastructure and DeFi tools to maximize your earnings.
+Why does this matter? Self-custody remains king. Manage your assets and stake confidently, knowing your keys are always in your hands.
 
 **Tweet 4:**  
-Ready to take control of your financial future? Dive into staking with ShapeShift and explore Yield.xyz's powerful tools today.
+Ready to enhance your revenue potential with minimal complexity? Dive into the future of DeFi. Start staking today at app.shapeshift.com/#/yields.
 
 **Tweet 5:**  
-Explore more with @Yield_xyz and ShapeShift. Your keys. Your yield. Your future. 🦊
+Explore the possibilities with @Yield_xyz and ShapeShift. 🦊
+
+---
+
+## Copy/paste (thread)
+
+```
+What if you could stake across multiple blockchains without leaving one platform?
+
+With ShapeShift's integration of Yield.xyz, you can now access diverse yield opportunities directly on our platform. Stake without losing custody.
+
+Why does this matter? Self-custody remains king. Manage your assets and stake confidently, knowing your keys are always in your hands.
+
+Ready to enhance your revenue potential with minimal complexity? Dive into the future of DeFi. Start staking today at app.shapeshift.com/#/yields.
+
+Explore the possibilities with @Yield_xyz and ShapeShift. 🦊
+```

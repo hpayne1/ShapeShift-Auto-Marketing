@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yield.xyz GTM Packet | ShapeShift</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
-    /* ShapeShift Theme */
+    /* ShapeShift Theme - from shapeshift/web GitHub */
     :root {
       --blue-500: #3761F9;
       --blue-600: #2D4EC9;
@@ -35,7 +34,7 @@
       min-height: 100vh;
     }
     
-    /* Hero */
+    /* Hero gradient background - matches ShapeShift app */
     .hero {
       background: radial-gradient(94.32% 94.6% at 4.04% -44.6%, rgba(45, 78, 201, 0.4) 0%, rgba(16, 21, 30, 0) 100%), 
                   linear-gradient(0deg, var(--gray-900), var(--gray-900));
@@ -43,7 +42,10 @@
       border-bottom: 1px solid var(--gray-700);
     }
     
-    .hero-content { max-width: 900px; margin: 0 auto; }
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
     
     .logo-row {
       display: flex;
@@ -52,7 +54,10 @@
       margin-bottom: 1.5rem;
     }
     
-    .fox-logo { width: 48px; height: 48px; }
+    .fox-logo {
+      width: 48px;
+      height: 48px;
+    }
     
     .brand-text {
       font-family: 'Work Sans', system-ui, sans-serif;
@@ -121,11 +126,11 @@
       align-items: center;
       gap: 0.5rem;
       transition: background 0.2s;
-      cursor: pointer;
-      border: none;
     }
     
-    .cta-primary:hover { background: var(--blue-600); }
+    .cta-primary:hover {
+      background: var(--blue-600);
+    }
     
     .cta-secondary {
       background: transparent;
@@ -136,13 +141,18 @@
       font-weight: 500;
       border: 1px solid var(--gray-700);
       transition: border-color 0.2s;
-      cursor: pointer;
     }
     
-    .cta-secondary:hover { border-color: var(--gray-500); }
+    .cta-secondary:hover {
+      border-color: var(--gray-500);
+    }
     
     /* Main content */
-    .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+    .container { 
+      max-width: 900px; 
+      margin: 0 auto; 
+      padding: 2rem;
+    }
     
     h2 { 
       font-family: 'Work Sans', system-ui, sans-serif;
@@ -187,8 +197,14 @@
       margin-bottom: 0.5rem;
     }
     
-    .card p { color: var(--gray-400); font-size: 0.9375rem; }
-    .card strong { color: var(--gray-300); }
+    .card p { 
+      color: var(--gray-400);
+      font-size: 0.9375rem;
+    }
+    
+    .card strong {
+      color: var(--gray-300);
+    }
     
     .highlight-box {
       background: linear-gradient(135deg, rgba(55, 97, 249, 0.1) 0%, rgba(0, 205, 152, 0.05) 100%);
@@ -213,24 +229,14 @@
       font-weight: 500;
     }
     
-    ul { margin-left: 1.25rem; margin-bottom: 0.75rem; }
-    li { margin: 0.25rem 0; color: var(--gray-400); }
-    
-    /* Protocol badges */
-    .protocol-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
+    ul { 
+      margin-left: 1.25rem; 
+      margin-bottom: 0.75rem;
     }
     
-    .protocol-badge {
-      background: var(--gray-800);
-      border: 1px solid var(--gray-700);
-      padding: 0.375rem 0.75rem;
-      border-radius: 6px;
-      font-size: 0.8125rem;
-      color: var(--gray-300);
+    li { 
+      margin: 0.25rem 0;
+      color: var(--gray-400);
     }
     
     /* File grid */
@@ -261,7 +267,10 @@
       margin-bottom: 0.25rem;
     }
     
-    .file-desc { font-size: 0.8125rem; color: var(--gray-500); }
+    .file-desc { 
+      font-size: 0.8125rem; 
+      color: var(--gray-500);
+    }
     
     /* Footer */
     footer { 
@@ -287,228 +296,35 @@
       gap: 0.5rem;
     }
     
-    .footer-brand svg { width: 24px; height: 24px; }
-    .footer-text { color: var(--gray-600); font-size: 0.8125rem; }
+    .footer-brand svg {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .footer-text {
+      color: var(--gray-600);
+      font-size: 0.8125rem;
+    }
     
     a { color: var(--blue-500); text-decoration: none; }
     a:hover { text-decoration: underline; }
-
-    /* Modal/Viewer */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(9, 11, 17, 0.95);
-      z-index: 1000;
-      overflow-y: auto;
-    }
-    
-    .modal-overlay.active { display: block; }
-    
-    .modal-container {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 2rem;
-    }
-    
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--gray-700);
-    }
-    
-    .modal-title {
-      font-family: 'Work Sans', system-ui, sans-serif;
-      font-weight: 600;
-      font-size: 1.25rem;
-      color: #fff;
-    }
-    
-    .modal-close {
-      background: var(--gray-800);
-      border: 1px solid var(--gray-700);
-      color: var(--gray-400);
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color 0.2s;
-    }
-    
-    .modal-close:hover {
-      border-color: var(--gray-500);
-      color: #fff;
-    }
-    
-    .modal-actions {
-      display: flex;
-      gap: 0.75rem;
-    }
-    
-    .modal-btn {
-      background: var(--gray-800);
-      border: 1px solid var(--gray-700);
-      color: var(--gray-300);
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.875rem;
-      transition: border-color 0.2s;
-    }
-    
-    .modal-btn:hover {
-      border-color: var(--blue-500);
-    }
-    
-    .modal-content {
-      background: var(--gray-850);
-      border: 1px solid var(--gray-700);
-      border-radius: 12px;
-      padding: 2rem;
-    }
-    
-    /* Markdown rendered styles */
-    .modal-content h1 {
-      font-family: 'Work Sans', system-ui, sans-serif;
-      font-size: 1.75rem;
-      color: #fff;
-      margin-bottom: 1rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--gray-700);
-    }
-    
-    .modal-content h2 {
-      font-family: 'Work Sans', system-ui, sans-serif;
-      font-size: 1.25rem;
-      color: #fff;
-      margin: 2rem 0 1rem;
-    }
-    
-    .modal-content h2::before { display: none; }
-    
-    .modal-content h3 {
-      font-size: 1rem;
-      color: var(--gray-300);
-      margin: 1.5rem 0 0.75rem;
-      text-transform: none;
-      letter-spacing: normal;
-    }
-    
-    .modal-content p {
-      color: var(--gray-400);
-      margin-bottom: 1rem;
-    }
-    
-    .modal-content ul, .modal-content ol {
-      margin-left: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .modal-content li {
-      color: var(--gray-400);
-      margin-bottom: 0.5rem;
-    }
-    
-    .modal-content strong { color: var(--gray-300); }
-    
-    .modal-content blockquote {
-      border-left: 3px solid var(--blue-500);
-      padding-left: 1rem;
-      margin: 1rem 0;
-      color: var(--gray-400);
-      font-style: italic;
-    }
-    
-    .modal-content code {
-      background: var(--gray-800);
-      padding: 0.125rem 0.375rem;
-      border-radius: 4px;
-      font-size: 0.875em;
-      color: var(--green-500);
-    }
-    
-    .modal-content pre {
-      background: var(--gray-800);
-      border: 1px solid var(--gray-700);
-      border-radius: 8px;
-      padding: 1rem;
-      overflow-x: auto;
-      margin: 1rem 0;
-    }
-    
-    .modal-content pre code {
-      background: none;
-      padding: 0;
-      color: var(--gray-300);
-    }
-    
-    .modal-content table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1rem 0;
-    }
-    
-    .modal-content th, .modal-content td {
-      border: 1px solid var(--gray-700);
-      padding: 0.75rem;
-      text-align: left;
-    }
-    
-    .modal-content th {
-      background: var(--gray-800);
-      color: #fff;
-      font-weight: 600;
-    }
-    
-    .modal-content td { color: var(--gray-400); }
-    
-    .modal-content hr {
-      border: none;
-      border-top: 1px solid var(--gray-700);
-      margin: 2rem 0;
-    }
-    
-    .modal-content a { color: var(--blue-500); }
-    
-    .modal-content input[type="checkbox"] {
-      margin-right: 0.5rem;
-    }
-
-    .error {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid #EF4444;
-      border-radius: 8px;
-      padding: 1rem;
-      color: #EF4444;
-    }
+    .start-bar { background: var(--gray-850); border-bottom: 1px solid var(--gray-700); padding: 0.5rem 2rem; font-size: 0.875rem; }
+    .start-bar-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .start-bar span { color: var(--gray-500); }
+    .start-bar a { color: var(--blue-500); font-weight: 500; }
   </style>
 </head>
 <body>
-  <!-- Modal Viewer -->
-  <div class="modal-overlay" id="modal">
-    <div class="modal-container">
-      <div class="modal-header">
-        <div class="modal-title" id="modal-title">Loading...</div>
-        <div class="modal-actions">
-          <button class="modal-btn" onclick="copyContent()">Copy</button>
-          <button class="modal-btn" onclick="openRaw()">Open Raw</button>
-          <button class="modal-close" onclick="closeModal()">&times;</button>
-        </div>
-      </div>
-      <div class="modal-content" id="modal-content"></div>
+  <div class="start-bar">
+    <div class="start-bar-inner">
+      <span>Start here:</span>
+      <a href="view.html?path=README.md#path=README.md">README</a>
+      <span>·</span>
+      <a href="index.html">Packet (this page)</a>
+      <span>·</span>
+      <a href="checklist.html">Checklist</a>
     </div>
   </div>
-
   <div class="hero">
     <div class="hero-content">
       <div class="logo-row">
@@ -522,27 +338,27 @@
       </div>
       
       <h1>Yield.xyz Integration</h1>
-      <p class="tagline">Put your idle assets to work. Earn yield across 26 chains—ETH, Solana, Arbitrum, Avalanche, Bitcoin, Tron, and more—without giving up custody.</p>
+      <p class="tagline">ShapeShift users can now earn more by easily accessing yield opportunities across many blockchains, all without leaving the platform.</p>
       
       <div class="meta">
         <div class="meta-item">
           <span class="tier-badge">Tier 1 (Standard)</span>
         </div>
         <div class="meta-item">
-          Launch: Feb 10, 2026
+          Generated 2026-02-12
         </div>
         <div class="meta-item">
-          26 Chains Supported
+          Status: Ready
         </div>
       </div>
       
       <div class="cta-row">
-        <button class="cta-primary" onclick="openFile('checklist.md', 'Launch Checklist')">
+        <a href="checklist.html" class="cta-primary">
           Start Checklist
-        </button>
-        <button class="cta-secondary" onclick="openFile('partner/partner_kit.md', 'Partner Kit')">
+        </a>
+        <a href="view.html?path=partner/partner_kit.md#path=partner/partner_kit.md" class="cta-secondary">
           Partner Kit
-        </button>
+        </a>
       </div>
     </div>
   </div>
@@ -551,87 +367,100 @@
     <h2>Marketing Brief</h2>
     
     <div class="highlight-box">
-      <div class="label">Primary Narrative</div>
-      <div class="value">Put your idle assets to work.</div>
+      <div class="label">Key Message</div>
+      <div class="value">ShapeShift integrates Yield.xyz to offer users access to diverse yield opportunities without leaving the platform.</div>
     </div>
     
     <div class="card">
       <div class="card-title">Target Audience</div>
-      <p>DeFi Power Users and Yield Seekers</p>
-      <p style="margin-top: 0.5rem; font-style: italic; color: var(--gray-500);">They are tech-savvy, constantly optimizing their investments, and prioritize control over their assets.</p>
+      <p>DeFi Power Users, Yield Seekers, and Cross-Chain Traders</p>
+      <p style="margin-top: 0.5rem; font-style: italic; color: var(--gray-500);">They value self-custody, efficiency, and maximizing returns without compromising on privacy.</p>
     </div>
     
     <div class="card">
-      <div class="card-title">Featured Protocols</div>
-      <p>Integrated yield opportunities across chains:</p>
-      <div class="protocol-badges">
-        <span class="protocol-badge">Lido</span>
-        <span class="protocol-badge">Kamino</span>
-        <span class="protocol-badge">Drift</span>
-        <span class="protocol-badge">Figment</span>
-        <span class="protocol-badge">Compound</span>
-        <span class="protocol-badge">StakeKit</span>
-        <span class="protocol-badge">Morpho</span>
-        <span class="protocol-badge">Fluid</span>
-      </div>
+      <div class="card-title">Problem We're Solving</div>
+      <p>Accessing diverse yield opportunities across multiple networks is complex and time-consuming.</p>
+      <p style="margin-top: 0.5rem;"><strong>Aha moment:</strong> Users realize they can earn higher yields without the hassle of managing multiple platforms.</p>
     </div>
     
     <div class="card">
-      <div class="card-title">Chain Coverage</div>
-      <p><strong>Tron:</strong> StakeKit (native staking)</p>
-      <p><strong>Katana:</strong> Morpho (Vault Bridge USDC)</p>
-      <p><strong>Solana:</strong> Kamino (primary) + Drift (secondary)</p>
-      <p><strong>Plasma:</strong> Fluid (USDe yields)</p>
-    </div>
-    
-    <div class="card" style="cursor: pointer;" onclick="openFile('marketing_brief.md', 'Full Marketing Brief')">
-      <div class="card-title">View Full Brief &rarr;</div>
-      <p>Click to see complete marketing brief with all sections</p>
+      <div class="card-title">Tweet-Ready</div>
+      <p>"What if you could earn yield across 75+ networks without leaving ShapeShift? Now you can. No custody. No KYC. Just yield. 🦊"</p>
     </div>
 
     <h2>Content Drafts</h2>
 
     <h3>Social Media</h3>
     <div class="files">
-      <div class="file" onclick="openFile('drafts/x_post_main.md', 'Main Twitter Thread')">
+      <div class="file" onclick="window.location='view.html?draft=x_post_main#draft=x_post_main'">
         <div class="file-name">x_post_main.md</div>
         <div class="file-desc">Main Twitter thread (@ShapeShift)</div>
       </div>
-      <div class="file" onclick="openFile('drafts/x_post_personal.md', 'Personal QT')">
+      <div class="file" onclick="window.location='view.html?draft=x_post_blog#draft=x_post_blog'">
+        <div class="file-name">x_post_blog.md</div>
+        <div class="file-desc">Blog promo tweet (@ShapeShift)</div>
+      </div>
+      <div class="file" onclick="window.location='view.html?draft=x_post_personal#draft=x_post_personal'">
         <div class="file-name">x_post_personal.md</div>
         <div class="file-desc">Your personal QT</div>
       </div>
-      <div class="file" onclick="openFile('drafts/discord_post.md', 'Discord Announcement')">
+      <div class="file" onclick="window.location='view.html?draft=discord_post#draft=discord_post'">
         <div class="file-name">discord_post.md</div>
         <div class="file-desc">Discord #announcements</div>
       </div>
-      <div class="file" onclick="openFile('drafts/blog_draft.md', 'Blog Draft')">
+      <div class="file" onclick="window.location='view.html?draft=discord_reminder#draft=discord_reminder'">
+        <div class="file-name">discord_reminder.md</div>
+        <div class="file-desc">Discord reminder/update</div>
+      </div>
+      <div class="file" onclick="window.location='view.html?draft=blog_draft#draft=blog_draft'">
         <div class="file-name">blog_draft.md</div>
         <div class="file-desc">Full blog for Strapi</div>
+      </div>
+      <div class="file" onclick="window.location='view.html?draft=medium_post#draft=medium_post'">
+        <div class="file-name">medium_post.md</div>
+        <div class="file-desc">Medium cross-post</div>
       </div>
     </div>
 
     <h3>Follow-ups (Days 1-7)</h3>
     <div class="files">
-      <div class="file" onclick="openFile('drafts/followup_educational.md', 'Educational Thread')">
+      <div class="file" onclick="window.location='view.html?draft=followup_educational#draft=followup_educational'">
         <div class="file-name">followup_educational.md</div>
         <div class="file-desc">Day 1 educational thread</div>
       </div>
-      <div class="file" onclick="openFile('drafts/followup_metrics.md', 'Metrics Thread')">
+      <div class="file" onclick="window.location='view.html?draft=followup_metrics#draft=followup_metrics'">
         <div class="file-name">followup_metrics.md</div>
         <div class="file-desc">Day 4-6 metrics thread</div>
       </div>
-      <div class="file" onclick="openFile('drafts/followup_recap.md', 'Recap Thread')">
+      <div class="file" onclick="window.location='view.html?draft=followup_recap#draft=followup_recap'">
         <div class="file-name">followup_recap.md</div>
         <div class="file-desc">Day 7 recap</div>
       </div>
     </div>
 
+    <h3>SEO Articles</h3>
+    <div class="files">
+      
+      <div class="file" onclick="window.location='view.html?path=seo%2Fseo_article_01.md#path=seo%2Fseo_article_01.md'">
+        <div class="file-name">seo_article_01.md</div>
+        <div class="file-desc">SEO article 1</div>
+      </div>
+    </div>
+
+    <h3>Content Calendar</h3>
+    <div class="files">
+      <div class="file" onclick="window.location='view.html?path=calendar/content_calendar.md#path=calendar/content_calendar.md'">
+        <div class="file-name">content_calendar.md</div>
+        <div class="file-desc">4-week content calendar</div>
+      </div>
+    </div>
+
+
     <h2>Partner & Press</h2>
     
     <h3>Partner Materials</h3>
     <div class="files">
-      <div class="file" onclick="openFile('partner/partner_kit.md', 'Partner Kit')">
+      <div class="file" onclick="window.location='view.html?path=partner/partner_kit.md#path=partner/partner_kit.md'">
         <div class="file-name">partner_kit.md</div>
         <div class="file-desc">Send to Yield.xyz team</div>
       </div>
@@ -639,19 +468,19 @@
 
     <h3>Press Materials</h3>
     <div class="files">
-      <div class="file" onclick="openFile('press/press_release.md', 'Press Release')">
+      <div class="file" onclick="window.location='view.html?path=press/press_release.md#path=press/press_release.md'">
         <div class="file-name">press_release.md</div>
         <div class="file-desc">Formal press release</div>
       </div>
-      <div class="file" onclick="openFile('press/pr_brief.md', 'PR Brief')">
+      <div class="file" onclick="window.location='view.html?path=press/pr_brief.md#path=press/pr_brief.md'">
         <div class="file-name">pr_brief.md</div>
         <div class="file-desc">Talking points</div>
       </div>
-      <div class="file" onclick="openFile('press/op_ed_political.md', 'Op-Ed (Political)')">
+      <div class="file" onclick="window.location='view.html?path=press/op_ed_political.md#path=press/op_ed_political.md'">
         <div class="file-name">op_ed_political.md</div>
         <div class="file-desc">Political/regulatory angle</div>
       </div>
-      <div class="file" onclick="openFile('press/op_ed_technical.md', 'Op-Ed (Technical)')">
+      <div class="file" onclick="window.location='view.html?path=press/op_ed_technical.md#path=press/op_ed_technical.md'">
         <div class="file-name">op_ed_technical.md</div>
         <div class="file-desc">Technical/builder angle</div>
       </div>
@@ -661,11 +490,11 @@
     
     <h3>Design</h3>
     <div class="files">
-      <div class="file" onclick="openFile('design/design_brief.md', 'Design Brief')">
+      <div class="file" onclick="window.location='view.html?path=design/design_brief.md#path=design/design_brief.md'">
         <div class="file-name">design_brief.md</div>
         <div class="file-desc">For human designers</div>
       </div>
-      <div class="file" onclick="openFile('design/ai_prompts.txt', 'AI Prompts')">
+      <div class="file" onclick="window.location='view.html?path=design/ai_prompts.txt#path=design/ai_prompts.txt'">
         <div class="file-name">ai_prompts.txt</div>
         <div class="file-desc">Midjourney/DALL-E prompts</div>
       </div>
@@ -673,33 +502,9 @@
 
     <h3>Outreach</h3>
     <div class="files">
-      <div class="file" onclick="openFile('outreach/dm_targets.md', 'DM Targets')">
+      <div class="file" onclick="window.location='view.html?path=outreach/dm_targets.md#path=outreach/dm_targets.md'">
         <div class="file-name">dm_targets.md</div>
         <div class="file-desc">Who to DM + templates</div>
-      </div>
-    </div>
-
-    <h2>Research</h2>
-    <div class="files">
-      <div class="file" onclick="window.open('research/gtm_discovery_questionnaire.html', '_blank')">
-        <div class="file-name">gtm_discovery_questionnaire.html</div>
-        <div class="file-desc">Fillable form — send to stakeholders to complete and return</div>
-      </div>
-      <div class="file" onclick="openFile('research/gtm_discovery_questionnaire.md', 'GTM Discovery Questionnaire')">
-        <div class="file-name">gtm_discovery_questionnaire.md</div>
-        <div class="file-desc">Markdown version</div>
-      </div>
-      <div class="file" onclick="openFile('research/discovery_answers_2026-02-19.md', 'Discovery Answers')">
-        <div class="file-name">discovery_answers_2026-02-19.md</div>
-        <div class="file-desc">Filled questionnaire — Feb 19 launch</div>
-      </div>
-      <div class="file" onclick="openFile('research/gtm_gap_analysis.md', 'GTM Gap Analysis')">
-        <div class="file-name">gtm_gap_analysis.md</div>
-        <div class="file-desc">Gaps between discovery answers and existing materials</div>
-      </div>
-      <div class="file" onclick="openFile('research/gap_resolution_prompts.md', 'Gap Resolution Prompts')">
-        <div class="file-name">gap_resolution_prompts.md</div>
-        <div class="file-desc">Prompts to ask ShapeShift repo — resolve gaps from codebase</div>
       </div>
     </div>
 
@@ -711,12 +516,14 @@
     <div class="card">
       <div class="card-title">Key Features</div>
       <ul>
-        <li>Comprehensive staking solutions</li>
-        <li>Advanced DeFi tools</li>
-        <li>Robust data APIs for developers</li>
-        <li>Cross-chain yield optimization</li>
-        <li>User-friendly interface</li>
+        <li>Unified API for Web3 yield across 75+ networks</li>
+        <li>Access to staking, stablecoin yields, and DeFi</li>
+        <li>Potential for up to 2.8x higher revenue</li>
       </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Value Proposition</div>
+      <p>Yield.xyz provides a comprehensive and simplified infrastructure for accessing diverse yield opportunities across multiple blockchain networks, enhancing revenue potential with minimal complexity.</p>
     </div>
   </div>
 
@@ -736,631 +543,5 @@
       </div>
     </div>
   </footer>
-
-  <script>
-    // Embedded content - no fetch required
-    const fileContent = {
-      'checklist.md': `# Yield.xyz Launch Checklist
-
-**Generated:** 2026-01-29
-**Tier:** 1
-**Owner:** [YOUR NAME]
-
----
-
-# You Shipped Code. Now Tell People About It.
-
-You merged a PR. A feature is live. This packet helps you announce it.
-
-At ShapeShift, engineers own their launches. There's no marketing team.
-Things don't blow up on their own. If you don't market it, no one will use it.
-
-This isn't busywork. It's intentional storytelling for the tech you built.
-
----
-
-## What Kind of Launch Is This?
-
-**Your launch: TIER 1**
-
-| Tier | What It Is | Time Required |
-|------|------------|---------------|
-| **0** | Small update, bug fix | 30 min |
-| **1** | New feature, integration | 2-3 hours over 7 days |
-| **2** | Major launch, press-worthy | 4-5 hours over 14 days |
-
----
-
-## Is This Mandatory?
-
-**Yes.** If you want people to use what you built.
-
-The minimum is 30 minutes. You can do that.
-
----
-
-## Can I Bail?
-
-**No.** But you can hand off.
-
-Message **Apotheosis** (Head of Engineering): "Need to hand off Yield.xyz launch"
-
----
-
-## Quick Paths
-
-- **[I'M BUSY]** → Jump to "Minimum Viable Launch" below
-- **[I'VE GOT TIME]** → Follow the full checklist
-- **[I CAN'T DO THIS]** → Hand off to Apotheosis
-
----
-
-# Operational Quick Start
-
-## How to Post
-
-| Platform | Access |
-|----------|--------|
-| **Blog (Strapi)** | cms.shapeshift.com - [Loom walkthrough by Fabio] |
-| **Twitter/X** | @ShapeShift credentials in DAO 1Password |
-| **Discord** | #announcements channel |
-
-## Graphic Design Help
-
-| Option | Contact |
-|--------|---------|
-| **Midjourney** | Use prompts in design/ai_prompts.txt |
-| **Hoff** | [contact] |
-| **Atlin** | [contact] |
-
-## If Something Goes Wrong
-
-- Tweet ratioed? → Don't delete. Respond or let it ride.
-- Blog error? → Fix in Strapi, updates live.
-- Major issue? → Ping Apotheosis
-
----
-
-# PRE-LAUNCH PHASE
-
-## Day -7 to -5: Partner Coordination — 30 min
-- [ ] Send partner kit to Yield.xyz team (partner/partner_kit.md)
-- [ ] Request feedback by Day -3
-- [ ] Identify partner contact for launch day
-
-## Day -3: Feedback Integration — 20 min
-- [ ] Review partner feedback (if received)
-- [ ] Confirm launch timing with partner
-- [ ] If no response: ping again, then proceed without
-
-## Day -1: Final Review — 30 min
-- [ ] Review blog draft (drafts/blog_draft.md)
-- [ ] Review tweet thread (drafts/x_post_main.md)
-- [ ] Review personal tweet (drafts/x_post_personal.md)
-- [ ] Generate images if needed (design/ai_prompts.txt)
-- [ ] Confirm partner is ready to QT
-
----
-
-# LAUNCH PHASE
-
-## Launch Day (Day 0) — 60 min
-
-| Time | Task | File |
-|------|------|------|
-| 08:30 | Publish blog to Strapi | drafts/blog_draft.md |
-| 09:00 | Post main tweet thread (@ShapeShift) | drafts/x_post_main.md |
-| 09:05 | QT from your personal account | drafts/x_post_personal.md |
-| 09:10 | Post Discord announcement | drafts/discord_post.md |
-| 09:15 | DM partner: "We're live!" | — |
-| 09:30 | Confirm partner QT'd | — |
-| 09:30 | Start sending DMs | outreach/dm_targets.md |
-| 10:00 | Cross-post to Farcaster | drafts/farcaster_post.md |
-| 12:00 | Check replies, respond | — |
-| 15:00 | QT @ShapeShiftInfoBot showing swap | drafts/infobot_qt.md |
-
-## Day 1 — 20 min
-- [ ] Post educational thread (@ShapeShift) - drafts/followup_educational.md
-- [ ] Reply to overnight comments
-- [ ] DM anyone who engaged positively
-
-## Day 2-3 — 15 min
-- [ ] QT user testimonials (if any)
-- [ ] Share partner cross-posts
-- [ ] Continue engaging
-
-## Day 4-6 — 10 min
-- [ ] Post metrics thread if numbers look good - drafts/followup_metrics.md
-- [ ] Continue engaging
-
-## Day 7 — 30 min
-- [ ] Post recap thread - drafts/followup_recap.md
-- [ ] Collect metrics (see below)
-- [ ] Run: \`gtm metrics --launch yield.xyz\`
-
----
-
-# MINIMUM VIABLE LAUNCH (If You're Slammed)
-
-**30 minutes total:**
-
-- [ ] Post tweet thread from @ShapeShift — 5 min
-- [ ] Post Discord announcement — 2 min
-- [ ] QT from your personal account — 3 min
-
-**That's it. You shipped.**
-
-Everything else is bonus. A shipped launch beats a perfect plan.
-
----
-
-# PRE-FLIGHT CHECK
-
-Run through before launching:
-
-**CONTENT READY**
-- [ ] Blog draft reviewed
-- [ ] Tweet thread reviewed
-- [ ] Discord post reviewed
-
-**ACCESS VERIFIED**
-- [ ] Can log into Strapi
-- [ ] Can access @ShapeShift Twitter
-
-**PARTNER STATUS**
-- [ ] Partner contacted
-- [ ] Partner confirmed (or launching without)
-
-**READY TO LAUNCH?**
-- [ ] YES → Execute checklist
-- [ ] NOT YET → Fix it or go minimal
-
----
-
-# METRICS (Day 7)
-
-| Metric | Target (Tier 1) | Actual |
-|--------|----------------------|--------|
-| Twitter Profile Visits | >500 | _____ |
-| Tweet Engagements | >200 | _____ |
-| Website Traffic | +10% | _____ |
-| Swap Volume | — | _____ |
-| Onchain Txs | >100 | _____ |
-
-**SUCCESS:** Hit targets + positive response
-**OKAY:** Close to targets
-**REVIEW:** Missed targets → log learnings
-
----
-
-# GLOSSARY
-
-| Term | Meaning |
-|------|---------|
-| GTM | Go-To-Market — announcing/marketing a feature |
-| QT | Quote Tweet — retweet with your comment |
-| KOL | Key Opinion Leader — influencer |
-| Engagement | Likes, RTs, replies |
-| Profile Visits | Clicks to your profile (conversion metric) |
-
----
-
-**Questions?** Ping Apotheosis on Discord.`,
-
-      'partner/partner_kit.md': `# Yield.xyz Integration - Partner Marketing Kit
-
-**For:** Yield.xyz Marketing Team  
-**From:** ShapeShift DAO  
-**Launch:** Tuesday, Feb 10, 2026  
-**Asset Approval:** Thursday, Feb 5, 2026  
-**Contact:** [YOUR DISCORD/TELEGRAM]
-
----
-
-## What We're Announcing
-
-Put your idle assets to work. ShapeShift's Earn experience now brings Yield.xyz opportunities to new chains—without giving up custody.
-
-**Primary Narrative:**  
-"Put your idle assets to work."
-
-**Chains in Scope:**
-- Tron
-- Katana
-- Solana
-- Plasma
-
-**Featured Protocols:**
-Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, Fluid
-
-**Protocol Roster (by chain):**
-| Chain | Protocol | Notes |
-|-------|----------|-------|
-| Tron | StakeKit | Native staking |
-| Katana | Morpho | Vault Bridge USDC yields |
-| Solana | Kamino (primary) + Drift (secondary) | DeFi yields |
-| Plasma | Fluid | USDe yields |
-
-**Key Messages:**
-- Your keys, your yield.
-- Cross-chain staking made simple.
-- No KYC. No custody. Just returns.
-
----
-
-## Launch Timeline
-
-| Date | Milestone | Owner |
-|------|-----------|-------|
-| Mon Feb 2 | Lock scope + confirm protocol roster + decide paid structure | Both |
-| Tue Feb 3 | Collect all partner briefs/creatives | Both |
-| Wed Feb 4 | Feedback pass + revisions requested | Both |
-| **Thu Feb 5** | **Final asset approvals + press embargo moment** | Both |
-| Mon Feb 9 | Final QA + scheduling (ads + PR + social) | Both |
-| **Tue Feb 10** | **Launch** | Both |
-
----
-
-## Press Coordination
-
-**Embargo:**  
-Embargo until Thu Feb 5, 8:00am PT (tentative).
-
-**One-liner for press:**  
-"Put your idle assets to work. ShapeShift's Earn experience now brings Yield.xyz opportunities across Tron, Katana, Solana, and Plasma—without giving up custody."
-
-**Quotes (ready to use):**
-
-*You (operator / product-market):*
-> "Yield should feel as simple as holding. This launch is about turning idle assets into productive assets without adding complexity for the user."
-
-*Gomes (credibility / strategy):*
-> "The best yield products win on distribution and UX. This launch is designed to meet users where they are—and help them take the next step confidently."
-
-*Serafim (vision / partnership):*
-> "Partnerships like this work when incentives and execution are aligned. We're bringing both—press, creative, and shared conversion spend—to drive outcomes."
-
----
-
-## Ready-to-Use Copy
-
-### For Yield.xyz's Twitter
-
-\`\`\`
-Yield.xyz is now live on @ShapeShift across Tron, Katana, Solana, and Plasma.
-
-Put your idle assets to work—without giving up custody.
-
-Featured protocols: Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, Fluid
-
-Self-custody. No KYC. Try it: app.shapeshift.com/earn
-\`\`\`
-
-### For Yield.xyz's Discord
-
-\`\`\`
-Hey Yield.xyz community!
-
-ShapeShift just shipped Yield.xyz support across 26 chains:
-
-**Tron** - Native staking via StakeKit
-**Katana** - Morpho vault yields
-**Solana** - Kamino + Drift DeFi
-**Plasma** - Fluid USDe yields
-
-Put your idle assets to work:
-- Earn yield without giving up custody
-- No KYC required
-- Cross-chain access in one place
-
-Check it out: app.shapeshift.com/earn
-\`\`\`
-
----
-
-**Questions?** Reach [YOUR HANDLE] on Discord/Telegram.`,
-
-      'marketing_brief.md': `# Marketing Brief: Yield.xyz Integration
-
-## Who Are We Speaking To?
-
-**Target Audience:** DeFi Power Users and Yield Seekers
-
-**What We Know About Them:** They actively manage crypto portfolios, seek the best APY, and value self-custody.
-
-**Psychographics:** They are tech-savvy, constantly optimizing their investments, and prioritize control over their assets.
-
----
-
-## What Problem Are We Solving?
-
-**The Problem:** Users want to optimize yield without losing control of their crypto.
-
-**The "Aha" Moment:** Realizing they can stake and earn without giving up their keys.
-
-**Before/After:**
-Before: Users juggle multiple platforms, risking custody. After: Seamless staking with full control.
-
----
-
-## GTM Idea (One Sentence)
-
-> Put your idle assets to work. Earn yield without giving up control.
-
----
-
-## Launch Scope (Feb 10, 2026)
-
-**Chains in scope:** Tron, Katana, Solana, Plasma
-
-**Featured Protocols:** Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, Fluid
-
-**Feature flags (default):**
-- Native staking assets: Yes
-- Liquid staking assets: Yes (where available)
-- DeFi protocols at launch: Yes (limited roster)
-
----
-
-## Co-Marketing Roster (Protocols)
-
-**Target roster (by chain):**
-- Tron: StakeKit (native staking on Tron)
-- Katana: Morpho (Vault Bridge USDC yields)
-- Solana: Kamino (primary) + Drift Protocol (secondary)
-- Plasma: Fluid (USDe yields)
-
----
-
-## Key Messages
-
-**Primary Message:**
-> Put your idle assets to work.
-
-**Supporting Messages:**
-- Your keys, your yield.
-- Cross-chain staking made simple.
-- No KYC. No custody. Just returns.
-
-**Tweet-Ready:**
-> Put your idle assets to work. Earn yield across Tron, Katana, Solana, and Plasma—without giving up custody. No KYC. Just yield.
-
----
-
-## Why ShapeShift? (vs Competitors)
-
-**Differentiators:**
-- No custody, no KYC
-- Comprehensive integration with Yield.xyz's cross-chain capabilities
-- Focus on user empowerment and financial sovereignty
-
-**Positioning Statement:** ShapeShift offers the most user-centric, self-custodial yield experience in DeFi.`,
-
-      'press/pr_brief.md': `# PR Brief: Yield.xyz Integration
-
-## Key Messages (Memorize These)
-
-**Primary:** Put your idle assets to work.
-
-**Supporting:**
-- Your keys, your yield.
-- Cross-chain staking made simple.
-- No KYC. No custody. Just returns.
-
-**Tweet-Ready:** "Put your idle assets to work. Earn yield across Tron, Katana, Solana, and Plasma—without giving up custody."
-
----
-
-## Talking Points
-
-1. **What is this?**
-   ShapeShift now supports Yield.xyz, enabling users to earn yield across multiple chains with protocols like Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, and Fluid.
-
-2. **Why does it matter?**
-   - Self-custody: Users maintain control of their assets
-   - No KYC: Privacy-preserving access to DeFi
-   - Comprehensive staking solutions
-
-3. **Who is this for?**
-   DeFi Power Users and Yield Seekers
-
-4. **How is this different from competitors?**
-   ShapeShift offers the most user-centric, self-custodial yield experience in DeFi.
-
----
-
-## Anticipated Questions & Answers
-
-**Q: What makes this different from [competitor]?**
-A: ShapeShift is fully self-custodial with no KYC requirements. Users connect their own wallet and maintain complete control.
-
-**Q: Is this safe?**
-A: Yield.xyz is established and audited. ShapeShift never takes custody of user funds.
-
-**Q: When is this available?**
-A: Available now at app.shapeshift.com/earn
-
----
-
-## Do NOT Say
-
-- Don't make specific price or return predictions
-- Don't compare directly to competitor security
-- Don't promise features not yet shipped
-- Don't speak for the Yield.xyz team`,
-
-      'drafts/x_post_main.md': `# Main Twitter Thread (@ShapeShift)
-
-**Tweet 1:**  
-Put your idle assets to work.
-
-**Tweet 2:**  
-With ShapeShift and Yield.xyz, you can now earn yield across Tron, Katana, Solana, and Plasma—without giving up custody.
-
-**Tweet 3:**  
-Featured protocols: Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, Fluid
-
-Self-custody is king. Your keys, your yield.
-
-**Tweet 4:**  
-Ready to take control? Start earning at app.shapeshift.com/earn
-
-No KYC. No custody. Just returns.
-
-**Tweet 5:**  
-Learn more with @Yield_xyz and ShapeShift. Your keys. Your yield. Your future.`,
-
-      'drafts/discord_post.md': `# Discord Announcement
-
-**Put your idle assets to work with Yield.xyz on ShapeShift**
-
-Earn yield across 26 chains without giving up custody:
-
-- **Tron** - Native staking via StakeKit
-- **Katana** - Morpho vault yields
-- **Solana** - Kamino + Drift DeFi
-- **Plasma** - Fluid USDe yields
-
-Featured protocols: Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, Fluid
-
-Get started:
-1. Visit app.shapeshift.com/earn
-2. Connect your wallet
-3. Start earning
-
-No KYC. Self-custody. Just yield.
-
-Questions? Drop them in #feedback!`,
-
-      'drafts/x_post_personal.md': `# Personal QT
-
-Put your idle assets to work.
-
-We just shipped @Yield_xyz support across Tron, Katana, Solana, and Plasma.
-
-No KYC. No custody. Just yield.
-
-Try it: app.shapeshift.com/earn`,
-
-      'drafts/followup_educational.md': `# Day 1: Educational Thread
-
-**Tweet 1:**
-How does yield work on ShapeShift?
-
-Here's a quick breakdown:
-
-**Tweet 2:**
-1. Connect your wallet (self-custody, always)
-2. Pick a chain: Tron, Katana, Solana, or Plasma
-3. Choose a protocol: Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, or Fluid
-4. Start earning
-
-**Tweet 3:**
-Your keys never leave your wallet. ShapeShift just connects you to yield opportunities.
-
-No middlemen. No custody. No KYC.
-
-**Tweet 4:**
-Ready to put your idle assets to work?
-
-Start here: app.shapeshift.com/earn`,
-
-      'drafts/followup_metrics.md': `# Day 4-6: Metrics Thread
-
-**Tweet 1:**
-[X] users have started earning with Yield.xyz on ShapeShift.
-
-**Tweet 2:**
-Top chains so far:
-1. [Chain] - [X]% of volume
-2. [Chain] - [X]% of volume
-3. [Chain] - [X]% of volume
-
-**Tweet 3:**
-Featured protocols driving yield:
-Lido, Kamino, Drift, Figment, Compound, StakeKit, Morpho, Fluid
-
-**Tweet 4:**
-Put your idle assets to work: app.shapeshift.com/earn`,
-
-      'drafts/followup_recap.md': `# Day 7: Recap Thread
-
-**Tweet 1:**
-One week of Yield.xyz on ShapeShift.
-
-Here's what happened:
-
-**Tweet 2:**
-- [X] new users
-- $[X] in volume
-- [X] transactions
-
-**Tweet 3:**
-Most popular:
-- Chain: [X]
-- Protocol: [X]
-
-**Tweet 4:**
-This is just the beginning.
-
-More chains. More protocols. More yield.
-
-Put your idle assets to work: app.shapeshift.com/earn`
-    };
-
-    let currentFile = '';
-    let rawContent = '';
-
-    function openFile(path, title) {
-      currentFile = path;
-      const modal = document.getElementById('modal');
-      const modalTitle = document.getElementById('modal-title');
-      const modalContent = document.getElementById('modal-content');
-      
-      modal.classList.add('active');
-      modalTitle.textContent = title;
-      
-      // Check if we have embedded content
-      if (fileContent[path]) {
-        rawContent = fileContent[path];
-        modalContent.innerHTML = marked.parse(rawContent);
-      } else {
-        // Fallback: try to fetch
-        rawContent = '';
-        modalContent.innerHTML = '<div class="error">Content not embedded. Click "Open Raw" to view the file directly.</div>';
-      }
-      
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      document.getElementById('modal').classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    function copyContent() {
-      if (rawContent) {
-        navigator.clipboard.writeText(rawContent).then(() => {
-          alert('Content copied to clipboard!');
-        });
-      } else {
-        alert('No content to copy. Open the raw file instead.');
-      }
-    }
-
-    function openRaw() {
-      window.open(currentFile, '_blank');
-    }
-
-    // Close modal on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    // Close modal on overlay click
-    document.getElementById('modal').addEventListener('click', (e) => {
-      if (e.target.id === 'modal') closeModal();
-    });
-  </script>
 </body>
 </html>
