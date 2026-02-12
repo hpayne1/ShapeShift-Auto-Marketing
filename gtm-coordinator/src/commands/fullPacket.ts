@@ -202,8 +202,40 @@ ${protocolEnrichment.farcaster.recentCasts?.slice(0, 5).map((c) => `- ${c}`).joi
 
       const viewTemplatePath = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'templates', 'view.html');
       if (fs.existsSync(viewTemplatePath)) {
-        fs.copyFileSync(viewTemplatePath, path.join(outputDir, 'view.html'));
-        console.log(chalk.gray('  → view.html'));
+        const packetData: { drafts: Record<string, string>; paths: Record<string, string> } = { drafts: {}, paths: {} };
+        const draftsDir = path.join(outputDir, 'drafts');
+        if (fs.existsSync(draftsDir)) {
+          for (const name of fs.readdirSync(draftsDir)) {
+            if (name.endsWith('.md')) {
+              const id = name.slice(0, -3);
+              packetData.drafts[id] = fs.readFileSync(path.join(draftsDir, name), 'utf8');
+            }
+          }
+        }
+        const pathDirs: { dir: string; files: string[] }[] = [{ dir: '', files: ['README.md'] }];
+        for (const sub of ['partner', 'press', 'design', 'outreach', 'seo', 'calendar'] as const) {
+          const subPath = path.join(outputDir, sub);
+          if (fs.existsSync(subPath))
+            pathDirs.push({ dir: sub, files: fs.readdirSync(subPath) });
+        }
+        for (const { dir, files } of pathDirs) {
+          const dirPath = dir ? path.join(outputDir, dir) : outputDir;
+          if (!fs.existsSync(dirPath)) continue;
+          for (const name of files) {
+            if (!name.endsWith('.md') && !name.endsWith('.txt')) continue;
+            const rel = dir ? `${dir}/${name}` : name;
+            const fpath = path.join(dirPath, name);
+            try {
+              if (fs.statSync(fpath).isFile())
+                packetData.paths[rel] = fs.readFileSync(fpath, 'utf8');
+            } catch (_) { /* skip */ }
+          }
+        }
+        let viewHtml = fs.readFileSync(viewTemplatePath, 'utf8');
+        const script = `<script>window.__PACKET_DATA__=${JSON.stringify(packetData)};</script>`;
+        viewHtml = viewHtml.replace('</body>', `${script}\n</body>`);
+        fs.writeFileSync(path.join(outputDir, 'view.html'), viewHtml);
+        console.log(chalk.gray('  → view.html (with embedded drafts for file://)'));
       }
 
       const shippedTemplatePath = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'templates', 'SHIPPED.md');

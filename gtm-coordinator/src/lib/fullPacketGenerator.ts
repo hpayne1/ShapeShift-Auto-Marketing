@@ -199,7 +199,7 @@ const PROGRAM_RFOX_CONTEXT = `
 // INTERFACES
 // ============================================================================
 
-interface ProtocolAnalysis {
+export interface ProtocolAnalysis {
   name: string;
   tagline: string;
   category: string;
@@ -212,7 +212,7 @@ interface ProtocolAnalysis {
   competitorComparison: string;
 }
 
-interface MarketingBrief {
+export interface MarketingBrief {
   targetAudience: {
     who: string;
     whatWeKnow: string;
@@ -845,38 +845,65 @@ Use [IMAGE: description] placeholders.
   return generateContent(systemPrompt, userPrompt, { temperature: 0.65, maxTokens: 4096 });
 }
 
-async function generateSeoArticle(
+/**
+ * Generate a single SEO article. When `topic` is provided, the article targets
+ * that specific search query (e.g. "how to earn on USDC without KYC").
+ * When omitted, generates a generic overview article (backward-compatible).
+ *
+ * Exported so `gtm seo-batch` can call it directly.
+ */
+export async function generateSeoArticle(
   protocolName: string,
   analysis: ProtocolAnalysis,
   brief: MarketingBrief,
-  opts: FullPacketOptions
+  opts: FullPacketOptions,
+  topic?: string
 ): Promise<string> {
   const isProgram = opts.campaignType === 'program';
   const programContext = isProgram && /rfox/i.test(protocolName) ? PROGRAM_RFOX_CONTEXT : '';
   const cta = opts.ctaUrl || 'app.shapeshift.com';
+  const protocolContext = getProtocolContext(analysis.category);
+
+  const topicBlock = topic
+    ? `
+TARGET SEARCH QUERY: "${topic}"
+Write the article so it directly answers the search query above. The title, intro, and H2s should
+align with what someone typing "${topic}" into Google expects to find. The article should solve
+their problem and naturally lead to ShapeShift + ${protocolName} as the solution.
+Use the target query (or close variations) in the title, first paragraph, and at least one H2.`
+    : `
+Target intent: "how ${protocolName} works", "${protocolContext.actionVerb} on ShapeShift", "${protocolName} guide".`;
 
   const systemPrompt = `You are writing an SEO-optimized article for shapeshift.com.
 ${SHAPESHIFT_BRAND_CONTEXT}
 ${programContext}
 
-Target intent: "how rFOX works", "stake FOX on Arbitrum earn", "rFOX staking guide".
-Use markdown. Include disclaimer: rewards distribution is off-chain; do not promise APY.`;
+${topicBlock}
+Use markdown. Do not promise specific APY or guaranteed returns.`;
 
   const userPrompt = `
-Write an SEO article (800-1200 words) about ${protocolName}${isProgram ? ' program' : ' integration'} on ShapeShift.
+Write an SEO article (800-1200 words)${topic ? ` targeting the query "${topic}"` : ` about ${protocolName}${isProgram ? ' program' : ' integration'} on ShapeShift`}.
 
 Protocol: ${analysis.name}
+Category: ${analysis.category}
 Tagline: ${analysis.tagline}
 Value: ${analysis.valueProposition}
 Key features: ${analysis.keyFeatures.join(', ')}
+Primary action: ${protocolContext.primaryAction}
+Target audience: ${brief.targetAudience.who}
 
 RULES:
-- NO: "game-changer", "revolutionary", "unlock"
+- NO: "game-changer", "revolutionary", "unlock", "seamlessly", "thrilled", "excited"
 - Be educational, scannable, keyword-rich
-- Include: what it is, how to stake, how rewards work (general), epoch/cooldown mechanics if applicable
+- Use "${protocolContext.actionVerb}" not "swap" (this is a ${protocolContext.category} protocol)
+- Include: what it is, how to ${protocolContext.primaryAction}, how it works (general)
 - CTA: ${cta}
 - Use [IMAGE: description] placeholders
+- Short paragraphs, good subheadings, bullet points where helpful
 ${programContext ? '- DO NOT mention RUNE rewards or LP staking. Rewards = USDC revenue share. LP stakers: unstake and move to FOX.' : ''}
+${topic ? `- The article MUST directly answer the search query: "${topic}"
+- Title should closely match or contain the search query
+- First paragraph should address the query within 2-3 sentences` : ''}
 `;
 
   return generateContent(systemPrompt, userPrompt, { temperature: 0.6, maxTokens: 4096 });

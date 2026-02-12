@@ -17,6 +17,7 @@ import { utmCommand } from './commands/utm.js';
 import { migrateCommand } from './commands/migrate.js';
 import { researchCommand } from './commands/research.js';
 import { fullPacketCommand } from './commands/fullPacket.js';
+import { seoBatchCommand } from './commands/seoBatch.js';
 
 const program = new Command();
 
@@ -51,5 +52,8 @@ program.addCommand(researchCommand);
 
 // Full packet generation (v2)
 program.addCommand(fullPacketCommand);
+
+// SEO batch article generation
+program.addCommand(seoBatchCommand);
 
 program.parse();

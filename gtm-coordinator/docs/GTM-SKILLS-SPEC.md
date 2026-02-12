@@ -12,11 +12,20 @@ Master spec for the ShapeShift Auto-Marketing GTM workflow skills. PR is the sou
 | **gtm-pr-extractor** | New | Parse PR as source of truth | PR URL | Structured feature data |
 | **gtm-protocol-enricher** | New | Pull branding, messaging, social tone | Website URL, Twitter URL, Farcaster URL | Branding, positioning, what-works summary |
 | **gtm-full-packet** | Existing | Generate packet from PR + enrichment + workshop | PR data, protocol data, extraction | `research-output/` with drafts |
+| **gtm-seo-topic-generator** | **New** | Generate 20-30 problem-led SEO topics from protocol data | Packet | `research/seo_topics.md` |
+| **gtm-interception-content** | **New** | Generate problem-led social hooks, press angles, community angles | Packet | `intelligence/interception_angles.md` |
 | **gtm-gap-auditor** | New | Compare packet to schema; flag missing/uncertain fields | Packet | Gap report |
-| **gtm-questionnaire-generator** | New | Build HTML form from gaps | Gap report, optional pre-fill | HTML form (fillable, saveable) |
+| **gtm-questionnaire-generator** | **Updated** | Build template-driven HTML form from gaps (no hardcoding) | Gap report, protocol data | HTML form (fillable, saveable) |
 | **gtm-questionnaire-merger** | New | Merge filled form + packet | JSON/text + packet | Merged packet |
 | **gtm-final-check** | Existing | Pre-launch QA | Merged packet | Fix list |
 | **gtm-execute** | Optional | Orchestrator or checklist guidance | Approved packet | Day 0-7 execution |
+
+### CLI Commands
+
+| Command | Purpose | Inputs | Outputs |
+|---------|---------|--------|---------|
+| `gtm full-packet` | Generate complete GTM packet | Protocol URL, PR, enrichment | `research-output/` |
+| `gtm seo-batch` | Generate SEO articles from topics file | Packet + `research/seo_topics.md` | `seo/seo_article_*.md` |
 
 ---
 
@@ -31,9 +40,14 @@ Phase 1: Inputs
 Phase 2: Generate
   gtm-full-packet → PR data + protocol enrichment + workshop extraction → research-output/
 
+Phase 2b: Content Enrichment
+  gtm-seo-topic-generator → packet → research/seo_topics.md (20-30 topics)
+  gtm seo-batch CLI → seo_topics.md → seo/seo_article_*.md (20-30 articles)
+  gtm-interception-content → packet → intelligence/interception_angles.md
+
 Phase 3: Gap Resolution
   gtm-gap-auditor → packet → gap report
-  gtm-questionnaire-generator → gap report → HTML form
+  gtm-questionnaire-generator → gap report + protocol data → template-driven HTML form
   [Product person fills form, saves/upload]
   gtm-questionnaire-merger → filled form + packet → merged packet
 
@@ -62,6 +76,8 @@ See individual skill files in `.cursor/skills/` for detailed specs.
 - [gtm-workshop](.cursor/skills/gtm-workshop/SKILL.md)
 - [gtm-pr-extractor](.cursor/skills/gtm-pr-extractor/SKILL.md)
 - [gtm-protocol-enricher](.cursor/skills/gtm-protocol-enricher/SKILL.md)
+- [gtm-seo-topic-generator](.cursor/skills/gtm-seo-topic-generator/SKILL.md)
+- [gtm-interception-content](.cursor/skills/gtm-interception-content/SKILL.md)
 - [gtm-gap-auditor](.cursor/skills/gtm-gap-auditor/SKILL.md)
 - [gtm-questionnaire-generator](.cursor/skills/gtm-questionnaire-generator/SKILL.md)
 - [gtm-questionnaire-merger](.cursor/skills/gtm-questionnaire-merger/SKILL.md)

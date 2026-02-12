@@ -337,29 +337,34 @@
         h = h.replace(/<p><\/p>/g, '').replace(/<p>(<h[123]>)/g, '$1').replace(/(<\/h[123]>)<\/p>/g, '$1');
         return '<p>' + h + '</p>';
       }
-      function loadPath(path) {
+      function loadPath(pathKey) {
         document.getElementById('copyBtn').style.display = 'none';
-        document.getElementById('draftTitle').textContent = path.replace(/.*\//, '');
-        // Resolve relative to this page so links from index.html work in preview and live server
+        document.getElementById('draftTitle').textContent = pathKey.replace(/.*\//, '');
+        function renderPathContent(text) {
+          const wrap = document.getElementById('previewWrap');
+          const div = document.createElement('div');
+          div.className = 'doc-view';
+          if (/\.txt$/i.test(pathKey)) {
+            div.innerHTML = '<pre>' + escapeHtml(text) + '</pre>';
+          } else {
+            div.innerHTML = mdToHtml(text);
+          }
+          wrap.innerHTML = '';
+          wrap.appendChild(div);
+        }
+        var embedded = (window.__PACKET_DATA__ && window.__PACKET_DATA__.paths && window.__PACKET_DATA__.paths[pathKey]);
+        if (embedded !== undefined) {
+          renderPathContent(embedded);
+          return;
+        }
         const base = getBaseUrl();
-        const url = path.indexOf('/') === 0 ? path : base + path.replace(/^\.\//, '');
+        const url = pathKey.indexOf('/') === 0 ? pathKey : base + pathKey.replace(/^\.\//, '');
         fetch(url)
           .then(function(r) {
             if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
             return r.text();
           })
-          .then(function(text) {
-            const wrap = document.getElementById('previewWrap');
-            const div = document.createElement('div');
-            div.className = 'doc-view';
-            if (/\.txt$/i.test(path)) {
-              div.innerHTML = '<pre>' + escapeHtml(text) + '</pre>';
-            } else {
-              div.innerHTML = mdToHtml(text);
-            }
-            wrap.innerHTML = '';
-            wrap.appendChild(div);
-          })
+          .then(renderPathContent)
           .catch(function(err) {
             document.getElementById('errorMsg').innerHTML =
               'Could not load file. If you opened this from disk (file://), use a local server (e.g. <code>npx serve .</code>).<br><br>' + escapeHtml(err.message);
@@ -611,45 +616,47 @@
         document.getElementById('errorMsg').style.display = 'none';
         document.getElementById('draftTitle').textContent = config.title;
 
-        // Resolve relative to this page so links from index.html work in preview and live server
+        function renderDraftContent(md) {
+          const values = getStoredValues(draftId);
+          let copyText = '';
+          if (config.type === 'x') {
+            const tweets = parseXTweets(md, draftId);
+            copyText = renderX(tweets, draftId, values);
+          } else if (config.type === 'discord') {
+            const body = parseDiscordBody(md);
+            copyText = renderDiscord(body, draftId, values);
+          } else if (config.type === 'blog') {
+            copyText = renderBlog(md, draftId);
+          }
+          document.getElementById('copyBtn').style.display = 'inline-block';
+          document.getElementById('copyBtn').dataset.copyText = copyText;
+          document.getElementById('copyBtn').classList.remove('copied');
+          document.getElementById('copyBtn').textContent = 'Copy to clipboard';
+          function refreshPreview() {
+            const vals = getFormValues(draftId);
+            if (config.type === 'x') {
+              const tweets = parseXTweets(md, draftId);
+              document.getElementById('copyBtn').dataset.copyText = renderX(tweets, draftId, vals);
+            } else if (config.type === 'discord') {
+              const body = parseDiscordBody(md);
+              document.getElementById('copyBtn').dataset.copyText = renderDiscord(body, draftId, vals);
+            }
+          }
+          buildForm(draftId, values, refreshPreview);
+        }
+
+        var embedded = (window.__PACKET_DATA__ && window.__PACKET_DATA__.drafts && window.__PACKET_DATA__.drafts[draftId]);
+        if (embedded !== undefined) {
+          renderDraftContent(embedded);
+          return;
+        }
         const url = getBaseUrl() + 'drafts/' + draftId + '.md';
         fetch(url)
           .then(function(r) {
             if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
             return r.text();
           })
-          .then(function(md) {
-            const values = getStoredValues(draftId);
-            let copyText = '';
-
-            if (config.type === 'x') {
-              const tweets = parseXTweets(md, draftId);
-              copyText = renderX(tweets, draftId, values);
-            } else if (config.type === 'discord') {
-              const body = parseDiscordBody(md);
-              copyText = renderDiscord(body, draftId, values);
-            } else if (config.type === 'blog') {
-              copyText = renderBlog(md, draftId);
-            }
-
-            document.getElementById('copyBtn').style.display = 'inline-block';
-            document.getElementById('copyBtn').dataset.copyText = copyText;
-            document.getElementById('copyBtn').classList.remove('copied');
-            document.getElementById('copyBtn').textContent = 'Copy to clipboard';
-
-            function refreshPreview() {
-              const vals = getFormValues(draftId);
-              if (config.type === 'x') {
-                const tweets = parseXTweets(md, draftId);
-                document.getElementById('copyBtn').dataset.copyText = renderX(tweets, draftId, vals);
-              } else if (config.type === 'discord') {
-                const body = parseDiscordBody(md);
-                document.getElementById('copyBtn').dataset.copyText = renderDiscord(body, draftId, vals);
-              }
-            }
-
-            buildForm(draftId, values, refreshPreview);
-          })
+          .then(renderDraftContent)
           .catch(function(err) {
             document.getElementById('errorMsg').innerHTML =
               'Could not load draft. If you opened this file from disk (file://), use a local server in this folder, e.g. <code>npx serve .</code> or <code>python -m http.server</code>.<br><br>' +
