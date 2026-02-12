@@ -39,6 +39,16 @@ After generation, enrich the packet with problem-led content. In crypto marketin
    - **Cursor:** *"Run the gtm-interception-content skill on research-output/yield-xyz"*
    - **Output:** `intelligence/interception_angles.md`
 
+4. **Run gtm-cool-ideas-scoper** (optional, on-demand) — Scope human-submitted creative ideas. When someone has a cool idea (e.g. "we could do this activation"), paste it and the bot scopes it, researches, adds projections, and appends to `intelligence/cool_ideas.md`. Supports batch (numbered list, file).
+   - **Cursor:** *"Here's a cool idea: [paste idea]. Scope it for research-output/yield-xyz"* or *"Run gtm-cool-ideas-scoper; packet is research-output/yield-xyz; idea: [paste]"*
+   - **Output:** `intelligence/cool_ideas.md` (appended)
+
+5. **Run gtm-cool-ideas-evaluator** (after ideas are in cool_ideas.md) — Reality check each idea (resourcing, min sample size, CPA, projected outcomes), produce comparison/ranking. Can recommend pursue, validate, defer, or **"recommend none"** when no ideas are viable.
+   - **Cursor:** *"Run gtm-cool-ideas-evaluator on research-output/yield-xyz"*
+   - **Output:** Updated `intelligence/cool_ideas.md` (Reality Check per entry), `intelligence/cool_ideas_evaluation.md` (comparison, ranking, recommendation)
+
+**Ideas from feedback form:** The discovery questionnaire includes "Any other marketing ideas or activations?" (otherIdeas). When the form is filled and merged, if otherIdeas are present, run gtm-cool-ideas-scoper with those ideas, then gtm-cool-ideas-evaluator.
+
 ### 4. Gap Audit and Questionnaire
 
 After generation, fill gaps with product input:
@@ -79,6 +89,8 @@ Run the **GTM Final Check** so the packet is release-ready:
 3.  SEO Topics (gtm-seo-topic-generator) → research/seo_topics.md
 4.  SEO Batch (gtm seo-batch) → 20-30 SEO articles
 5.  Interception Content (gtm-interception-content) → intelligence/interception_angles.md
+5b. Cool Ideas (gtm-cool-ideas-scoper) — optional, on-demand → intelligence/cool_ideas.md
+5c. Cool Ideas Evaluation (gtm-cool-ideas-evaluator) — after ideas captured → cool_ideas_evaluation.md (or after questionnaire merge if otherIdeas present)
 6.  Gap Audit (gtm-gap-auditor)
 7.  Questionnaire (gtm-questionnaire-generator) → product person fills
 8.  Merge (gtm-questionnaire-merger)
@@ -94,6 +106,8 @@ Run the **GTM Final Check** so the packet is release-ready:
 - **gtm-protocol-enricher:** `.cursor/skills/gtm-protocol-enricher/SKILL.md`
 - **gtm-seo-topic-generator:** `.cursor/skills/gtm-seo-topic-generator/SKILL.md`
 - **gtm-interception-content:** `.cursor/skills/gtm-interception-content/SKILL.md`
+- **gtm-cool-ideas-scoper:** `.cursor/skills/gtm-cool-ideas-scoper/SKILL.md`
+- **gtm-cool-ideas-evaluator:** `.cursor/skills/gtm-cool-ideas-evaluator/SKILL.md`
 - **gtm-gap-auditor:** `.cursor/skills/gtm-gap-auditor/SKILL.md`
 - **gtm-questionnaire-generator:** `.cursor/skills/gtm-questionnaire-generator/SKILL.md`
 - **gtm-questionnaire-merger:** `.cursor/skills/gtm-questionnaire-merger/SKILL.md`

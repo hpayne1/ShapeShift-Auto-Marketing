@@ -14,6 +14,8 @@ Master spec for the ShapeShift Auto-Marketing GTM workflow skills. PR is the sou
 | **gtm-full-packet** | Existing | Generate packet from PR + enrichment + workshop | PR data, protocol data, extraction | `research-output/` with drafts |
 | **gtm-seo-topic-generator** | **New** | Generate 20-30 problem-led SEO topics from protocol data | Packet | `research/seo_topics.md` |
 | **gtm-interception-content** | **New** | Generate problem-led social hooks, press angles, community angles | Packet | `intelligence/interception_angles.md` |
+| **gtm-cool-ideas-scoper** | **New** | Scope human-submitted ideas (batch or one); append to cool_ideas | Idea(s) + packet | `intelligence/cool_ideas.md` |
+| **gtm-cool-ideas-evaluator** | **New** | Reality check ideas; resourcing, min sample, CPA; produce comparison; recommend pursue/validate/defer/none | Packet (cool_ideas.md) | `cool_ideas.md` updated, `intelligence/cool_ideas_evaluation.md` |
 | **gtm-gap-auditor** | New | Compare packet to schema; flag missing/uncertain fields | Packet | Gap report |
 | **gtm-questionnaire-generator** | **Updated** | Build template-driven HTML form from gaps (no hardcoding) | Gap report, protocol data | HTML form (fillable, saveable) |
 | **gtm-questionnaire-merger** | New | Merge filled form + packet | JSON/text + packet | Merged packet |
@@ -44,6 +46,11 @@ Phase 2b: Content Enrichment
   gtm-seo-topic-generator → packet → research/seo_topics.md (20-30 topics)
   gtm seo-batch CLI → seo_topics.md → seo/seo_article_*.md (20-30 articles)
   gtm-interception-content → packet → intelligence/interception_angles.md
+
+Phase 2c: Cool Ideas (optional, on-demand)
+  gtm-cool-ideas-scoper → human idea(s) + packet → intelligence/cool_ideas.md (append)
+  gtm-cool-ideas-evaluator → packet → Reality Check per entry + intelligence/cool_ideas_evaluation.md
+  Ideas can come from: chat, workshop, or discovery questionnaire otherIdeas field
 
 Phase 3: Gap Resolution
   gtm-gap-auditor → packet → gap report
@@ -78,6 +85,8 @@ See individual skill files in `.cursor/skills/` for detailed specs.
 - [gtm-protocol-enricher](.cursor/skills/gtm-protocol-enricher/SKILL.md)
 - [gtm-seo-topic-generator](.cursor/skills/gtm-seo-topic-generator/SKILL.md)
 - [gtm-interception-content](.cursor/skills/gtm-interception-content/SKILL.md)
+- [gtm-cool-ideas-scoper](.cursor/skills/gtm-cool-ideas-scoper/SKILL.md)
+- [gtm-cool-ideas-evaluator](.cursor/skills/gtm-cool-ideas-evaluator/SKILL.md)
 - [gtm-gap-auditor](.cursor/skills/gtm-gap-auditor/SKILL.md)
 - [gtm-questionnaire-generator](.cursor/skills/gtm-questionnaire-generator/SKILL.md)
 - [gtm-questionnaire-merger](.cursor/skills/gtm-questionnaire-merger/SKILL.md)

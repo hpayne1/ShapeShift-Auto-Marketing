@@ -37,6 +37,7 @@ Build an HTML form from the gap report that a product person can fill out, save 
 - Critical (required): Launch date, CTA URL, protocol roster, campaign type
 - Important: Primary audience, lead value prop, differentiation, co-marketing
 - Optional: Asset approval date, scope lock date, press embargo
+- **Other ideas (optional):** Always include a section "Any other marketing ideas or activations?" — textarea, multi-line. Prompt: "Got ideas that aren't in the normal checklist? Add them here — one per line. We'll scope and evaluate them." Field key: `otherIdeas`
 
 ### Controls
 - **Save as file:** Export form data as JSON; user downloads, re-uploads later
@@ -87,7 +88,8 @@ The form must be **derived from packet data**, not hardcoded to any specific pro
 ## JSON Export Schema
 
 Form data structure should align with **gtm-questionnaire-merger** expectations:
-- Top-level keys: `launchDate`, `ctaUrl`, `conversionEvent`, `protocolsPerChain`, `campaignType`, `leadProtocols`, `andMore`, `definitiveRoster`, `comarketingProtocols`, `primaryAudience`, `leadValueProp`, `differentiation`, `walletPartnerCriteria`, `assetApprovalDate`, `scopeLockDate`, etc.
+- Top-level keys: `launchDate`, `ctaUrl`, `conversionEvent`, `protocolsPerChain`, `campaignType`, `leadProtocols`, `andMore`, `definitiveRoster`, `comarketingProtocols`, `primaryAudience`, `leadValueProp`, `differentiation`, `walletPartnerCriteria`, `assetApprovalDate`, `scopeLockDate`, `otherIdeas`, etc.
+- `otherIdeas`: string (newline-separated list of ideas). Optional. When present, merger extracts and agent runs gtm-cool-ideas-scoper then gtm-cool-ideas-evaluator.
 - `protocolsPerChain`: object with chain slugs as keys, values: `{ primary, secondary, notes }`
 - `_packet`: derived from packet path (e.g. `yield-xyz`, `rfox`)
 - `_updated`: ISO date string
@@ -95,6 +97,7 @@ Form data structure should align with **gtm-questionnaire-merger** expectations:
 ## Integration
 
 - **gtm-gap-auditor:** Produces gap report; generator consumes it
-- **gtm-questionnaire-merger:** Consumes filled form (JSON or pasted text)
+- **gtm-questionnaire-merger:** Consumes filled form (JSON or pasted text). If otherIdeas present, merger instructs agent to run gtm-cool-ideas-scoper then gtm-cool-ideas-evaluator.
+- **gtm-cool-ideas-scoper / gtm-cool-ideas-evaluator:** otherIdeas from form feeds into cool-ideas flow
 - **gtm-seo-topic-generator:** May run in parallel; no dependency
 - **gtm-interception-content:** May run in parallel; no dependency

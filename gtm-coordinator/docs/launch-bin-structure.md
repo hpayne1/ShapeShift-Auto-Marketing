@@ -18,10 +18,19 @@ Each launch bin reuses the same **knowledge and tooling** (GTM skills, brand voi
 | **view.html** | Preview drafts (X, Discord, blog) and copy to clipboard; use with a local server. |
 | **drafts/** | All copy: X threads, Discord, blog, follow-ups, SEO, etc. |
 | **partner/, press/, design/, outreach/** | Partner kit, press release, design brief, DM targets. |
-| **research/, intelligence/, seo/, calendar/** | Protocol analysis, wild cards, SEO articles, content calendar. |
+| **research/, intelligence/, seo/, calendar/** | Protocol analysis, wild cards, interception angles, cool ideas, SEO articles, content calendar. |
 | **marketing_brief.md** | One-pager: audience, message, tweet-ready line. |
 | **README.md** | How to run the packet (e.g. `npx serve .` in this folder). |
 | **SHIPPED.md** | Post-launch: what went out, links, notes — so people can see what shipped and reuse copy. |
+
+### Intelligence folder
+
+| File | Source | Purpose |
+|------|--------|---------|
+| `wild_cards.md` | Bot (full-packet) | Auto-generated scrappy, low-budget marketing ideas |
+| `interception_angles.md` | gtm-interception-content | Problem-led social hooks, press angles, community starters |
+| `cool_ideas.md` | Human + gtm-cool-ideas-scoper | Human-submitted ideas; bot scopes, adds Reality Check (via evaluator) |
+| `cool_ideas_evaluation.md` | gtm-cool-ideas-evaluator | Comparison table, ranking, recommendations (pursue/validate/defer/none) |
 
 ## Why it matters
 

@@ -325,6 +325,12 @@
           <input type="text" name="folder-new" placeholder="e.g. yield-earn-2026" style="width: 180px; display: inline-block;">
         </div>
       </div>
+
+      <h3>9. Other Marketing Ideas or Activations</h3>
+      <div class="field">
+        <label for="other-ideas">Any other marketing ideas or activations?</label>
+        <textarea id="other-ideas" name="other-ideas" rows="4" placeholder="Got ideas that aren&#39;t in the normal checklist? Add them here — one per line. We&#39;ll scope and evaluate them."></textarea>
+      </div>
     </section>
 
     <div class="summary-box">
@@ -393,6 +399,7 @@
         walletPartnerCriteria: getCheckbox('wallet-criteria'),
         assetApprovalDate: document.getElementById('asset-approval')?.value || '',
         scopeLockDate: document.getElementById('scope-lock')?.value || '',
+        otherIdeas: document.getElementById('other-ideas')?.value?.trim() || '',
         folder: getRadio('folder') === 'new' ? (document.querySelector('input[name="folder-new"]')?.value || '') : getRadio('folder'),
         protocolsPerChain: protocolsPerChain,
         _packet: 'yield-xyz',
@@ -438,6 +445,7 @@
       add('Wallet partner criteria', data.walletPartnerCriteria);
       add('Asset approval date', data.assetApprovalDate);
       add('Scope lock date', data.scopeLockDate);
+      add('Other ideas (one per line)', data.otherIdeas);
       add('Folder choice', data.folder);
       parts.push('\n--- Protocol roster by chain ---');
       Object.keys(data.protocolsPerChain || {}).forEach(function(c) {

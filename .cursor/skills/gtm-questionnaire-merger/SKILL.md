@@ -65,15 +65,27 @@ Merge filled questionnaire data into the existing packet. Accepts JSON file (pre
 | embargo | press_release, pr_brief |
 | assetApprovalDate | checklist |
 | scopeLockDate | checklist |
+| otherIdeas | Cool ideas flow — see below |
 
 ## Handling Pasted Text
 
 If user pastes text (from copy button) instead of JSON:
 - Parse structured text format (e.g. `Launch date: 2026-03-15`, `CTA URL: app.shapeshift.com/#/yields`)
-- Extract key-value pairs
+- Extract key-value pairs. Map labels to form fields: e.g. "Other ideas (one per line)" → otherIdeas
 - Map to same field mapping as JSON
+
+## Handling otherIdeas
+
+When `otherIdeas` is present in the filled form (non-empty string):
+1. Parse into list: split by newline, trim each line, discard empty lines
+2. After applying all other field merges, run **gtm-cool-ideas-scoper** with packet path and the list of ideas. Scoper will scope each and append to `intelligence/cool_ideas.md`
+3. Then run **gtm-cool-ideas-evaluator** on the packet. Evaluator adds Reality Check to each entry and produces `intelligence/cool_ideas_evaluation.md` with comparison and recommendation (including "recommend none" when applicable)
+
+Record in `discovery_answers_{date}.md` that otherIdeas were submitted and passed to cool-ideas flow.
 
 ## Integration
 
-- **gtm-questionnaire-generator:** Produces form; merger consumes filled output
+- **gtm-questionnaire-generator:** Produces form; merger consumes filled output. Form includes otherIdeas field.
+- **gtm-cool-ideas-scoper:** Receives otherIdeas list after merger; scopes each, appends to cool_ideas.md
+- **gtm-cool-ideas-evaluator:** Runs after scoper when otherIdeas were present; produces comparison and recommendation
 - **gtm-final-check:** Runs after merger on merged packet
