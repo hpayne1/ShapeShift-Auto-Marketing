@@ -1,0 +1,6 @@
+Paste this into GitHub: Repository → Settings → General → Description
+
+AI-powered GTM tooling for ShapeShift. PR + protocol URLs to launch-ready packet. Cursor skills + CLI. By Hpayne.
+
+Shorter option:
+Turn ShapeShift PR + protocol into a launch-ready GTM packet. Cursor skills + CLI. By Hpayne.
