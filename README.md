@@ -2,7 +2,7 @@
 
 **AI-powered go-to-market tooling for ShapeShift.** Turn a feature (PR, protocol URLs, partner notes) into a launch-ready packet: drafts, checklist, SEO topics, gap resolution, and final QA — then execute with human approval.
 
-**Created by [Hpayne](https://github.com/hpayn).**
+**Created by [Hpayne](https://github.com/hpayne1).**
 
 ---
 
